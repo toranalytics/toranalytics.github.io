@@ -55,6 +55,7 @@ const createPost = ({ createPage, edges }: CreatePagesFuncProps) => {
       context: {
         // additional data can be passed via context
         slug: node.fields.slug,
+        category: node.frontmatter.category,
         nextSlug: next?.fields.slug ?? '',
         prevSlug: previous?.fields.slug ?? '',
       },

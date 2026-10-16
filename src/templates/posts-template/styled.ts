@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { Link } from 'gatsby';
 
-import { contentMaxWidth, MOBILE_MEDIA_QUERY } from '@/src/styles/const';
+import { MOBILE_MEDIA_QUERY } from '@/src/styles/const';
 
 export const CategoryWrapper = styled.div`
   display: flex;
@@ -38,26 +39,36 @@ export const TabWrapper = styled.div`
   width: 100%;
 `;
 
-export const Tabs = styled.div`
+export const Tabs = styled.nav`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   width: 100%;
-  max-width: ${contentMaxWidth} + 40px;
-  margin-bottom: 12px;
-  gap: 24px;
-  overflow-y: hidden;
-  overflow-x: scroll;
-  @media ${MOBILE_MEDIA_QUERY} {
-    justify-content: flex-start;
-  }
-  padding: 0 15px;
+  margin-bottom: 20px;
+  gap: 8px;
 `;
 
-export const Tab = styled.div<{ isSelected: 'true' | 'false' }>`
-  font-size: 17px;
-  cursor: pointer;
-  line-height: 50px;
-  color: ${({ isSelected, theme }) => (isSelected === 'true' ? theme.color.black100 : theme.color.gray60)};
+export const Tab = styled(Link)<{ isSelected: 'true' | 'false' }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid ${({ isSelected, theme }) => (isSelected === 'true' ? theme.color.black100 : theme.color.gray40)};
+  border-radius: 24px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: ${({ isSelected, theme }) => (isSelected === 'true' ? theme.color.white100 : theme.color.black40)};
+  background-color: ${({ isSelected, theme }) => (isSelected === 'true' ? theme.color.black100 : theme.color.gray10)};
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+`;
+
+export const Count = styled.span`
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
 `;
 
 export const PostCardsWrapper = styled.div`

@@ -1,5 +1,4 @@
 $content-max-width: 720px;
-$content-image-max-height: 560px;
 
 .markdown .octicon {
   display: inline-block;
@@ -68,6 +67,8 @@ $content-image-max-height: 560px;
   font-weight: 500;
   line-height: 1.5;
   word-wrap: break-word;
+  overflow-wrap: anywhere;
+  min-width: 0;
 }
 
 .markdown details {
@@ -779,10 +780,13 @@ $content-image-max-height: 560px;
 .markdown table {
   display: block;
   width: 100%;
-  overflow: auto;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 .markdown table th {
+  background-color: var(--markdown-table-header-background-color);
   font-weight: 600;
 }
 
@@ -802,7 +806,8 @@ $content-image-max-height: 560px;
 
 .markdown img {
   display: block;
-  margin: 0px auto;
+  margin: 16px auto;
+  border-radius: 10px;
   max-width: 100%;
   box-sizing: initial;
   background-color: transparent;
@@ -1015,62 +1020,72 @@ $content-image-max-height: 560px;
   vertical-align: middle;
 }
 
-// added for toc
+// Keep the generated TOC in the article flow at every viewport width.
 .markdown .table-of-contents {
-  @media (max-width: 1400px) {
-    display: none;
-  }
+  width: 100%;
+  margin: 24px 0;
+  padding: 20px;
+  border: 1px solid var(--markdown-border-color);
+  border-radius: 12px;
+  background-color: var(--markdown-box-background-color);
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  width: 340px;
-  position: fixed;
-  top: 75px;
-  right: 0px;
-  overflow-y: scroll;
+  &::before {
+    content: '목차';
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
 
   ul {
-    cursor: pointer;
-    list-style-type: none;
+    padding-left: 20px;
+    margin-bottom: 0;
+  }
 
-    li {
-      a {
-        height: 30px;
-        color: #6a737d;
-        font-size: 14px;
-        border-bottom: none;
-      }
-    }
+  li {
+    line-height: 1.8;
+  }
 
-    p {
-      margin: 0;
+  p {
+    margin: 0;
+    line-height: inherit;
+  }
+
+  a {
+    font-size: 14px;
+    border-bottom: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
     }
   }
 }
 
-// added for image resizing
 .markdown .gatsby-resp-image-wrapper {
-  display: flex !important;
-  justify-content: center !important;
-  width: 100% !important;
-  max-height: $content-image-max-height !important;
-
-  img {
-    max-width: 100% !important;
-    max-height: $content-image-max-height !important;
-    width: auto !important;
-    height: auto !important;
-    position: relative !important;
-  }
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-// caption
+.markdown .gatsby-resp-image-wrapper img {
+  margin: 0;
+}
+
 .markdown .gatsby-resp-image-wrapper + em {
   display: block;
   text-align: center;
   font-style: italic;
   font-size: 15px;
-  color: #6a737d;
+  color: var(--link-text-color);
+}
+
+.markdown table::-webkit-scrollbar {
+  display: block;
+  height: 8px;
+}
+
+.markdown table::-webkit-scrollbar-thumb {
+  background-color: var(--markdown-table-border-color);
+  border-radius: 4px;
 }

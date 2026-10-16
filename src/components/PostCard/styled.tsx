@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
 import { Link } from 'gatsby';
 
-import { contentMaxWidth, hoverUnderline, MOBILE_MEDIA_QUERY } from '@/src/styles/const';
+import { contentMaxWidth, MOBILE_MEDIA_QUERY } from '@/src/styles/const';
 
 export const Wrapper = styled.div`
   min-height: 150px;
   width: 100%;
   position: relative;
+  overflow-wrap: anywhere;
 `;
 
 export const PostCard = styled(Link)`
@@ -55,6 +56,8 @@ export const Description = styled.p`
 export const Info = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 8px;
   font-size: 13px;
   width: 100%;
   padding: 0 15px;
@@ -71,10 +74,16 @@ export const Categories = styled.div`
 `;
 
 export const Category = styled(Link)`
-  margin-left: 4px;
-  color: ${({ theme }) => theme.color.gray60};
-  ${({ theme }) => hoverUnderline(theme)};
-  &:after {
-    background-color: ${({ theme }) => theme.color.gray60};
+  padding: 4px 9px;
+  border: 1px solid ${({ theme }) => theme.color.gray20};
+  border-radius: 16px;
+  background-color: ${({ theme }) => theme.color.gray10};
+  color: ${({ theme }) => theme.color.black40};
+  font-size: 12px;
+  line-height: 1.4;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
   }
 `;

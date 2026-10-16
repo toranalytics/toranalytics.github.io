@@ -49,6 +49,13 @@ const style = (theme: Theme) => css`
 
   .markdown {
     font-family: 'Noto Sans KR', sans-serif;
+    --link-text-color: ${theme.color.black60};
+    --markdown-border-color: ${theme.color.gray40};
+    --markdown-blockquote-border-color: ${theme.color.gray40};
+    --markdown-table-border-color: ${theme.color.gray40};
+    --markdown-table-even-cell-background-color: ${theme.color.gray10};
+    --markdown-table-header-background-color: ${theme.color.gray20};
+    --markdown-box-background-color: ${theme.color.gray10};
   }
 
   .scroll-locked {

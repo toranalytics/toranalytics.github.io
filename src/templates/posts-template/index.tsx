@@ -1,5 +1,4 @@
-import { navigate } from 'gatsby';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React from 'react';
 
 import PostCard from '@/src/components/PostCard';
 import Seo from '@/src/components/Seo';
@@ -21,25 +20,8 @@ type PostsTemplateProps = {
 const PostsTemplate: React.FC<PostsTemplateProps> = ({ location, pageContext }) => {
   const { edges, currentCategory } = pageContext;
   const { categories } = pageContext;
-  const currentTabIndex = useMemo(
-    () => categories.findIndex((category) => category.slug === currentCategory),
-    [categories, currentCategory],
-  );
+  const currentTabIndex = categories.findIndex((category) => category.slug === currentCategory);
   const posts = edges.map(({ node }) => new PostClass(node));
-
-  const onTabIndexChange = (value: number) => {
-    const { slug } = categories[value];
-    navigate(slug ? `/posts/${slug}` : `/posts`);
-  };
-
-  const ref = useRef<HTMLDivElement>(null);
-
-  // currentTab이 가운데에 오도록 스크롤
-  useEffect(() => {
-    if (!ref.current) return;
-    const currentTab = ref.current.children[currentTabIndex] as HTMLDivElement;
-    ref.current.scrollTo({ left: currentTab.offsetLeft - (ref.current.offsetWidth - currentTab.offsetWidth) / 2 });
-  }, []);
 
   return (
     <Layout location={location}>
@@ -50,20 +32,23 @@ const PostsTemplate: React.FC<PostsTemplateProps> = ({ location, pageContext }) 
       </S.CategoryWrapper>
 
       <S.TabWrapper>
-        <S.Tabs ref={ref}>
-          {categories.map(({ title, count }, index) => (
+        <S.Tabs aria-label='글 카테고리'>
+          {categories.map(({ slug, title, count }, index) => (
             <S.Tab
-              key={index}
+              key={slug}
+              to={slug ? `/posts/${slug}` : `/posts`}
+              aria-current={currentTabIndex === index ? 'page' : undefined}
               isSelected={currentTabIndex === index ? 'true' : 'false'}
-              onClick={() => onTabIndexChange(index)}
             >
-              {title} <span style={{ opacity: 0.5 }}>{count}</span>
+              {title} <S.Count>{count}</S.Count>
             </S.Tab>
           ))}
         </S.Tabs>
 
         <S.PostCardsWrapper>
-          {posts.length === 0 && <div style={{ opacity: 0.6, padding: '40px 0' }}>아직 이 카테고리의 글이 없습니다.</div>}
+          {posts.length === 0 && (
+            <div style={{ opacity: 0.6, padding: '40px 0' }}>아직 이 카테고리의 글이 없습니다.</div>
+          )}
           {posts.map((post, index) => (
             <PostCard key={index} post={post} />
           ))}
