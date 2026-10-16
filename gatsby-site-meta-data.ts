@@ -41,16 +41,6 @@ export default {
   },
 
   /**
-   * definition of featured posts
-   */
-  featured: [
-    {
-      title: 'AI 에이전트',
-      category: 'ai-agents',
-    },
-  ],
-
-  /**
    * metadata for About Page
    */
   timestamps: [

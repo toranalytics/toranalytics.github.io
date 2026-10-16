@@ -46,7 +46,8 @@ export const pageQuery = graphql`
       frontmatter {
         date(formatString: "YYYY.MM.DD")
         title
-        categories
+        category
+        tags
         emoji
       }
       fields {
@@ -60,7 +61,8 @@ export const pageQuery = graphql`
       frontmatter {
         date(formatString: "YYYY.MM.DD")
         title
-        categories
+        category
+        tags
         emoji
       }
       fields {
@@ -74,7 +76,8 @@ export const pageQuery = graphql`
       frontmatter {
         date(formatString: "YYYY.MM.DD")
         title
-        categories
+        category
+        tags
         emoji
       }
       fields {

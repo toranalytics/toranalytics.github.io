@@ -6,6 +6,7 @@ import MainBanner from '../components/MainBanner';
 import Seo from '../components/Seo';
 import Layout from '../layout';
 import PostClass from '../models/post';
+import { CATEGORIES } from '../categories';
 import { AllMarkdownRemark, SiteMetadata } from '../type';
 
 type HomeProps = {
@@ -19,14 +20,14 @@ type HomeProps = {
 const Home: React.FC<HomeProps> = ({ location, data }) => {
   const posts = data.allMarkdownRemark.edges.map(({ node }) => new PostClass(node));
 
-  const { author, featured } = data.site.siteMetadata;
+  const { author } = data.site.siteMetadata;
 
   const recentPosts = posts.slice(0, 3);
 
-  const featuredPosts = featured.map(({ title, category }) => {
-    const filteredPosts = posts.filter((post) => post.categories.find((c) => c === category));
-    return { title, posts: filteredPosts };
-  });
+  const categoryPosts = CATEGORIES.map(({ title, slug }) => ({
+    title,
+    posts: posts.filter((post) => post.category === slug),
+  })).filter(({ posts }) => posts.length > 0);
 
   return (
     <Layout location={location}>
@@ -35,7 +36,7 @@ const Home: React.FC<HomeProps> = ({ location, data }) => {
 
       <FeaturedPostColumn title='Recent Posts' posts={recentPosts} fill={false} />
 
-      {featuredPosts.map(({ title, posts }, i) => (
+      {categoryPosts.map(({ title, posts }, i) => (
         <FeaturedPostColumn key={i} title={title} posts={posts} />
       ))}
     </Layout>
@@ -52,7 +53,8 @@ export const pageQuery = graphql`
           id
           excerpt(pruneLength: 500, truncate: true)
           frontmatter {
-            categories
+            category
+            tags
             title
             emoji
             date(formatString: "YYYY.MM.DD")
@@ -86,10 +88,6 @@ export const pageQuery = graphql`
             velog
             tistory
           }
-        }
-        featured {
-          title
-          category
         }
       }
     }

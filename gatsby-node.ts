@@ -2,6 +2,7 @@ import type { Actions, GatsbyNode } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
 import path from 'path';
 
+import { categoryOf, CATEGORIES } from './src/categories';
 import { AllMarkdownRemark } from './src/type';
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ getConfig, actions }) => {
@@ -25,43 +26,20 @@ type CreatePagesFuncProps = {
 
 const createPosts = ({ createPage, edges }: CreatePagesFuncProps) => {
   const posts = path.resolve(`./src/templates/posts-template/index.tsx`);
-  const categorySet: Set<string> = new Set();
+  const count = (slug: string) => edges.filter((e) => e.node.frontmatter.category === slug).length;
+  const categories = [
+    { slug: '', title: '전체', description: '모든 글', count: edges.length },
+    ...CATEGORIES.map((c) => ({ ...c, count: count(c.slug) })),
+  ];
 
-  const edgesWithMap = edges.map((edge) => {
-    const { categories } = edge.node.frontmatter;
-    const categoriesArr = categories.split(' ');
-    const categoriesMap = categoriesArr.reduce((acc, category) => {
-      acc[category] = true;
-      return acc;
-    }, {} as Record<string, boolean>);
-
-    return { ...edge, categoriesMap };
-  });
-
-  edgesWithMap.forEach((edge) => {
-    const postCategories = Object.keys(edge.categoriesMap);
-    postCategories.forEach((category) => {
-      const categoryName = category.replace('featured-', '').trim();
-      categorySet.add(categoryName);
-    });
-  });
-
-  const categories = ['All', ...[...categorySet].sort((a, b) => a.localeCompare(b))];
-
-  createPage({
-    path: `/posts`,
-    component: posts,
-    context: { currentCategory: 'All', edges, categories },
-  });
-
-  categories.forEach((currentCategory) => {
+  categories.forEach((current) => {
     createPage({
-      path: `/posts/${currentCategory}`,
+      path: current.slug ? `/posts/${current.slug}` : `/posts`,
       component: posts,
       context: {
-        currentCategory,
+        currentCategory: current.slug,
         categories,
-        edges: edgesWithMap.filter((edge) => edge.categoriesMap[currentCategory]),
+        edges: current.slug ? edges.filter((e) => e.node.frontmatter.category === current.slug) : edges,
       },
     });
   });
@@ -105,7 +83,8 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
               slug
             }
             frontmatter {
-              categories
+              category
+              tags
               title
               date(formatString: "YYYY.MM.DD")
             }
@@ -130,28 +109,15 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     return;
   }
 
-  const filteredEdges = result.data.allMarkdownRemark.edges.map((edge) => {
-    const { categories } = edge.node.frontmatter;
-    const categoriesArr = categories.split(' ');
-
-    const categorySet: Set<string> = new Set();
-
-    categoriesArr.forEach((category) => {
-      const categoryName = category.replace('featured-', '').trim();
-      categorySet.add(categoryName);
-    });
-
-    return {
-      ...edge,
-      node: {
-        ...edge.node,
-        frontmatter: {
-          ...edge.node.frontmatter,
-          categories: [...categorySet].sort((a, b) => a.localeCompare(b)).join(' '),
-        },
-      },
-    };
-  });
+  const filteredEdges = result.data.allMarkdownRemark.edges;
+  const unknown = filteredEdges.filter((e) => !categoryOf(e.node.frontmatter.category));
+  if (unknown.length) {
+    reporter.panicOnBuild(
+      `Each post needs \`category:\` set to one of ${CATEGORIES.map((c) => c.slug).join(', ')}. ` +
+        `Fix: ${unknown.map((e) => `${e.node.fields.slug} (${e.node.frontmatter.category})`).join(', ')}`,
+    );
+    return;
+  }
 
   createPosts({ createPage, edges: filteredEdges });
   createPost({ createPage, edges: filteredEdges });
@@ -164,4 +130,13 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, actions, getNod
     const slug = createFilePath({ node, getNode, basePath: `content` });
     createNodeField({ node, name: `slug`, value: slug });
   }
+};
+
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
+  actions.createTypes(`
+    type MarkdownRemarkFrontmatter {
+      category: String
+      tags: String
+    }
+  `);
 };

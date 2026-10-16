@@ -1,3 +1,4 @@
+import { categoryOf } from '../categories';
 import { MarkdownRemark } from '../type';
 
 export default class PostClass {
@@ -9,15 +10,14 @@ export default class PostClass {
   title;
   author;
   date;
-  categories;
-  filteredCategories;
+  category;
+  categoryTitle;
+  tags;
 
   constructor(node: MarkdownRemark) {
     const { id, html, excerpt, frontmatter, fields } = node;
     const { slug } = fields;
-    const { emoji, categories, title, author, date } = frontmatter;
-
-    const categoryArr = categories.split(' ');
+    const { emoji, category, tags, title, author, date } = frontmatter;
 
     this.id = id;
     this.excerpt = excerpt;
@@ -27,9 +27,8 @@ export default class PostClass {
     this.title = title;
     this.author = author;
     this.date = date;
-    this.categories = categoryArr;
-    this.filteredCategories = categoryArr.map((category) => {
-      return category.replace('featured-', '').trim();
-    });
+    this.category = category;
+    this.categoryTitle = categoryOf(category)?.title ?? category;
+    this.tags = (tags || '').split(' ').filter(Boolean);
   }
 }

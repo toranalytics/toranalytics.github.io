@@ -13,7 +13,7 @@ type PostsTemplateProps = {
   location: Location;
   pageContext: {
     currentCategory: string;
-    categories: string[];
+    categories: { slug: string; title: string; description: string; count: number }[];
     edges: AllMarkdownRemark['edges'];
   };
 };
@@ -22,14 +22,14 @@ const PostsTemplate: React.FC<PostsTemplateProps> = ({ location, pageContext }) 
   const { edges, currentCategory } = pageContext;
   const { categories } = pageContext;
   const currentTabIndex = useMemo(
-    () => categories.findIndex((category) => category === currentCategory),
+    () => categories.findIndex((category) => category.slug === currentCategory),
     [categories, currentCategory],
   );
   const posts = edges.map(({ node }) => new PostClass(node));
 
   const onTabIndexChange = (value: number) => {
-    if (value === 0) return navigate(`/posts`);
-    navigate(`/posts/${categories[value]}`);
+    const { slug } = categories[value];
+    navigate(slug ? `/posts/${slug}` : `/posts`);
   };
 
   const ref = useRef<HTMLDivElement>(null);
@@ -45,24 +45,25 @@ const PostsTemplate: React.FC<PostsTemplateProps> = ({ location, pageContext }) 
     <Layout location={location}>
       <Seo title='서준범 | Posts' />
       <S.CategoryWrapper>
-        <S.CategoryTitle>{categories[currentTabIndex]}</S.CategoryTitle>
-        <S.CategorySubtitle>{`${posts.length} post${posts.length < 2 ? '' : 's'}`}</S.CategorySubtitle>
+        <S.CategoryTitle>{categories[currentTabIndex].title}</S.CategoryTitle>
+        <S.CategorySubtitle>{`${categories[currentTabIndex].description} · 글 ${posts.length}개`}</S.CategorySubtitle>
       </S.CategoryWrapper>
 
       <S.TabWrapper>
         <S.Tabs ref={ref}>
-          {categories.map((title, index) => (
+          {categories.map(({ title, count }, index) => (
             <S.Tab
               key={index}
               isSelected={currentTabIndex === index ? 'true' : 'false'}
               onClick={() => onTabIndexChange(index)}
             >
-              {title}
+              {title} <span style={{ opacity: 0.5 }}>{count}</span>
             </S.Tab>
           ))}
         </S.Tabs>
 
         <S.PostCardsWrapper>
+          {posts.length === 0 && <div style={{ opacity: 0.6, padding: '40px 0' }}>아직 이 카테고리의 글이 없습니다.</div>}
           {posts.map((post, index) => (
             <PostCard key={index} post={post} />
           ))}

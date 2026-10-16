@@ -1,7 +1,6 @@
 export type SiteMetadata = {
   title: string;
   author: Author;
-  featured: { title: string; category: string }[];
   siteUrl: string;
   social: Social;
   language: string;
@@ -83,7 +82,8 @@ export type Frontmatter = {
   author: string;
   date: string;
   emoji: string;
-  categories: string;
+  category: string;
+  tags: string | null;
 };
 
 export type Fields = {

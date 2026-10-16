@@ -13,10 +13,11 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
     <S.Header>
       {post.emoji && <S.Emoji>{post.emoji}</S.Emoji>}
       <S.Categories>
-        {post.filteredCategories.map((category) => (
-          <S.Category key={category} to={`/posts/${category}`}>
-            {category}
-          </S.Category>
+        <S.Category to={`/posts/${post.category}`}>{post.categoryTitle}</S.Category>
+        {post.tags.map((tag) => (
+          <span key={tag} style={{ marginLeft: 8, opacity: 0.6 }}>
+            #{tag}
+          </span>
         ))}
       </S.Categories>
 

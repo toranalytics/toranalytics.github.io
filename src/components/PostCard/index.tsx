@@ -9,7 +9,7 @@ type PostCardProps = {
 };
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
-  const { id, slug, title, excerpt, date, categories } = post;
+  const { id, slug, title, excerpt, date, category, categoryTitle } = post;
 
   return (
     <S.Wrapper>
@@ -20,14 +20,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       <S.Info>
         <S.Date>{date}</S.Date>
         <S.Categories>
-          {categories.map((category) => {
-            if (category !== 'featured')
-              return (
-                <S.Category to={`/posts/${category}`} key={category}>
-                  {category}
-                </S.Category>
-              );
-          })}
+          <S.Category to={`/posts/${category}`}>{categoryTitle}</S.Category>
         </S.Categories>
       </S.Info>
     </S.Wrapper>
