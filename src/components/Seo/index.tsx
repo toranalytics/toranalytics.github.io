@@ -22,6 +22,7 @@ const Seo: React.FC<SeoProps> = ({ description, title }) => {
               nickname
             }
             ogImage
+            siteUrl
           }
         }
       }
@@ -62,7 +63,15 @@ const Seo: React.FC<SeoProps> = ({ description, title }) => {
         },
         {
           property: 'og:image',
-          content: site.siteMetadata.ogImage,
+          content: new URL(site.siteMetadata.ogImage, site.siteMetadata.siteUrl).href,
+        },
+        {
+          name: 'twitter:card',
+          content: 'summary_large_image',
+        },
+        {
+          name: 'twitter:image',
+          content: new URL(site.siteMetadata.ogImage, site.siteMetadata.siteUrl).href,
         },
 
         {
