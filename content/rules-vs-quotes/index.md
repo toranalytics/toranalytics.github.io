@@ -89,7 +89,7 @@ turned it into a tool.
 
 ## The tool, briefly
 
-[Off the Wall](https://github.com/toranalytics/off-the-wall) is condition 2 as a plugin for Claude Code and Codex:
+[Off the Wall](https://github.com/toranalytics/off-the-wall) is condition 2 as a plugin you install in Claude Code or in Codex, whichever you use:
 it keeps your corrections word for word and quotes the most relevant ones before each answer. It needs no API key
 (judging runs through the `claude`/`codex` CLI you already use) and everything stays in `~/.otw`.
 
