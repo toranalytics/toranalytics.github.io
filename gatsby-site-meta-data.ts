@@ -60,13 +60,13 @@ export default {
   projects: [
     {
       title: 'Off the Wall',
-      description: '코딩 에이전트에게 같은 지적을 두 번 하지 않게 해 주는 Claude Code · Codex 플러그인',
+      description: '과거 정정 원문을 새 요청 앞에 인용하는 Claude Code · Codex 플러그인',
       techStack: ['Node.js', 'Claude Code', 'Codex'],
       thumbnailUrl: 'off-the-wall.png', // Path to your in the 'assets' folder
       links: {
         post: '/off-the-wall/',
         github: 'https://github.com/toranalytics/off-the-wall',
-        demo: '',
+        demo: '/otw-recall-lab.html',
         googlePlay: '',
         appStore: '',
       },

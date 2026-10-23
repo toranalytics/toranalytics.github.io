@@ -1,109 +1,51 @@
 ---
 emoji: 🧪
-title: 'I counted my corrections to coding agents. Rules distilled from them did no better than random rules'
+title: 'What correction quotes preserve, and what a replay does not prove'
 date: '2026-10-19'
 category: experiments
 tags: claude-code codex evaluation off-the-wall
 ---
 
-I use Claude Code and Codex every day, and I kept typing the same things: "do all of it, not just one example",
-"did you actually run it before saying it's done?". So I counted.
+> Updated 2026-10-23: this article separates a historical replay from what the public plugin actually demonstrates. It does not establish general superiority over rules.
 
-Across 6,752 of my own agent transcripts (4,990 messages I wrote myself), the most common corrections were:
+A correction can contain details that a short rule omits: which test was missing, which files were outside the task, or which decision had already been delegated. That is the design question behind [Off the Wall](https://github.com/toranalytics/off-the-wall).
 
-| What I corrected | Times |
-| :-- | --: |
-| Did only part of what I asked ("do all 8, not one and 'the rest the same way'") | 174 |
-| Said "done" without running it | 63 |
-| Went back to a direction we had already dropped in an earlier session | 31 |
-| Stopped and waited for approval instead of trying another way | 25 |
-| Retried or raised a timeout instead of finding the cause | 18 |
-| Put a heavy process on a trivial task | 12 |
+**[Open the synthetic recall demo](/otw-recall-lab.html)** before connecting any personal history. The interface is in Korean; the embedded JSON identifies the synthetic prompts, selected quotes, source version, and actual hook output.
 
-Every one of these was fixed inside the session where I said it, and came back in the next one.
+## A quote is a mechanism, not an outcome
 
-The standard fix is a rules file (`CLAUDE.md`, `AGENTS.md`): distil each correction into a tidy line like
-"always run the tests before claiming completion". Plenty of tools now do this distilling automatically. I turned the
-counts above into exactly such a rules file, and I also ran a tool that distils every correction into a one-line
-"lesson" and attaches the latest ones to each prompt.
+An authored example says: run the checkout integration test and show its exit code, rather than claiming success after lint. A later, related request receives that exact correction in its prompt context.
 
-Then I checked whether the lessons stuck. Over 1,399 turns, the distiller flagged 580 corrections. In **392 of 578
-(68%)** that came after a lesson existed, a Sonnet judge said following a lesson already attached would have avoided
-the correction. The rule was in front of the agent, and I made the same correction anyway. So I tested what, if
-anything, those rules were doing.
+The demo runs the unmodified CLI hook from public OTW 0.1.1, commit `07fe3d3d4f4accc153eb0684f506e0d3c206fdcc`: four synthetic requests, empty/seeded stores, and both host modes, for 16 isolated hook executions. No private history, correction judge, model answer, or live Claude Code/Codex host session is involved. The stored corrections are seeded by the demo author.
 
-```toc
-```
+It verifies context assembly and the exclusion of a future-dated fixture. It does **not** verify that the model follows the quote, that a real task succeeds, or that the user repeats fewer corrections.
 
-## The experiment
+## What the old replay reported
 
-- **39 requests** from my history where I really did correct the very next answer, limited to corrections you can
-  judge from the text alone (scope cut, "done" without checking, and so on).
-- **Four conditions.** The same request, re-answered by Opus 5.5 with one of these attached:
-  1. the correction I actually made next (the answer key, so this is the ceiling)
-  2. six of my past corrections, verbatim (the three most similar to this request plus the latest), with
-     "predict what this user would object to, and avoid it"
-  3. three one-line lessons distilled from my past corrections, picked at random (a placebo)
-  4. the three one-line lessons the distiller would actually attach (the newest ones)
+The historical experiment selected 39 requests from one person's history, restricted to corrections that could be graded from text. Opus 5.5 re-answered without tools. Sonnet compared pairs in both orders, counting a win only when the orders agreed.
 
-  My rules file (`CLAUDE.md`) was the system prompt in every condition, so each one is measured on top of it.
-- **Grading.** Sonnet compared each answer with the answer that had nothing attached, without knowing which was which.
-  I asked in both A/B orders and counted a win only when both orders agreed.
-- **Checking the grader first.** My first grader answered "did this reply avoid the correction?" YES/NO. It said yes
-  33 of 40 times even when I matched each reply to *another* case's correction, so it measured nothing and I threw it
-  out. The pairwise grader passes both checks: the ceiling beats nothing-attached 36 to 0, and against mismatched
-  corrections it comes out near even (9 to 7, 23 ties).
+The past-quotes-plus-objection-prediction condition was reported as 25 wins, 11 ties, and 3 losses against no added context. Head-to-head with random distilled lessons, it was 17/14/8, with a reported two-sided p-value of about 0.11. That is not conclusive evidence of superiority. The quote format and prediction instruction were a combined treatment, not an isolated test of verbatim wording.
 
-## The result
+Preserved execution logs support the reported totals and conditions. The original per-case outputs have not been independently rerun in this review. Selection, one user, model grading, and text-only tasks limit the result. Neither these numbers nor a model's counterfactual assessment is a measured prevention rate.
 
-![Quoting your words beats summarising them](evidence.png)
+The hypothesis is that retaining a correction's details may help in a later relevant situation. It remains a hypothesis about behavior, not a general finding that rules are ineffective.
 
-| Attached | Better | Tie | Worse |
-| :-- | --: | --: | --: |
-| The actual correction (ceiling) | 36 | 3 | 0 |
-| **6 verbatim past corrections + predict the objection** | **25** | **11** | **3** |
-| 3 random distilled lessons (placebo) | 18 | 15 | 6 |
-| 3 distilled lessons the tool attaches | 14 | 17 | 8 |
+## What the current demo also gets wrong
 
-1. **The lessons the tool picked did no better than random ones.** Random lessons beat nothing (18 vs 6, sign test
-   p = 0.023); the picked ones did not (14 vs 8, p = 0.29). A short reminder of my recurring complaints helps a
-   little; which reminder it is doesn't matter.
-2. **Verbatim quotes beat both.** Head to head against random lessons, quotes went 17 better, 14 tie, 8 worse.
+The verification fixture retrieves a different task's instruction to edit only the login file. A completely unrelated request still receives the latest corrections. Retrieval uses word and character-bigram TF-IDF over earlier requests, followed by recent items; it does not resolve task scope.
 
-My reading: "always do the full scope" is true, but the model can't tell whether *this* request is one where the
-rule bites. A verbatim line like "I said the root directory AND Obsidian, you did one" keeps the situation and the
-tone, and the model recognises the next similar situation. Summarising throws that cue away.
+The public context block quotes the correction without the original request's scope metadata. A statement such as “this task” can therefore lose its referent. That is a demonstrated selection/context limitation, not an observed model failure.
 
-## What I'm not claiming
+Separating standing preferences from one-off task constraints, exposing provenance, and handling unrelated recent corrections are proposed product improvements, not features already shipped. A separate human-input boundary patch remains under review and is not in the public release; automated plugin-origin messages may otherwise enter correction analysis.
 
-- **This is one person's history.** 39 requests, one user, one answering model. It is a first result, not a law.
-- **The grader is a model.** Blind and order-swapped, but still Sonnet judging Opus.
-- **"Random" lessons were still my lessons.** My corrections cluster around a few themes (scope, don't ask,
-  verify), so a random one is often roughly on topic. Someone with more varied corrections, or a better picker, may
-  get a different result.
-- **Only 39 of the 392 repeats could be judged from text.** Most corrections need the work actually run
-  ("keep going until it works"), which a text replay can't grade.
+## Privacy and model-selection guidance
 
-The cheapest way to find out whether it holds is for someone else to run it on their own history. That is why I
-turned it into a tool.
+Results and state are stored locally, by default in `~/.otw`. Judging and personal-history reports send excerpts through the user's Claude/Codex CLI to its model provider. No separate API key does not mean no usage, cost, limits, or provider-side handling.
 
-## The tool, briefly
+The plugin also provides model-selection guidance to the orchestrator. It is not a general automatic-routing or cost-saving guarantee, and Codex model mapping has not been measured.
 
-[Off the Wall](https://github.com/toranalytics/off-the-wall) is condition 2 as a plugin you install in Claude Code or in Codex, whichever you use:
-it keeps your corrections word for word and quotes the most relevant ones before each answer. It needs no API key
-(judging runs through the `claude`/`codex` CLI you already use) and everything stays in `~/.otw`.
+## Try the mechanism first
 
-The part I'd most like you to try is the report, which reads the history already on your machine and lists what
-you correct most, in your own words:
+Start with the [synthetic demo](/otw-recall-lab.html), not a personal history upload or seed command. This article does not recommend personal `report --seed` onboarding until the input-boundary fix is integrated and verified through the public deployment path.
 
-![otw report output](report.png)
-
-```bash
-git clone https://github.com/toranalytics/off-the-wall && cd off-the-wall
-node bin/otw.mjs report
-```
-
-If your top correction is different from mine, or quoting does nothing for you, I want to know:
-[open an issue](https://github.com/toranalytics/off-the-wall/issues) with your report. The full experiment, the
-judge accuracy (precision 0.82, recall 0.72 on 56 hand-labelled turns) and the subagent-routing side are in the
-[longer write-up](/off-the-wall/) (Korean) and the [README](https://github.com/toranalytics/off-the-wall#evidence).
+The most useful feedback is concrete: a needed quote was missing, an unrelated quote appeared, or the agent still made the same mistake after exposure. [Open an issue](https://github.com/toranalytics/off-the-wall/issues) without private transcripts, code, company names, or credentials. Installation details remain in the [current README](https://github.com/toranalytics/off-the-wall).

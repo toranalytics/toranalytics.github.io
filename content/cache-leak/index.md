@@ -6,6 +6,8 @@ category: experiments
 tags: claude-code prompt-caching cost measurement
 ---
 
+> Scope note, 2026-10-23: the figures below are historical API-price estimates from a separate local setup, not an invoice or a measured saving from public Off the Wall. This post does not test OTW correction recall.
+
 I run coding agents all day, so I added up a week of my own API usage: 19,733 Claude calls, about **$1,064** at API
 prices. The biggest line was not output and not cache reads. It was cache **writes**: $469, 44% of the bill.
 
@@ -57,7 +59,7 @@ Restarts, new sessions and subagents all start from that prefix, so the saving r
 ## What I take from it
 
 Both leaks were placed where they were *to protect* the cache, and both comments were reasonable. Neither had been
-measured. The bill was the measurement.
+measured. The usage estimates were the measurement.
 
-I keep counting what my agents do, corrections included, in
-[Off the Wall](https://github.com/toranalytics/off-the-wall).
+I also build [Off the Wall](https://github.com/toranalytics/off-the-wall), which recalls past corrections.
+That is a separate project from this cache-layer investigation.
