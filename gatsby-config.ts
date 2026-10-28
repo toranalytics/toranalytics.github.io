@@ -11,6 +11,9 @@ const config: GatsbyConfig = {
   },
   siteMetadata,
   plugins: [
+    ...(siteMetadata.analytics.gaMeasurementId
+      ? [{ resolve: `gatsby-plugin-gtag`, options: { trackingId: siteMetadata.analytics.gaMeasurementId, head: false, anonymize: true } }]
+      : []),
     `gatsby-plugin-typescript`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-image`,

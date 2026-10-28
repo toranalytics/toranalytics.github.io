@@ -4,6 +4,7 @@ title: 'What correction quotes preserve, and what a replay does not prove'
 date: '2026-10-19'
 category: experiments
 tags: claude-code codex evaluation off-the-wall
+description: 'A replay of 39 requests compares quoting a developer''s own past corrections with distilled rules, and spells out what that replay does and does not prove about Off the Wall.'
 ---
 
 > Updated 2026-10-23: this article separates a historical replay from what the public plugin actually demonstrates. It does not establish general superiority over rules.

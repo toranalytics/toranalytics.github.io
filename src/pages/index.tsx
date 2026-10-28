@@ -31,7 +31,7 @@ const Home: React.FC<HomeProps> = ({ location, data }) => {
 
   return (
     <Layout location={location}>
-      <Seo title='서준범 · AI Engineer' />
+      <Seo title='서준범 · AI Engineer' path='/' />
       <MainBanner author={author} />
 
       <FeaturedPostColumn title='Recent Posts' posts={recentPosts} fill={false} />

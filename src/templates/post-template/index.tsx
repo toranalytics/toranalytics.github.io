@@ -30,7 +30,14 @@ const PostTemplate: React.FC<PostTemplateProps> = ({ location, data }) => {
 
   return (
     <Layout location={location}>
-      <Seo title={`서준범 | ${curPost?.title}`} description={curPost?.excerpt} />
+      <Seo
+        title={`${curPost?.title} | 서준범`}
+        description={curPost?.description || curPost?.excerpt}
+        path={curPost.slug}
+        type='article'
+        datePublished={curPost.dateISO}
+        lang={/[가-힣]/.test(curPost.title) ? 'ko' : 'en'}
+      />
       <PostHeader post={curPost} />
       <S.PostContent>
         <div className='markdown' dangerouslySetInnerHTML={{ __html: curPost.html }} />
@@ -84,7 +91,9 @@ export const pageQuery = graphql`
       excerpt(pruneLength: 500, truncate: true)
       frontmatter {
         date(formatString: "YYYY.MM.DD")
+        dateISO: date(formatString: "YYYY-MM-DD")
         title
+        description
         category
         tags
         emoji

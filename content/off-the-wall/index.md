@@ -4,6 +4,7 @@ title: 'Off the Wall: 과거의 정정이 새 요청 앞에 돌아오는 순간'
 date: '2026-10-16'
 category: projects
 tags: off-the-wall claude-code codex
+description: 'Claude Code와 Codex 플러그인 Off the Wall이 과거의 정정 원문을 다시 보여 줄 때 모델이 개인 선호를 따르는지 잰 기록입니다. 합성 시험 결과(1/33, 9/33, 17/33)와 한계, 독립 검토에서 나온 약점을 함께 적었습니다.'
 ---
 
 > 2026-10-28 업데이트. 모델이 알 수 없는 개인 선호에서 효과가 처음으로 측정됐습니다(아래 7장). 합성 시험이라 실제 기록에서의 효과는 아직 모릅니다.

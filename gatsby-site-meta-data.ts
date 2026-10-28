@@ -9,11 +9,19 @@ export default {
   ogImage: `/og-image.png`, // Path to your in the 'static' folder
 
   /**
+   * analytics (empty string = off). GA4 measurement id looks like G-XXXXXXXXXX; GoatCounter code is the subdomain.
+   */
+  analytics: {
+    gaMeasurementId: ``,
+    goatcounterCode: ``,
+  },
+
+  /**
    * comments setting
    */
   comments: {
     utterances: {
-      repo: ``, // e.g. `toranalytics/toranalytics.github.io` after installing the utterances app
+      repo: `toranalytics/toranalytics.github.io`, // utterances app installed on this repo only
     },
   },
 

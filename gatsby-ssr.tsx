@@ -1,7 +1,7 @@
 import { RenderBodyArgs } from 'gatsby';
 
-export const onRenderBody = ({ setHtmlAttributes, setHeadComponents }: RenderBodyArgs) => {
-  setHtmlAttributes({ lang: `kr` });
+export const onRenderBody = ({ setHeadComponents }: RenderBodyArgs) => {
+  // lang is set per page by the Seo component (react-helmet): ko or en
   setHeadComponents([
     <link
       rel='preload'

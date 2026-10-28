@@ -25,7 +25,7 @@ const PostsTemplate: React.FC<PostsTemplateProps> = ({ location, pageContext }) 
 
   return (
     <Layout location={location}>
-      <Seo title='서준범 | Posts' />
+      <Seo title='서준범 | Posts' path='/posts/' />
       <S.CategoryWrapper>
         <S.CategoryTitle>{categories[currentTabIndex].title}</S.CategoryTitle>
         <S.CategorySubtitle>{`${categories[currentTabIndex].description} · 글 ${posts.length}개`}</S.CategorySubtitle>

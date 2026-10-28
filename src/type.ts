@@ -84,6 +84,8 @@ export type Frontmatter = {
   emoji: string;
   category: string;
   tags: string | null;
+  description?: string | null;
+  dateISO?: string | null;
 };
 
 export type Fields = {
