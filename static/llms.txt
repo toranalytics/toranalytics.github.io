@@ -1,11 +1,11 @@
 # toranalytics (서준범 / Junebeom Seo)
 
-> Blog of an AI engineer in Seoul about coding agents (Claude Code, Codex): measuring what actually changes their behaviour, with the limits of each measurement stated next to the numbers. Posts are in Korean and English.
+> Blog of an AI engineer in Seoul about coding agents (Claude Code, Codex): measuring what actually changes their behaviour, with the limits of each measurement stated next to the numbers. Every post is available in Korean, English and Simplified Chinese (translations are marked as such; the original language is authoritative).
 
 ## Key posts
-- [Off the Wall: when a past correction returns before a new request](https://toranalytics.github.io/off-the-wall/): Off the Wall is an open-source (MIT) hook plugin for Claude Code and Codex that quotes a developer's own past corrections back to the agent. Includes the 2026-10-28 measurement on personal preferences (followed 1/33 with no recall, 9/33 default, 17/33 with wide recall; synthetic tasks, one small model) and what it does not show. Korean.
-- [What correction quotes preserve, and what a replay does not prove](https://toranalytics.github.io/rules-vs-quotes/): a 39-request text replay comparing quoted corrections with distilled rules, and why it is not general evidence. English.
-- [My coding agent cost $1,064 last week. 44% of it was the cache re-writing itself](https://toranalytics.github.io/cache-leak/): a week of API usage, two prompt-cache breakpoint mistakes, and the measurements. English.
+- [Off the Wall: when a past correction returns before a new request](https://toranalytics.github.io/off-the-wall/): Off the Wall is an open-source (MIT) hook plugin for Claude Code and Codex that quotes a developer's own past corrections back to the agent. Includes the 2026-10-28 measurement on personal preferences (followed 1/33 with no recall, 9/33 default, 17/33 with wide recall; synthetic tasks, one small model) and what it does not show. Original in Korean; English: https://toranalytics.github.io/en/off-the-wall/ ; Chinese: https://toranalytics.github.io/zh/off-the-wall/
+- [What correction quotes preserve, and what a replay does not prove](https://toranalytics.github.io/rules-vs-quotes/): a 39-request text replay comparing quoted corrections with distilled rules, and why it is not general evidence. Original in English; Korean: https://toranalytics.github.io/ko/rules-vs-quotes/ ; Chinese: https://toranalytics.github.io/zh/rules-vs-quotes/
+- [My coding agent cost $1,064 last week. 44% of it was the cache re-writing itself](https://toranalytics.github.io/cache-leak/): a week of API usage, two prompt-cache breakpoint mistakes, and the measurements. Original in English; Korean: https://toranalytics.github.io/ko/cache-leak/ ; Chinese: https://toranalytics.github.io/zh/cache-leak/
 
 ## Project
 - [Off the Wall on GitHub](https://github.com/toranalytics/off-the-wall): source, install instructions, experiment records, scripts and data under docs/. Install in Claude Code: `/plugin install off-the-wall --marketplace toranalytics/off-the-wall`.

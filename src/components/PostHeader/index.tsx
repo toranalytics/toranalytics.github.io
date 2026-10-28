@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { categoryOf } from '@/src/categories';
+import { categoryText, t } from '@/src/i18n';
 import PostClass from '@/src/models/post';
 
 import * as S from './styled';
@@ -13,14 +14,14 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
   return (
     <S.Header>
       {post.emoji && <S.Emoji>{post.emoji}</S.Emoji>}
-      <S.Categories aria-label='글 경로'>
-        <S.Category to='/posts'>글</S.Category>
+      <S.Categories aria-label={t(post.lang).path}>
+        <S.Category to={`/${post.lang}/posts`}>{t(post.lang).posts}</S.Category>
         <span aria-hidden='true'>›</span>
         <S.Category to={`/posts/${post.category}`}>{post.categoryTitle}</S.Category>
       </S.Categories>
-      <S.CategoryDescription>{categoryOf(post.category)?.description}</S.CategoryDescription>
+      <S.CategoryDescription>{categoryText(post.category, post.lang)?.description ?? categoryOf(post.category)?.description}</S.CategoryDescription>
       {post.tags.length > 0 && (
-        <S.Tags aria-label='태그'>
+        <S.Tags aria-label={t(post.lang).tags}>
           {post.tags.map((tag, index) => (
             <S.Tag key={`${tag}-${index}`}>#{tag}</S.Tag>
           ))}

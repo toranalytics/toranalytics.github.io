@@ -86,6 +86,8 @@ export type Frontmatter = {
   tags: string | null;
   description?: string | null;
   dateISO?: string | null;
+  lang?: string | null;
+  translationKey?: string | null;
 };
 
 export type Fields = {

@@ -3,6 +3,7 @@ import { createFilePath } from 'gatsby-source-filesystem';
 import path from 'path';
 
 import { categoryOf, CATEGORIES } from './src/categories';
+import { isTranslationSlug, LANGS, langOf } from './src/i18n';
 import { AllMarkdownRemark } from './src/type';
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ getConfig, actions }) => {
@@ -45,10 +46,20 @@ const createPosts = ({ createPage, edges }: CreatePagesFuncProps) => {
   });
 };
 
+const langOfNode = (node: AllMarkdownRemark['edges'][number]['node']) =>
+  langOf(node.frontmatter.lang, /[가-힣]/.test(node.frontmatter.title) ? 'ko' : 'en');
+
 const createPost = ({ createPage, edges }: CreatePagesFuncProps) => {
   const post = path.resolve(`./src/templates/post-template/index.tsx`);
 
-  edges.forEach(({ node, next, previous }) => {
+  // Previous/next links stay inside one language. `edges` is sorted by date, newest first.
+  edges.forEach(({ node }) => {
+    const lang = langOfNode(node);
+    const sameLang = edges.filter((e) => langOfNode(e.node) === lang);
+    const index = sameLang.findIndex((e) => e.node.id === node.id);
+    const next = sameLang[index + 1];
+    const previous = sameLang[index - 1];
+
     createPage({
       path: node.fields.slug,
       component: post,
@@ -56,9 +67,23 @@ const createPost = ({ createPage, edges }: CreatePagesFuncProps) => {
         // additional data can be passed via context
         slug: node.fields.slug,
         category: node.frontmatter.category,
-        nextSlug: next?.fields.slug ?? '',
-        prevSlug: previous?.fields.slug ?? '',
+        lang,
+        translationKey: node.frontmatter.translationKey || node.fields.slug,
+        nextSlug: next?.node.fields.slug ?? '',
+        prevSlug: previous?.node.fields.slug ?? '',
       },
+    });
+  });
+};
+
+// /ko/posts, /en/posts, /zh/posts: every post in one language (originals and translations)
+const createLangLists = ({ createPage, edges }: CreatePagesFuncProps) => {
+  const template = path.resolve(`./src/templates/lang-template/index.tsx`);
+  LANGS.forEach((lang) => {
+    createPage({
+      path: `/${lang}/posts`,
+      component: template,
+      context: { lang, edges: edges.filter((e) => langOfNode(e.node) === lang) },
     });
   });
 };
@@ -87,6 +112,8 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
               category
               tags
               title
+              lang
+              translationKey
               date(formatString: "YYYY.MM.DD")
             }
           }
@@ -120,7 +147,9 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     return;
   }
 
-  createPosts({ createPage, edges: filteredEdges });
+  // The default lists (home, /posts) show originals only; translations are reached from the language links.
+  createPosts({ createPage, edges: filteredEdges.filter((e) => !isTranslationSlug(e.node.fields.slug)) });
+  createLangLists({ createPage, edges: filteredEdges });
   createPost({ createPage, edges: filteredEdges });
 };
 
@@ -138,6 +167,8 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
     type MarkdownRemarkFrontmatter {
       category: String
       tags: String
+      lang: String
+      translationKey: String
     }
   `);
 };

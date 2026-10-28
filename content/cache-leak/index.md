@@ -5,6 +5,8 @@ date: '2026-10-19'
 category: experiments
 tags: claude-code prompt-caching cost measurement
 description: 'A week of coding-agent API usage came to about $1,064 for 19,733 Claude calls, and 44% of it was cache writes. Two prompt-cache breakpoint mistakes, and what measuring them showed.'
+lang: en
+translationKey: cache-leak
 ---
 
 > Scope note, 2026-10-23: the figures below are historical API-price estimates from a separate local setup, not an invoice or a measured saving from public Off the Wall. This post does not test OTW correction recall.

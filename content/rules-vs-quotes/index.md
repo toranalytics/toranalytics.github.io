@@ -5,8 +5,12 @@ date: '2026-10-19'
 category: experiments
 tags: claude-code codex evaluation off-the-wall
 description: 'A replay of 39 requests compares quoting a developer''s own past corrections with distilled rules, and spells out what that replay does and does not prove about Off the Wall.'
+lang: en
+translationKey: rules-vs-quotes
 ---
 
+> Updated 2026-10-28: the later measurement on personal preferences (followed 1/33 with no recall, 9/33 default, 17/33 with wide recall; synthetic tasks) is in the [Off the Wall article](/en/off-the-wall/). Wide recall has been the default since 0.3.0. This article's replay is unchanged.
+>
 > Updated 2026-10-23: this article separates a historical replay from what the public plugin actually demonstrates. It does not establish general superiority over rules.
 
 A correction can contain details that a short rule omits: which test was missing, which files were outside the task, or which decision had already been delegated. That is the design question behind [Off the Wall](https://github.com/toranalytics/off-the-wall).
@@ -37,7 +41,7 @@ The verification fixture retrieves a different task's instruction to edit only t
 
 The public context block quotes the correction without the original request's scope metadata. A statement such as “this task” can therefore lose its referent. That is a demonstrated selection/context limitation, not an observed model failure.
 
-Separating standing preferences from one-off task constraints, exposing provenance, and handling unrelated recent corrections are proposed product improvements, not features already shipped. A separate human-input boundary patch remains under review and is not in the public release; automated plugin-origin messages may otherwise enter correction analysis.
+Separating standing preferences from one-off task constraints, exposing provenance, and handling unrelated recent corrections are proposed product improvements, not features already shipped. A human-input boundary fix (origin tags and working-directory-scoped recall) shipped in 0.2.0, because automated plugin-origin messages could otherwise enter correction analysis; it is not proven to filter all automated input.
 
 ## Privacy and model-selection guidance
 
@@ -47,6 +51,6 @@ The plugin also provides model-selection guidance to the orchestrator. It is not
 
 ## Try the mechanism first
 
-Start with the [synthetic demo](/otw-recall-lab.html), not a personal history upload or seed command. This article does not recommend personal `report --seed` onboarding until the input-boundary fix is integrated and verified through the public deployment path.
+Start with the [synthetic demo](/otw-recall-lab.html), not a personal history upload or seed command. This article does not recommend personal `report --seed` onboarding: the input-boundary fix is public but has not been verified through real use.
 
 The most useful feedback is concrete: a needed quote was missing, an unrelated quote appeared, or the agent still made the same mistake after exposure. [Open an issue](https://github.com/toranalytics/off-the-wall/issues) without private transcripts, code, company names, or credentials. Installation details remain in the [current README](https://github.com/toranalytics/off-the-wall).

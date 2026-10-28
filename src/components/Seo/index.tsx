@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 
+import { Lang, LANG_TAG, OG_LOCALE } from '../../i18n';
+
 type SeoProps = {
   description?: string;
   title: string;
@@ -11,7 +13,11 @@ type SeoProps = {
   type?: 'website' | 'article';
   /** ISO date (YYYY-MM-DD) for articles */
   datePublished?: string;
-  lang?: 'ko' | 'en';
+  lang?: Lang;
+  /** Other-language versions of this page (hreflang). Include the page itself. */
+  alternates?: { lang: Lang; path: string }[];
+  /** Language of the x-default alternate (the original) */
+  defaultAlternate?: string;
   children?: React.ReactNode;
 };
 
@@ -22,7 +28,7 @@ const clean = (text: string) =>
     .replace(/\s+/g, ' ')
     .trim();
 
-const Seo: React.FC<SeoProps> = ({ description, title, path, type = 'website', datePublished, lang }) => {
+const Seo: React.FC<SeoProps> = ({ description, title, path, type = 'website', datePublished, lang, alternates, defaultAlternate }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -48,7 +54,8 @@ const Seo: React.FC<SeoProps> = ({ description, title, path, type = 'website', d
 
   const meta = site.siteMetadata;
   const metaDescription = clean(description || meta.description).slice(0, 300);
-  const pageLang = lang || (meta.language === 'kr' ? 'ko' : meta.language) || 'ko';
+  const pageLang: Lang = lang || (meta.language === 'kr' ? 'ko' : (meta.language as Lang)) || 'ko';
+  const langTag = LANG_TAG[pageLang] || pageLang;
   const imageUrl = new URL(meta.ogImage, meta.siteUrl).href;
   const pageUrl = path ? new URL(path, meta.siteUrl).href : undefined;
   const goatcounterCode = meta.analytics?.goatcounterCode;
@@ -58,9 +65,9 @@ const Seo: React.FC<SeoProps> = ({ description, title, path, type = 'website', d
       ? {
           '@context': 'https://schema.org',
           '@type': 'BlogPosting',
-          'headline': title.replace(/\s*\|\s*서준범$/, ''),
+          'headline': title.replace(/\s*\|\s*(서준범|Junebeom Seo)$/, ''),
           'description': metaDescription,
-          'inLanguage': pageLang,
+          'inLanguage': langTag,
           'url': pageUrl,
           'mainEntityOfPage': pageUrl,
           'image': imageUrl,
@@ -73,7 +80,7 @@ const Seo: React.FC<SeoProps> = ({ description, title, path, type = 'website', d
           '@type': 'WebSite',
           'name': meta.title,
           'url': meta.siteUrl,
-          'inLanguage': pageLang,
+          'inLanguage': langTag,
           'description': metaDescription,
           'author': { '@type': 'Person', 'name': meta.author.name, 'alternateName': meta.author.nickname, 'url': meta.siteUrl },
         }
@@ -81,10 +88,18 @@ const Seo: React.FC<SeoProps> = ({ description, title, path, type = 'website', d
 
   return (
     <Helmet
-      htmlAttributes={{ lang: pageLang }}
+      htmlAttributes={{ lang: langTag }}
       title={title}
       defaultTitle={meta.title}
-      link={pageUrl ? [{ rel: 'canonical', href: pageUrl }] : []}
+      link={[
+        ...(pageUrl ? [{ rel: 'canonical', href: pageUrl }] : []),
+        ...(alternates && alternates.length > 1
+          ? [
+              ...alternates.map((a) => ({ rel: 'alternate', hrefLang: LANG_TAG[a.lang], href: new URL(a.path, meta.siteUrl).href })),
+              ...(defaultAlternate ? [{ rel: 'alternate', hrefLang: 'x-default', href: new URL(defaultAlternate, meta.siteUrl).href }] : []),
+            ]
+          : []),
+      ]}
       script={[
         ...(jsonLd ? [{ type: 'application/ld+json', innerHTML: JSON.stringify(jsonLd) }] : []),
         ...(goatcounterCode
@@ -100,7 +115,8 @@ const Seo: React.FC<SeoProps> = ({ description, title, path, type = 'website', d
       meta={[
         { property: 'og:title', content: title },
         { property: 'og:site_name', content: meta.title },
-        { property: 'og:locale', content: pageLang === 'ko' ? 'ko_KR' : 'en_US' },
+        { property: 'og:locale', content: OG_LOCALE[pageLang] },
+        ...(alternates || []).filter((a) => a.lang !== pageLang).map((a) => ({ property: 'og:locale:alternate', content: OG_LOCALE[a.lang] })),
         { name: 'description', content: metaDescription },
         { property: 'og:description', content: metaDescription },
         { property: 'og:type', content: type },
