@@ -21,7 +21,7 @@ export default {
    */
   comments: {
     utterances: {
-      repo: `toranalytics/toranalytics.github.io`, // utterances app installed on this repo only
+      repo: ``, // set to `toranalytics/toranalytics.github.io` once the utterances app is installed on that repo
     },
   },
 
