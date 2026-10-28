@@ -12,7 +12,7 @@ export default {
    * analytics (empty string = off). GA4 measurement id looks like G-XXXXXXXXXX; GoatCounter code is the subdomain.
    */
   analytics: {
-    gaMeasurementId: ``,
+    gaMeasurementId: `G-W84F9W29GN`,
     goatcounterCode: ``,
   },
 
