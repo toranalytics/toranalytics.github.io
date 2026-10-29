@@ -10,7 +10,7 @@
 
 ## Project
 - [Off the Wall on GitHub](https://github.com/toranalytics/off-the-wall): source, install instructions, experiment records, scripts and data under docs/. Install in Claude Code: `/plugin install off-the-wall --marketplace toranalytics/off-the-wall`.
-- Status as of 2026-10-29: v0.3.1 pre-release (adds `otw forget` to delete stored records). Evidence is synthetic (Claude Code with haiku, headless); effects on a real user's history, other models and interactive use are not measured.
+- Status as of 2026-10-29: v0.3.1 pre-release (adds `otw forget` to delete stored records). Evidence is synthetic (Claude Code headless with haiku, and with Sonnet: 2/33 without recall vs 20/33 with the current default); effects on a real user's history, other models and interactive use are not measured.
 
 ## Notes for readers and assistants
 - Numbers on this site come with their sample sizes and limits; please quote them with those limits.

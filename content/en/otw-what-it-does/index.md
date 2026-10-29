@@ -90,7 +90,7 @@ If you would rather look in the browser first, there is a [synthetic recall demo
 
 ## Test details
 
-Everything below used synthetic records and one small model (Claude Code 2.1.311, haiku, headless). The numbers apply to these tests only and do not show an effect in real use.
+Everything below used synthetic records, run in Claude Code 2.1.311 headless mode with a small model (haiku) and a larger one (Sonnet). The numbers apply to these tests only and do not show an effect in real use.
 
 **Does the model follow personal preferences?** I made 11 personal habits the model cannot know (commit format, tooling, tone, date format and so on) into tasks and ran each 3 times. The tasks and graders were written by a different model, scoring is automatic, and the plan was fixed before the runs.
 
@@ -104,6 +104,8 @@ Everything below used synthetic records and one small model (Claude Code 2.1.311
 - I fixed the grader after seeing the results, so the re-run is not an independent replication. The higher numbers come partly from the fix and partly from run-to-run variation, and the two cannot be separated.
 - One task had a "one sentence" format so strict that it was not followed even with the quote visible, and another (c104) scored 0/3 in every condition.
 - On habits the model already keeps (14 of 16 tasks) I found no advantage, and simply inserting 150 lines of rules scored higher overall. That approach does not scale as history grows.
+
+**Does it hold for a larger model?** I ran the same tasks and store with Sonnet instead of haiku, 3 runs each, 66 runs. No recall 2/33, current default 20/33; better in 7 tasks, worse in none (sign test p = 0.016). The larger model also did not follow these habits without recall. I have not measured Opus or the Codex models.
 
 **Is wide search harmful?** On 14 tasks unrelated to preferences, 3 runs each: no OTW 40/42, wide search 41/42. No pass loss; output tokens rose about 9%. The protection for inputs under 20 characters was not tested.
 
