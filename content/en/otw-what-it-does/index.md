@@ -47,7 +47,10 @@ A separate process has a model judge whether your next message corrects the prev
 **4. Shows its state.**
 `otw status` shows the number of stored records, recent hook activity, and the number of trusted Codex entries.
 
-**5. Gives subagent model-selection guidance.**
+**5. Deletes your records.**
+`otw forget` deletes the stored records, everything or one working directory at a time (since 0.3.1).
+
+**6. Gives subagent model-selection guidance.**
 It tells the agent to use a small model for search and conversion, a mid model for implementation and review, and a large model for root-cause analysis and design, and sends back a subagent call that names no model once. It does not force a model or guarantee cost savings.
 
 ## What it cannot do, and what to know
@@ -56,10 +59,10 @@ It tells the agent to use a small model for search and conversion, a mid model f
 - **It does not select by meaning.** It picks by overlap of words and two-character pieces. There is no guarantee the selected corrections relate to the current request.
 - **It attaches to unrelated requests too.** Since 0.3.0, every prompt of 20 or more characters gets up to 6 quotes (about 300 tokens). Shorter inputs use the old criterion (similarity 0.18). Set `"recallWide": false` to turn this off.
 - **It can save non-corrections or miss corrections.** On one person's history the judge had precision 0.82 and recall 0.72.
-- **There is no delete command.** Delete `~/.otw` yourself; this does not remove your Claude Code or Codex histories or copies at the provider.
+- **Deleting is one command.** Since 0.3.1, `otw forget --all --yes` deletes the stored records, session state and log, and `otw forget --project --yes` deletes only the current working directory's records (without `--yes` it only shows what would go). It does not remove your Claude Code or Codex histories or copies at the provider.
 - **Codex needs a one-time trust step.** Until you trust the hooks in `/hooks`, they silently do not run.
 - **Interactive Claude Code use is unverified.** I confirmed saving and recall once in headless mode.
-- The current version is the 0.3.0 pre-release, not a stable release.
+- The current version is the 0.3.1 pre-release, not a stable release.
 
 ## Try it
 
