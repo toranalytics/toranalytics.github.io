@@ -41,6 +41,14 @@ A coding agent does not remember earlier chats. So you keep saying "stop asking,
 
 For example (an invented case): you saved "Don't just run lint and say tests pass. Run the checkout integration test and show the real exit code." Later you ask "Verify the payment handler change with the checkout integration test." The agent gets that correction word for word.
 
+You can preview what would be attached with `otw explain`. This is real output on a made-up repository (the 0.52 is how close the match is):
+
+![Real otw explain output: the checkout-test correction is first with similarity 0.52](/img/otw-explain-related.png)
+
+The lower ones (0.04, 0.05) are attached too. That is the current design, not a bug. For an unrelated request such as a haiku about autumn, three quotes are still attached. This is the plugin's biggest weakness, so I show it up front:
+
+![Real otw explain output: a haiku request still gets three quotes](/img/otw-explain-unrelated.png)
+
 **2. Save your corrections automatically.** A model checks, on its own, whether your next message is fixing the previous answer, and saves it if so. This is on by default; `capture: false` turns it off.
 
 **3. Show what you correct most.** `otw report` has a model pick out, from the Claude Code and Codex chats already on your computer, the replies where you were fixing how the agent worked, and groups them by kind with your own words. `--seed` starts saving from that result. The grouping is done by a model and can be wrong.
