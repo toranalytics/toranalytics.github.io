@@ -68,7 +68,7 @@ The reproduction above ran only the hook, without a host. So I ran plugin 0.2.0 
 
 ## 3. What the current public version does
 
-When you send a question, it first picks up to 3 saved corrections whose past requests resemble the new one in string features, then adds recent ones to quote up to 6. Search uses word and character-bigram TF-IDF; it does not guarantee semantic understanding or an exact judgment of scope.
+When this was first published it picked up to 3 saved corrections whose past requests resemble the new one in string features, then filled up to 6 with recent ones. Since 0.3.0 `recallWide` is on by default: a request of 20 characters or more gets up to 6 corrections ranked by similarity, and ones with no overlap at all are left out. Search uses word and character-bigram TF-IDF; it does not guarantee semantic understanding or an exact judgment of scope.
 
 When the judging feature is on, a separate process reviews the previous answer and your new message and saves correction candidates. `report` is an optional diagnostic that classifies corrections in existing conversation history. It also includes model-selection guidance, but I do not present that as automatic optimization or general cost saving.
 
