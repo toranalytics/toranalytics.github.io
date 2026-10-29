@@ -26,7 +26,7 @@ These are habits I invented, not real users' records. I fixed a grader bug after
 
 The plugin also attaches quotes to unrelated requests. On 8 prompts that had nothing to do with the stored corrections, it attached 1.8 quotes on average. I had first written "if nothing is similar, nothing is attached". That was false, and I corrected it publicly. Here is what it looks like now, real `otw explain` output on a made-up repository with a haiku request:
 
-![Real otw explain output: a haiku request still gets three quotes](/img/otw-explain-unrelated.png)
+![Real otw explain output: a haiku request still gets three quotes](/img/otw-explain-unrelated-en.png)
 
 I wanted to cut this noise and keep the useful quotes. Before running anything I wrote the plan and the pass bar into files, then ran the ideas one by one. Short version: none of the five passed.
 

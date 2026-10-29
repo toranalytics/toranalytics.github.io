@@ -34,13 +34,13 @@ translationKey: otw-what-it-does
 
 之后你说"用结账集成测试验证支付处理器的改动"。可以用 `otw explain` 预览会附上什么。下面是在虚构仓库里实际运行的输出:
 
-![otw explain 的真实输出:结账测试那条纠正以 0.52 排在最前](/img/otw-explain-related.png)
+![otw explain 的真实输出:结账测试那条纠正以 0.52 排在最前](/img/otw-explain-related-zh.png)
 
 对的那条以 0.52 排在最前。但往下看,0.04、0.05 的也一起附上了。这是现在的设计,不是 bug。20 个字符以上的请求,不管相似程度如何,都会附上最多 6 条,原因在后面的测试结果里。
 
 无关的请求会怎样?我试了"写一首关于秋天的俳句"。
 
-![otw explain 的真实输出:俳句请求也会附上 3 条](/img/otw-explain-unrelated.png)
+![otw explain 的真实输出:俳句请求也会附上 3 条](/img/otw-explain-unrelated-zh.png)
 
 连俳句也会附上 3 条。这是这个插件最大的弱点,所以我先摆出来。它不理解含义,是按重叠的词和字母对来挑选的。
 
@@ -63,7 +63,7 @@ translationKey: otw-what-it-does
 
 刚安装、什么都还没保存时,`otw status` 会直接告诉你:
 
-![otw status 的真实输出:还没有保存任何纠正时显示的说明](/img/otw-status-empty.png)
+![otw status 的真实输出:还没有保存任何纠正时显示的说明](/img/otw-status-empty-zh.png)
 
 另外还有给辅助智能体的模型建议:搜索、转换用小模型,实现、评审用中等模型,找根因、做设计用大模型;没有指定模型的辅助调用会被退回一次。它不强制模型,也不保证降低成本。
 

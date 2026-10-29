@@ -34,13 +34,13 @@ Say you saved this earlier (every example in this post is made up):
 
 Later you ask "Verify the payment handler change with the checkout integration test." You can preview what would be attached with `otw explain`. This is real output on a made-up repository:
 
-![Real otw explain output: the checkout-test correction is first with similarity 0.52](/img/otw-explain-related.png)
+![Real otw explain output: the checkout-test correction is first with similarity 0.52](/img/otw-explain-related-en.png)
 
 The right correction is on top with 0.52. But look further down: 0.04 and 0.05 are attached too. That is the current design, not a bug. Any request of 20 characters or more gets up to 6 quotes whatever the similarity, and the test results below are why I did it that way.
 
 What about an unrelated request? I tried "write a haiku about autumn".
 
-![Real otw explain output: a haiku request still gets three quotes](/img/otw-explain-unrelated.png)
+![Real otw explain output: a haiku request still gets three quotes](/img/otw-explain-unrelated-en.png)
 
 Even the haiku gets 3 quotes. This is the biggest weakness of the plugin, so I am showing it first. It does not understand meaning. It picks by overlapping words and letter pairs.
 
@@ -63,7 +63,7 @@ It only uses the same working folder. It does not pull in corrections from other
 
 Right after install, before anything is saved, `otw status` tells you so:
 
-![Real otw status output: the message shown when no corrections are stored yet](/img/otw-status-empty.png)
+![Real otw status output: the message shown when no corrections are stored yet](/img/otw-status-empty-en.png)
 
 There is also a hint feature for helper agents: use a small model for search and conversion, a middle one for building and review, a large one for finding root causes and design, and a helper call that names no model is sent back once. It does not force a model and it does not promise lower cost.
 
