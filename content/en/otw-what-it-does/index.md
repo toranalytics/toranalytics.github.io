@@ -13,6 +13,10 @@ translationKey: otw-what-it-does
 
 > A model can't know your habits, like how you write commit messages or dates. I gave Claude 33 tasks like that. Without Off the Wall, Claude (Sonnet) followed the habit 2 times. With it, 20 times. It works because your own earlier correction is shown again, word for word. These are test habits I made up, not real users' records. With the haiku model it went from 1 to 17, and from 2 to 25 when I measured again.
 
+Here is the same request run once without the plugin and once with it, real outputs, three tasks, first run shown as it came out. The saved correction was made up for this demo, so please read it as an illustration, not a measurement. The measured numbers are under "How I tested it" below.
+
+![Real outputs for the same request without and with Off the Wall: a commit message, a team-chat summary and a PR description](/img/otw-before-after-en.png)
+
 ```toc
 ```
 
