@@ -9,6 +9,9 @@ lang: en
 translationKey: rules-vs-quotes
 ---
 
+> **In plain words.** This article is about an older test that replayed 39 real requests as text. It compared showing a developer's own past corrections with short rules, and it is not proof that the plugin works in real use. A later test is easier to read: with made-up personal habits, Claude (Sonnet) followed the habit 2 times out of 33 without Off the Wall and 20 times with it. See the [plain-language article](/en/otw-what-it-does/).
+
+
 > Updated 2026-10-28: the later measurement on personal preferences (followed 1/33 with no recall, 9/33 default, 17/33 with wide recall; synthetic tasks) is in the [Off the Wall article](/en/off-the-wall/). Wide recall has been the default since 0.3.0. This article's replay is unchanged.
 >
 > Updated 2026-10-23: this article separates a historical replay from what the public plugin actually demonstrates. It does not establish general superiority over rules.

@@ -9,6 +9,11 @@ lang: en
 translationKey: off-the-wall
 ---
 
+> **In plain words.** Off the Wall is a plugin that shows your own earlier corrections again, unshortened, before the agent answers. I gave Claude 33 tasks about habits a model can't know: without the plugin it followed the habit 2 times, with it 20 times (Claude Sonnet, test habits I made up). What it does and does not do is in the [plain-language article](/en/otw-what-it-does/). This article is the longer measurement log that came before it.
+>
+> Updated 2026-10-29. The same effect showed up with a larger model (Sonnet), and `otw forget`, which deletes saved corrections, shipped in 0.3.1. The latest numbers and limits are in the plain-language article.
+
+
 > English translation of the [Korean original](/off-the-wall/). If they differ, the Korean article is authoritative.
 >
 > Updated 2026-10-28. For the first time, an effect was measured on personal preferences the model cannot know (section 7 below). The tests are synthetic, so the effect on real histories is still unknown.
