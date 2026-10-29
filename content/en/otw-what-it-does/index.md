@@ -4,119 +4,116 @@ title: 'Off the Wall: a plugin that shows your past corrections back to your cod
 date: '2026-10-29'
 category: projects
 tags: off-the-wall claude-code codex
-description: 'What the open-source Claude Code and Codex plugin Off the Wall does and does not do: it quotes your own past corrections, unsummarized, in front of the next answer.'
+description: 'A plain-language account of what the open-source Claude Code and Codex plugin Off the Wall does and does not do: it shows your own past corrections again, unshortened, before the next answer.'
 lang: en
 translationKey: otw-what-it-does
 ---
 
 > English translation of the [Korean original](/otw-what-it-does/). If they differ, the Korean article is authoritative.
 
-Off the Wall is a plugin for Claude Code and Codex. It saves the corrections you give your agent ("stop asking, just pick one", "did you actually run the tests?") on your machine and, when you send a similar request later, shows them to the agent **in your own words**. It is open source (MIT), has no dependencies, and runs on Node 18 or newer.
+> **A model can't know your habits, like how you write commit messages or dates. I gave Claude 33 tasks like that. Without Off the Wall, Claude (Sonnet) followed the habit 2 times. With it, 20 times.** It works because your own earlier correction is shown again, word for word. These are test habits I made up, not real users' records. With the haiku model it went from 1 to 17, and from 2 to 25 when I measured again. The details are under "Test results" below.
 
-> **A model can't know your habits, like how you write commit messages or dates. I gave Claude 33 tasks like that. Without Off the Wall, Claude (Sonnet) followed the habit 2 times. With it, 20 times.** It works because your own earlier correction is shown again, word for word. These are test habits I made up, not real users' records. With the haiku model it went from 1 to 17, and from 2 to 25 when I measured again. The details are under "Test details" below.
+Off the Wall is a plugin for Claude Code and Codex. It saves the corrections you give your agent on your own computer. When you ask for something similar later, it shows those corrections again, in your own words. It is open source (MIT), has no packages to install, and runs on Node 18 or newer.
 
 ```toc
 ```
 
 ## In one sentence
 
-> Your corrections from the same working directory, quoted word for word, in front of the agent's next answer.
+Your earlier corrections from the same folder, shown again unshortened before the agent answers.
 
-## What makes it different
+## Why I built it
 
-1. **It shows the original text, not a summary.** Squeezing a correction into a one-line rule drops the context it came from. The original keeps details such as which test you asked for or which file was off limits.
-2. **It only uses the same working directory.** It does not add corrections from other projects or filler made of recent ones. Subdirectories and git worktrees count as separate projects.
-3. **No separate API key.** Judging whether a message is a correction runs through the `claude` or `codex` CLI you already use. The excerpts used for judging are still processed by your provider.
-4. **It does not slow the answer down.** Judging runs in a detached process, and your prompt does not wait for it.
-5. **Records stay on your machine (`~/.otw`).** There is no collection by the publisher.
-6. **It tags origin and skips uncertain records.** Automatic plugin messages are filtered out so they are not saved as your corrections, and older records without an origin or working directory are kept but not recalled. If the settings file is invalid, features stay off instead of running silently.
+A coding agent does not remember earlier chats. So you keep saying "stop asking, just pick one" and "did you actually run the tests?". If you squeeze a correction into a one-line rule, the situation it came from is lost: which test you asked for, which file you said not to touch. The original words still have that.
 
-## What it does, exactly
+## How it differs
 
-**1. Puts past corrections in front of your next request.**
-On each prompt it picks up to 6 corrections from the same working directory whose past requests resemble the new one in character pieces, cuts each at 200 characters, and adds them to the agent's context. This is not a card in your chat window; it goes to the agent only. The block also says that history is not a new instruction or permission to act, publish or delete. (A demo example is below.)
+- It shows what you said, not a summary.
+- It only uses the same working folder. It does not pull corrections from other projects or fill the slots with recent ones. Subfolders and git worktrees count as different projects.
+- No separate API key. Deciding whether a message is a correction runs through the `claude` or `codex` command you already use. The part of the chat used for that goes to your model company.
+- It does not slow your answers. That check runs on its own, and your request does not wait for it.
+- Records stay on your computer (`~/.otw`). Nothing goes to the author.
+- It checks where a record came from. Messages a plugin sent automatically are not saved as your corrections, and old records without a source or folder are kept but not used. If the settings file is broken, the features stay off.
 
-> Saved correction: Don't just run lint and say "tests pass". Run the checkout integration test and show the real exit code.
-> New request: Verify the payment handler change with the checkout integration test.
-> What the agent receives: the correction above, verbatim.
+## What it can do
 
-**2. Saves your corrections automatically.**
-A separate process has a model judge whether your next message corrects the previous answer, and saves it if so. This is on by default; set `capture: false` to turn it off.
+**1. Show earlier corrections again.** Each time you send a request, it picks up to 6 saved corrections from the same folder whose original request looks like the new one, and cuts each at 200 characters. It adds them to what the agent reads. They do not appear as a card on your screen; only the agent gets them. A line is added saying this is not a new instruction or permission.
 
-**3. Shows what you correct most.**
-`otw report` has a model classify, from the Claude Code and Codex history already on your machine, which of your replies tried to fix how the agent worked, and lists the kinds you corrected most with your own words. Add `--seed` to start recall from that result. The classification is by a model and can be wrong.
+For example (an invented case): you saved "Don't just run lint and say tests pass. Run the checkout integration test and show the real exit code." Later you ask "Verify the payment handler change with the checkout integration test." The agent gets that correction word for word.
 
-**4. Shows its state.**
-`otw status` shows the number of stored records, recent hook activity, and the number of trusted Codex entries.
+**2. Save your corrections automatically.** A model checks, on its own, whether your next message is fixing the previous answer, and saves it if so. This is on by default; `capture: false` turns it off.
 
-**5. Deletes your records.**
-`otw forget` deletes the stored records, everything or one working directory at a time (since 0.3.1).
+**3. Show what you correct most.** `otw report` has a model pick out, from the Claude Code and Codex chats already on your computer, the replies where you were fixing how the agent worked, and groups them by kind with your own words. `--seed` starts saving from that result. The grouping is done by a model and can be wrong.
 
-**6. Gives subagent model-selection guidance.**
-It tells the agent to use a small model for search and conversion, a mid model for implementation and review, and a large model for root-cause analysis and design, and sends back a subagent call that names no model once. It does not force a model or guarantee cost savings.
+**4. Show its status.** `otw status` shows how many corrections are saved, when the hooks last ran and how many Codex entries you allowed. If nothing is saved yet it says so. It also lists the Codex models it uses and any model it does not use because its description names no tier.
+
+**5. Preview what would be shown.** `otw explain "<sentence>"` shows which corrections would be attached to that sentence, with how close each match is. It does not call a model and changes nothing. This command is only in the latest source (main), not in the 0.3.1 release.
+
+**6. Delete your records.** `otw forget --all --yes` deletes the saved corrections, session records and log. `otw forget --project --yes` deletes only the current folder's records. Without `--yes` it only shows what would go. It cannot delete your Claude Code or Codex chats or anything already sent to the model company.
+
+**7. Suggest which model a helper agent should use.** It tells the agent to use a small model for search and conversion, a middle one for building and review, and a large one for finding root causes and design, and sends back once any helper call that names no model. It does not force a model and does not promise lower cost.
 
 ## What it cannot do, and what to know
 
-- **There is no guarantee of fewer mistakes.** In synthetic tests, models followed the preference much more often when the right correction was quoted, but I have not measured the effect on a real history.
-- **It does not select by meaning.** It picks by overlap of words and two-character pieces. There is no guarantee the selected corrections relate to the current request.
-- **It attaches to unrelated requests too.** Since 0.3.0, every prompt of 20 or more characters gets up to 6 quotes (about 300 tokens). Shorter inputs use the old criterion (similarity 0.18). Set `"recallWide": false` to turn this off.
-- **It can save non-corrections or miss corrections.** On one person's history the judge had precision 0.82 and recall 0.72.
-- **Deleting is one command.** Since 0.3.1, `otw forget --all --yes` deletes the stored records, session state and log, and `otw forget --project --yes` deletes only the current working directory's records (without `--yes` it only shows what would go). It does not remove your Claude Code or Codex histories or copies at the provider.
-- **Codex needs a one-time trust step.** Until you trust the hooks in `/hooks`, they silently do not run.
-- **Interactive Claude Code use is unverified.** I confirmed saving and recall once in headless mode.
+- It cannot promise fewer mistakes. It worked on test habits; I have not measured it on real usage records.
+- It does not understand meaning. It matches by overlapping words and letter pairs, so a picked correction may not relate to the request.
+- It can attach quotes to unrelated requests. Since 0.3.0 every request of 20 characters or more gets up to 6 (about 300 tokens). Shorter input uses the earlier rule (closeness of 0.18 or more). Put `"recallWide": false` in the settings to turn this off.
+- It can save a message that is not a correction, or miss a real one. On one person's chats, 82% of what it saved was right and it found 72% of the real corrections.
+- The delete command exists since 0.3.1, but it cannot remove your Claude Code or Codex chats or copies at the model company.
+- In Codex you must allow the hooks once in `/hooks`. Until then nothing happens.
+- I did not check the screen where you use Claude Code directly. I ran it automatically without a screen and confirmed saving and showing again once.
 - The current version is the 0.3.1 pre-release, not a stable release.
 
 ## Try it
 
-Claude Code:
+In Claude Code:
 
 ```
 /plugin install off-the-wall --marketplace toranalytics/off-the-wall
 ```
 
-Codex:
+In Codex:
 
 ```bash
 codex plugin marketplace add toranalytics/off-the-wall
 codex plugin add off-the-wall@off-the-wall
 ```
 
-In Codex, open `/hooks` once and trust the hooks. To see the output format before installing, run `report` on the made-up history in the repository.
+In Codex, open `/hooks` once and allow the hooks. To see what the output looks like before installing, run `report` on the made-up chat history in the repository.
 
 ```bash
 git clone https://github.com/toranalytics/off-the-wall && cd off-the-wall
 node bin/otw.mjs report --host claude --claude-dir examples/claude-history --days 0
 ```
 
-If you would rather look in the browser first, there is a [synthetic recall demo](/otw-recall-lab.html) (the interface is in Korean). It needs no install or login, and every input is an invented case. Source and settings are on [GitHub](https://github.com/toranalytics/off-the-wall).
+To look in the browser first, there is a [demo of showing corrections again](/otw-recall-lab.html) (the interface is in Korean). It needs no install or login, and every input is an invented case. The source is on [GitHub](https://github.com/toranalytics/off-the-wall).
 
-## Test details
+## Test results
 
-Everything below used synthetic records, run in Claude Code 2.1.311 headless mode with a small model (haiku) and a larger one (Sonnet). The numbers apply to these tests only and do not show an effect in real use.
+All of this used made-up records. I ran Claude Code 2.1.311 automatically without a screen, with a small model (haiku) and a larger one (Sonnet). The numbers apply to these tests only and do not show an effect in real use.
 
-**Does the model follow personal preferences?** I made 11 personal habits the model cannot know (commit format, tooling, tone, date format and so on) into tasks and ran each 3 times. The tasks and graders were written by a different model, scoring is automatic, and the plan was fixed before the runs.
+**Does the model follow personal habits?** I turned 11 habits a model cannot know (commit format, tools, tone, date format and so on) into tasks and ran each 3 times. A model other than me wrote the tasks and the graders, grading is automatic, and I fixed the plan before the runs.
 
-| Condition | First run | Re-run after fixing a grader bug |
-|---|---|---|
-| No OTW | 1/33 | 2/33 |
-| Previous default (narrow search) | 9/33 | 14/33 |
-| Wide search (default in 0.3.0) | 17/33 | 25/33 |
+| Condition | First run (haiku) | Rerun after fixing a grader bug (haiku) | Sonnet |
+|---|---|---|---|
+| No Off the Wall | 1/33 | 2/33 | 2/33 |
+| Earlier default (narrow search) | 9/33 | 14/33 | |
+| Wide search (default since 0.3.0) | 17/33 | 25/33 | 20/33 |
 
-- When the right correction was in the quote the model followed it much more often; when it was not found, nothing changed.
-- I fixed the grader after seeing the results, so the re-run is not an independent replication. The higher numbers come partly from the fix and partly from run-to-run variation, and the two cannot be separated.
-- One task had a "one sentence" format so strict that it was not followed even with the quote visible, and another (c104) scored 0/3 in every condition.
-- On habits the model already keeps (14 of 16 tasks) I found no advantage, and simply inserting 150 lines of rules scored higher overall. That approach does not scale as history grows.
+- When the right correction was shown, the model followed it much more often. When it was not found, nothing changed.
+- The same held for the larger model (Sonnet): better in 7 tasks, worse in none (hard to put down to chance, p = 0.016). Without Off the Wall the larger model also did not follow these habits.
+- I fixed the grader after seeing the results, so the rerun is not an independent replication. The higher numbers come partly from the fix and partly from run-to-run variation, and I cannot separate the two.
+- In 4 of the 11 tasks neither model followed the correction even when it was shown. Simply pasting 150 rules scored higher overall, but that does not work once the history grows.
+- I have not measured Opus or the Codex models.
 
-**Does it hold for a larger model?** I ran the same tasks and store with Sonnet instead of haiku, 3 runs each, 66 runs. No recall 2/33, current default 20/33; better in 7 tasks, worse in none (sign test p = 0.016). The larger model also did not follow these habits without recall. I have not measured Opus or the Codex models.
+**Does it hurt when it is attached to unrelated requests?** I ran 14 tasks that have nothing to do with habits, 3 times each: no Off the Wall 40/42, wide search 41/42. The pass rate did not drop and output tokens rose about 9%. I did not test the protection for input under 20 characters with a model.
 
-**Is wide search harmful?** On 14 tasks unrelated to preferences, 3 runs each: no OTW 40/42, wide search 41/42. No pass loss; output tokens rose about 9%. The protection for inputs under 20 characters was not tested.
+**Every attempt to improve it was left out.** To cut quotes on unrelated requests I tried a word condition: on 150 records 6 quotes became 2, but on 240 records it stayed at about 5.5. An embedding model removed almost all the quotes but also missed relevant ones. Adding the original request next to each correction gave no gain (19 of 33 against 20 without). Merging repeats of the same correction had little effect. The records are in the repository docs.
 
-**An attempt to cut quotes on unrelated requests.** I tried requiring word overlap. On a 150-record store it cut 6.0 quotes to 2.0, but on a 240-record store it stayed at 5.5, and on small stores the rate of finding the target dropped. With little gain I removed it.
+**The earlier replay of 39 requests.** I replayed 39 real requests from one person as text. Six corrections plus a line "predict what this person would object to" beat adding nothing, 25 wins, 11 ties, 3 losses. The direct comparison with random rules, 17 wins, 14 ties, 8 losses, is not solid evidence of an advantage. Corrections and the prediction line were tested together, and I have not rerun it with the current selection.
 
-**The 39-request replay (earlier experiment).** I replayed 39 real requests from one person as text. 6 past corrections plus an "predict what this person would object to" line beat attaching nothing, 25 wins, 11 ties, 3 losses. The direct comparison with random rules, 17 wins, 14 ties, 8 losses, is not evidence of a definite advantage. Quotes and the prediction line were tested together, and I have not rerun this with the current selection.
+**Checks in the real programs.** On Codex 0.162.1 I confirmed install, allowing hooks, saving a correction and showing it again on the next request, once. On Claude Code 2.1.311 I confirmed, automatically, saving and showing again in a new session, once. In the third request of the same test the model produced strangely long output for 6 minutes once (it did not appear in 8 reruns).
 
-**Real hosts.** On Codex 0.162.1 I confirmed plugin install, hook trust, saving a correction and recalling it on the next turn once. On Claude Code 2.1.311 in headless mode I confirmed saving and recall in a new session once; in the third turn of the same test the model produced abnormally long output for 6 minutes once (not reproduced in an 8-run retest).
+**Code tests.** 239 tests pass on Node 18, 20, 22 and 26, all with fake input and fake commands. CI runs on Windows, Linux and macOS with Node 18, 20 and 22.
 
-**Code tests.** 227 unit and integration tests pass on Node 18, 20, 22 and 26, all with synthetic input and fake CLIs. CI runs on Windows, Linux and macOS with Node 18, 20 and 22.
-
-Plans, scripts, data and the weaknesses found by an independent review are in the [repository docs](https://github.com/toranalytics/off-the-wall/tree/main/docs). The most useful feedback is a case where an unrelated correction came back or a needed one was missing. Please send it as an [issue](https://github.com/toranalytics/off-the-wall/issues); there is no need to include original text, code or company names.
+Plans, scripts, data and the weaknesses found by an independent review are in the [repository docs](https://github.com/toranalytics/off-the-wall/tree/main/docs). If an unrelated correction showed up or a needed one was missing, please tell me through an [issue](https://github.com/toranalytics/off-the-wall/issues). You do not need to send original text, code or company names.
