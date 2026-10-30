@@ -125,12 +125,15 @@ node bin/otw.mjs report --host claude --claude-dir examples/claude-history --day
 
 让你直接信我的数字不太合适,所以我做了 `otw bench`:同样的测试,用你自己的 `claude` 来跑。它给模型 11 个小任务,每个都需要模型无从得知的习惯,先关闭回忆跑一次,再开启跑一次,数一数习惯被遵守了几次。
 
+`bench` 目前只在仓库 main 分支,不在 0.3.1 发布版或 npm 包中。先安装 Claude Code 插件并登录,然后按下方命令克隆仓库运行。普通安装环境尚未验证。Claude Code 可能读取全局指令和其他插件,并保存会话记录。
+
 ```bash
-otw bench              # 只显示费用和会发送的数据,不运行
-otw bench --yes        # 在 haiku 上跑 66 次,用你自己的套餐约 0.4 美元、13 分钟
+git clone https://github.com/toranalytics/off-the-wall && cd off-the-wall
+node bin/otw.mjs bench
+node bin/otw.mjs bench --yes
 ```
 
-我在自己终端里第一次跑的结果:关闭回忆 3/33(9%),有 Off the Wall 20/33(61%)。模型是 haiku,习惯是为测试编的。66 次里,插件块出现的情况和开启回忆的情况完全一致。我自己的全局规则仍然有效,所以有一个任务(c136)即使不回忆也 3 次全过。这只是一个环境里的一次运行,你的结果可能不同。如果你跑了,在 [issue](https://github.com/toranalytics/off-the-wall/issues) 里写一行就足够了。记录在[仓库](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-first-run/result.md)里。
+我在自己终端里第一次跑的结果(隔离配置和实验性修改插件):关闭回忆 3/33(9%),有 Off the Wall 20/33(61%)。模型是 haiku,习惯是为测试编的。66 次里,插件块出现的情况和开启回忆的情况完全一致。有一个任务(c136)即使不回忆也 3 次全过,原因尚不清楚。这只是一个环境里的一次运行,你的结果可能不同。如果你跑了,在 [issue](https://github.com/toranalytics/off-the-wall/issues) 里写一行就足够了。记录在[仓库](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-first-run/result.md)里。
 
 ## 它做不到的,以及需要知道的
 

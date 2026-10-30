@@ -125,12 +125,15 @@ The code tests are 239 tests passing on Node 18, 20, 22 and 26, all with fake in
 
 Asking you to trust my numbers is a lot, so I made `otw bench`: the same kind of test, run with your own `claude`. It gives a model 11 small tasks that each need a habit it cannot know, once with recall off and once with it on, and counts how often the habit was followed.
 
+`bench` is currently on repository main, not in the 0.3.1 release or an npm package. Install the Claude Code plugin and sign in, then clone the repository as below. It has not yet been verified in a normal installation. Claude Code may load global instructions and other plugins and save session transcripts.
+
 ```bash
-otw bench              # shows the cost and what gets sent, runs nothing
-otw bench --yes        # 66 runs on haiku, about USD 0.4 on your own plan, 13 minutes
+git clone https://github.com/toranalytics/off-the-wall && cd off-the-wall
+node bin/otw.mjs bench
+node bin/otw.mjs bench --yes
 ```
 
-My first run in my own terminal: 3/33 (9%) with recall off, 20/33 (61%) with Off the Wall. Model haiku, habits made up for the test. In all 66 runs the plugin block was present exactly when recall was on. My own global rules stay active, so one task (c136) passed all 3 times even without recall. It is one run in one environment and yours may differ. If you run it, one line in an [issue](https://github.com/toranalytics/off-the-wall/issues) is plenty. The record is in the [repo](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-first-run/result.md).
+My first run in my own terminal, using an experimentally modified plugin in an isolated profile: 3/33 (9%) with recall off, 20/33 (61%) with Off the Wall. Model haiku, habits made up for the test. In all 66 runs the plugin block was present exactly when recall was on. One task (c136) passed all 3 times even without recall; I do not know why. It is one run in one environment and yours may differ. If you run it, one line in an [issue](https://github.com/toranalytics/off-the-wall/issues) is plenty. The record is in the [repo](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-first-run/result.md).
 
 ## What it cannot do, and what to know
 
