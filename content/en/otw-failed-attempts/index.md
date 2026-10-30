@@ -50,6 +50,20 @@ I checked whether showing "what I had asked back then" next to the correction he
 
 An idea from a wiki-style memory: merge repeats into one. 18/40 against 20/40, a gain of 11%. My bar was 25%. Rejected.
 
+## Three more after that (added October 30)
+
+I wondered whether borrowing what the big memory tools do would make the effect larger, so I tested three more. Again the bar was set before each run, and again none cleared it.
+
+**Attempt 6. Show a second wording of a repeated correction.** If the same correction was saved several times, show another wording of it instead of an unrelated quote at the bottom. Text similarity recognised only 40 of 90 repeats, and the policy lost one task where the target correction had been shown.
+
+**Attempt 7. Ask the judge model whether it is a repeat.** At capture time I asked the judge whether a new correction is the same habit as an earlier one. It linked 73 of 90 repeats correctly (73 was the ceiling, since the right answer was among the 5 candidates for only that many), but it also linked 73 of 90 corrections that were not repeats. It could not tell "the same habit said again" from "another correction of the same kind".
+
+**Attempt 8. Change the wording around the quotes.** I replaced the text around the quotes with "standing preferences, apply what fits" and "check your answer against these before replying". On haiku the passes out of 33 were 21 for the current wording and 22 and 20 for the new ones. No difference.
+
+Looking at the tasks that were not followed, the cause was not the wording. For one task the correction never reached the model (a retrieval miss). For two tasks the correction was shown, but the model seems to have put the explicit current request ahead of the old habit (I did not read the raw outputs to confirm). If so, that is exactly what the block says to do ("the current request takes precedence"), so I leave it alone. These two are what remains.
+
+Every experiment so far is listed with its result in the repository's [experiment list](https://github.com/toranalytics/off-the-wall/blob/main/docs/experiments.md).
+
 ## What I learned besides the results
 
 - The runner cut my selection at 3 quotes in two experiments. The default is 6. I found it, wrote it down and left the original numbers in.
