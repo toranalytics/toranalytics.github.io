@@ -119,6 +119,17 @@ node bin/otw.mjs report --host claude --claude-dir examples/claude-history --day
 
 코드 시험은 239개가 Node 18, 20, 22, 26에서 통과한다. 전부 가짜 입력과 가짜 명령으로 한 시험이다. CI는 Windows, Linux, macOS의 Node 18, 20, 22에서 돈다.
 
+## 직접 재 볼 수 있게 명령을 만들었다
+
+내 숫자를 믿으라고 하기는 어렵다. 그래서 같은 시험을 누구나 자기 `claude`로 돌려 볼 수 있게 `otw bench`를 만들었다. 모델이 알 수 없는 습관이 필요한 작은 작업 11개를 회수 없이 한 번, 있게 한 번 돌리고 습관을 지킨 횟수를 센다.
+
+```bash
+otw bench              # 비용과 보내는 데이터만 보여 주고 실행하지 않는다
+otw bench --yes        # haiku 66번, 내 요금제에서 약 0.4달러, 13분
+```
+
+내 터미널에서 처음 돌린 결과는 이렇다. 회수 없이 3/33(9%), Off the Wall이 있으면 20/33(61%)이다. 모델은 haiku이고 습관은 시험용으로 지어낸 것이다. 66번 모두 플러그인 블록이 붙은 조건과 붙지 않은 조건이 정확히 갈렸다. 내 전역 규칙은 그대로 적용되기 때문에 작업 하나(c136)는 회수 없이도 3번 다 통과했다. 한 번 돌린 결과이고 내 환경에서 나온 숫자다. 다른 환경에서는 다르게 나올 수 있어서, 돌려 보고 한 줄만 [이슈](https://github.com/toranalytics/off-the-wall/issues)로 알려 주면 고맙겠다. 결과 기록은 [저장소](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-first-run/result.md)에 있다.
+
 ## 못 하는 것, 알아 둘 것
 
 - 실수가 줄어든다고 보장하지 못한다. 시험용으로 만든 습관에서는 효과를 봤지만 실제 사용 기록에서는 재 보지 못했다.

@@ -121,6 +121,17 @@ I checked the real programs only once each. On Codex 0.162.1 I confirmed install
 
 The code tests are 239 tests passing on Node 18, 20, 22 and 26, all with fake input and fake commands. CI runs on Windows, Linux and macOS with Node 18, 20 and 22.
 
+## A command so you can check my numbers
+
+Asking you to trust my numbers is a lot, so I made `otw bench`: the same kind of test, run with your own `claude`. It gives a model 11 small tasks that each need a habit it cannot know, once with recall off and once with it on, and counts how often the habit was followed.
+
+```bash
+otw bench              # shows the cost and what gets sent, runs nothing
+otw bench --yes        # 66 runs on haiku, about USD 0.4 on your own plan, 13 minutes
+```
+
+My first run in my own terminal: 3/33 (9%) with recall off, 20/33 (61%) with Off the Wall. Model haiku, habits made up for the test. In all 66 runs the plugin block was present exactly when recall was on. My own global rules stay active, so one task (c136) passed all 3 times even without recall. It is one run in one environment and yours may differ. If you run it, one line in an [issue](https://github.com/toranalytics/off-the-wall/issues) is plenty. The record is in the [repo](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-first-run/result.md).
+
 ## What it cannot do, and what to know
 
 - It cannot promise fewer mistakes. It worked on test habits; I have not measured it on real usage records.

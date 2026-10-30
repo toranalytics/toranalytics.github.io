@@ -121,6 +121,17 @@ node bin/otw.mjs report --host claude --claude-dir examples/claude-history --day
 
 代码测试是 239 个测试在 Node 18、20、22、26 上通过,全部使用假输入和假命令。CI 在 Windows、Linux、macOS 的 Node 18、20、22 上运行。
 
+## 做了一个命令,让你自己验证我的数字
+
+让你直接信我的数字不太合适,所以我做了 `otw bench`:同样的测试,用你自己的 `claude` 来跑。它给模型 11 个小任务,每个都需要模型无从得知的习惯,先关闭回忆跑一次,再开启跑一次,数一数习惯被遵守了几次。
+
+```bash
+otw bench              # 只显示费用和会发送的数据,不运行
+otw bench --yes        # 在 haiku 上跑 66 次,用你自己的套餐约 0.4 美元、13 分钟
+```
+
+我在自己终端里第一次跑的结果:关闭回忆 3/33(9%),有 Off the Wall 20/33(61%)。模型是 haiku,习惯是为测试编的。66 次里,插件块出现的情况和开启回忆的情况完全一致。我自己的全局规则仍然有效,所以有一个任务(c136)即使不回忆也 3 次全过。这只是一个环境里的一次运行,你的结果可能不同。如果你跑了,在 [issue](https://github.com/toranalytics/off-the-wall/issues) 里写一行就足够了。记录在[仓库](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-first-run/result.md)里。
+
 ## 它做不到的,以及需要知道的
 
 - 不能保证减少失误。在测试用的习惯上有效,在真实使用记录上我没有测量过。
