@@ -9,6 +9,7 @@ const sitemap = read('sitemap.xml');
 const index = read('sitemap/sitemap-index.xml');
 const urls = read('sitemap/sitemap-0.xml');
 const feed = read('rss.xml');
+const textSitemap = read('sitemap.txt').trim().split(/\r?\n/);
 
 assert.match(home, /<h1\b/i, 'home page needs an h1');
 assert.match(home, /<button\b[^>]*aria-label="(?:라이트|다크) 모드로 전환"/i, 'theme toggle needs an accessible button');
@@ -17,6 +18,8 @@ assert.strictEqual(sitemap, index, 'legacy sitemap.xml must match the generated 
 assert.match(index, /\/sitemap\/sitemap-0\.xml/, 'sitemap index does not point to URL list');
 assert.doesNotMatch(urls, /<lastmod>/i, 'do not emit fabricated per-page modification dates');
 assert.match(feed, /<rss\b/i, 'RSS feed missing');
+assert(textSitemap.length > 0 && textSitemap.every((url) => /^https:\/\/toranalytics\.github\.io\//.test(url)), 'invalid text sitemap URL');
+assert.strictEqual(new Set(textSitemap).size, textSitemap.length, 'text sitemap has duplicate URLs');
 
 function postPaths(dir, relative = '') {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -31,5 +34,6 @@ const locs = new Set([...urls.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new U
 for (const post of posts) {
   assert(locs.has('/' + post), `post missing from sitemap: /${post}/`);
   assert(fs.existsSync(path.join('public', post, 'index.html')), `generated post missing: /${post}/`);
+  assert(textSitemap.includes('https://toranalytics.github.io/' + post + '/'), `post missing from text sitemap: /${post}/`);
 }
 console.log(`Search output checks passed: home, feed, sitemap, ${posts.length} posts.`);

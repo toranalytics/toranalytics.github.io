@@ -1,10 +1,10 @@
+import { copyFile, readFile, writeFile } from 'fs/promises';
 import type { Actions, GatsbyNode } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
-import { copyFile } from 'fs/promises';
 import path from 'path';
 
-import { categoryOf, CATEGORIES } from './src/categories';
-import { isTranslationSlug, LANGS, langOf } from './src/i18n';
+import { CATEGORIES, categoryOf } from './src/categories';
+import { isTranslationSlug, langOf, LANGS } from './src/i18n';
 import { AllMarkdownRemark } from './src/type';
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ getConfig, actions }) => {
@@ -177,4 +177,30 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
 // Keep the previously advertised sitemap URL while using the single Gatsby sitemap.
 export const onPostBuild: GatsbyNode['onPostBuild'] = async () => {
   await copyFile('./public/sitemap/sitemap-index.xml', './public/sitemap.xml');
+
+  // An independent plain-text sitemap contains only canonical URLs from generated HTML.
+  // Enumerate every generated sitemap chunk, so it remains complete as the site grows.
+  const index = await readFile('./public/sitemap/sitemap-index.xml', 'utf8');
+  const chunks = [...index.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]));
+  const canonicals = new Set<string>();
+  for (const chunk of chunks) {
+    if (chunk.origin !== 'https://toranalytics.github.io' || !/^\/sitemap\/sitemap-\d+\.xml$/.test(chunk.pathname)) {
+      throw new Error(`Unexpected sitemap chunk: ${chunk.href}`);
+    }
+    const xml = await readFile(path.join('./public', chunk.pathname), 'utf8');
+    for (const match of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+      const url = new URL(match[1]);
+      if (url.origin !== chunk.origin) throw new Error(`Unexpected sitemap URL: ${url.href}`);
+      const file = path.join('./public', decodeURIComponent(url.pathname), 'index.html');
+      const html = await readFile(file, 'utf8');
+      const canonicalTag = html.match(/<link\b(?=[^>]*rel=["']canonical["'])(?=[^>]*href=["']([^"']+)["'])[^>]*>/i);
+      if (canonicalTag) {
+        const canonical = new URL(canonicalTag[1]);
+        if (canonical.origin !== chunk.origin) throw new Error(`Unexpected canonical URL: ${canonical.href}`);
+        canonicals.add(canonical.href);
+      }
+    }
+  }
+  if (!canonicals.size) throw new Error('No canonical URLs found for the text sitemap');
+  await writeFile('./public/sitemap.txt', [...canonicals].sort().join('\n') + '\n', 'utf8');
 };
