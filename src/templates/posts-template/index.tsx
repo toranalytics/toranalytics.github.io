@@ -22,10 +22,16 @@ const PostsTemplate: React.FC<PostsTemplateProps> = ({ location, pageContext }) 
   const { categories } = pageContext;
   const currentTabIndex = categories.findIndex((category) => category.slug === currentCategory);
   const posts = edges.map(({ node }) => new PostClass(node));
+  const category = categories[currentTabIndex];
+  const seoPath = currentCategory ? `/posts/${currentCategory}/` : '/posts/';
+  const seoTitle = currentCategory ? `${category.title} 글 | 서준범` : '서준범 | Posts';
+  const seoDescription = currentCategory
+    ? `${category.description}. 서준범 블로그의 '${category.title}' 카테고리 글 ${posts.length}개를 모아 봅니다.`
+    : `서준범 블로그의 모든 글 ${posts.length}개. 프로젝트, AI 에이전트, 실험·측정 카테고리별로 골라 읽을 수 있습니다.`;
 
   return (
     <Layout location={location}>
-      <Seo title='서준범 | Posts' path='/posts/' />
+      <Seo title={seoTitle} description={seoDescription} path={seoPath} />
       <S.CategoryWrapper>
         <S.CategoryTitle>{categories[currentTabIndex].title}</S.CategoryTitle>
         <S.CategorySubtitle>{`${categories[currentTabIndex].description} · 글 ${posts.length}개`}</S.CategorySubtitle>

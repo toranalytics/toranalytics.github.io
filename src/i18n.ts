@@ -69,19 +69,19 @@ export const t = (lang: Lang) => STRINGS[lang];
 
 const CATEGORY_TEXT: Record<string, Record<Lang, { title: string; description: string }>> = {
   projects: {
-    ko: { title: '프로젝트', description: '직접 만들어 공개한 도구와 그 과정' },
-    en: { title: 'Projects', description: 'Tools I built and published, and how' },
-    zh: { title: '项目', description: '我亲手做并公开的工具及其过程' },
+    ko: { title: '프로젝트', description: '도구와 만든 과정' },
+    en: { title: 'Projects', description: 'Tools and the process behind them' },
+    zh: { title: '项目', description: '工具与制作过程' },
   },
   agents: {
-    ko: { title: 'AI 에이전트', description: 'Claude Code와 Codex를 실제 일에 쓰는 방법' },
-    en: { title: 'AI agents', description: 'Using Claude Code and Codex on real work' },
-    zh: { title: 'AI 智能体', description: '在真实工作中使用 Claude Code 与 Codex' },
+    ko: { title: 'AI 에이전트', description: 'AI 에이전트를 활용하며 겪은 일' },
+    en: { title: 'AI agents', description: 'Working with AI agents' },
+    zh: { title: 'AI 智能体', description: '使用 AI 智能体的过程' },
   },
   experiments: {
-    ko: { title: '실험·측정', description: '직접 재 본 숫자로 확인한 것' },
-    en: { title: 'Experiments', description: 'What I checked with numbers I measured myself' },
-    zh: { title: '实验与测量', description: '用我亲自测得的数字确认的内容' },
+    ko: { title: '실험·측정', description: '실험과 데이터로 확인한 것' },
+    en: { title: 'Experiments', description: 'What I checked through experiments and data' },
+    zh: { title: '实验与测量', description: '通过实验与数据进行的验证' },
   },
 };
 

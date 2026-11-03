@@ -39,5 +39,26 @@ for (const post of posts) {
   assert(locs.has('/' + post), `post missing from sitemap: /${post}/`);
   assert(fs.existsSync(path.join('public', post, 'index.html')), `generated post missing: /${post}/`);
   assert(textSitemap.includes('https://toranalytics.github.io/' + post + '/'), `post missing from text sitemap: /${post}/`);
+  const html = read(post + '/index.html');
+  const expected = 'https://toranalytics.github.io/' + post + '/';
+  const canonical = html.match(/<link\b(?=[^>]*rel=["']canonical["'])(?=[^>]*href=["']([^"']+)["'])[^>]*>/i);
+  assert(canonical && canonical[1] === expected, `wrong canonical for /${post}/`);
+  assert.match(html, /<h1\b/i, `missing article heading: /${post}/`);
+  assert.match(html, /<meta\b(?=[^>]*name=["']description["'])(?=[^>]*content=["'][^"']+["'])[^>]*>/i, `missing description: /${post}/`);
+  const source = fs.readFileSync(path.join('content', post, 'index.md'), 'utf8');
+  const langMatch = source.match(/^lang:\s*(ko|en|zh)\s*$/m);
+  if (langMatch) {
+    const language = {ko: 'ko', en: 'en', zh: 'zh-Hans'}[langMatch[1]];
+    assert(html.includes('<html lang="' + language + '"'), `wrong html language: /${post}/`);
+    const ld = html.match(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/i);
+    assert(ld, `missing article JSON-LD: /${post}/`);
+    const article = JSON.parse(ld[1]);
+    assert(article['@type'] === 'BlogPosting' && article.url === expected && article.inLanguage === language, `wrong article JSON-LD: /${post}/`);
+  }
+}
+for (const category of ['projects', 'agents', 'experiments']) {
+  const html = read('posts/' + category + '/index.html');
+  const canonical = html.match(/<link\b(?=[^>]*rel=["']canonical["'])(?=[^>]*href=["']([^"']+)["'])[^>]*>/i);
+  assert(canonical && canonical[1] === 'https://toranalytics.github.io/posts/' + category + '/', `wrong category canonical: ${category}`);
 }
 console.log(`Search output checks passed: home, feed, sitemap, ${posts.length} posts.`);
