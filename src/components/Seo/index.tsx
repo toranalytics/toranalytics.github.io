@@ -71,7 +71,7 @@ const Seo: React.FC<SeoProps> = ({ description, title, path, type = 'website', d
           'url': pageUrl,
           'mainEntityOfPage': pageUrl,
           'image': imageUrl,
-          ...(datePublished ? { datePublished, dateModified: datePublished } : {}),
+          ...(datePublished ? { datePublished } : {}),
           'author': { '@type': 'Person', 'name': meta.author.name, 'alternateName': meta.author.nickname, 'url': meta.siteUrl },
         }
       : path === '/'

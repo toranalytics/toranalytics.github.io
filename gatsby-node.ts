@@ -1,5 +1,6 @@
 import type { Actions, GatsbyNode } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
+import { copyFile } from 'fs/promises';
 import path from 'path';
 
 import { categoryOf, CATEGORIES } from './src/categories';
@@ -171,4 +172,9 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       translationKey: String
     }
   `);
+};
+
+// Keep the previously advertised sitemap URL while using the single Gatsby sitemap.
+export const onPostBuild: GatsbyNode['onPostBuild'] = async () => {
+  await copyFile('./public/sitemap/sitemap-index.xml', './public/sitemap.xml');
 };

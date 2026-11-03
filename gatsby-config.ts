@@ -12,13 +12,12 @@ const config: GatsbyConfig = {
   siteMetadata,
   plugins: [
     ...(siteMetadata.analytics.gaMeasurementId
-      ? [{ resolve: `gatsby-plugin-gtag`, options: { trackingId: siteMetadata.analytics.gaMeasurementId, head: false, anonymize: true } }]
+      ? [{ resolve: `gatsby-plugin-gtag`, options: { trackingId: siteMetadata.analytics.gaMeasurementId, head: true, anonymize: true } }]
       : []),
     `gatsby-plugin-typescript`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-image`,
-    `gatsby-plugin-sitemap`,
-    `gatsby-plugin-advanced-sitemap`,
+    `gatsby-plugin-sitemap`, // One sitemap source; default output omits unverifiable lastmod dates.
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
