@@ -2,8 +2,15 @@ import styled from '@emotion/styled';
 
 import { MOBILE_MEDIA_QUERY } from '@/src/styles/const';
 
-export const Wrapper = styled.div<{ isDark: boolean }>`
+export const Wrapper = styled.button<{ isDark: boolean }>`
   cursor: pointer;
+  border: 0;
+  padding: 0;
+
+  &:focus-visible {
+    outline: 3px solid ${({ theme }) => theme.color.black100};
+    outline-offset: 3px;
+  }
   position: fixed;
   z-index: 1000;
   top: 0;

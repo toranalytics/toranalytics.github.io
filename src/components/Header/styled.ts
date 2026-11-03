@@ -45,7 +45,7 @@ export const Header = styled.div`
   }
 `;
 
-export const Menu = styled.div`
+export const Menu = styled.nav`
   display: flex;
   gap: 10px;
   align-items: center;

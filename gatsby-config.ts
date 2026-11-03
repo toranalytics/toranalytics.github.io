@@ -12,7 +12,12 @@ const config: GatsbyConfig = {
   siteMetadata,
   plugins: [
     ...(siteMetadata.analytics.gaMeasurementId
-      ? [{ resolve: `gatsby-plugin-gtag`, options: { trackingId: siteMetadata.analytics.gaMeasurementId, head: true, anonymize: true } }]
+      ? [
+          {
+            resolve: `gatsby-plugin-gtag`,
+            options: { trackingId: siteMetadata.analytics.gaMeasurementId, head: true, anonymize: true },
+          },
+        ]
       : []),
     `gatsby-plugin-typescript`,
     `gatsby-plugin-emotion`,
@@ -75,8 +80,6 @@ const config: GatsbyConfig = {
             `,
             output: '/rss.xml',
             title: 'toranalytics.github.io RSS Feed',
-            match: '^/blog/',
-            link: 'https://feeds.feedburner.com/gatsby/blog',
           },
         ],
       },

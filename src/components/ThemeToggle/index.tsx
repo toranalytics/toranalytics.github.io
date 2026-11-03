@@ -8,7 +8,12 @@ const ThemeToggle: React.FC = () => {
   const theme = useContext(ThemeManagerContext);
 
   return (
-    <S.Wrapper onClick={() => theme.toggleDark()} isDark={theme.isDark}>
+    <S.Wrapper
+      type='button'
+      aria-label={theme.isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
+      onClick={() => theme.toggleDark()}
+      isDark={theme.isDark}
+    >
       {theme.isDark ? <SunIcon className='theme-icon' /> : <MoonIcon className='theme-icon' />}
     </S.Wrapper>
   );

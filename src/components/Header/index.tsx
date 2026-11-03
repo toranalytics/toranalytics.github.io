@@ -25,14 +25,14 @@ const Header: React.FC<HeaderProps> = ({ title, location }) => {
             </S.MenuLink>
           </div>
         </div>
-        <S.Menu>
+        <S.Menu aria-label='주요 메뉴'>
           <S.MenuLink to='/posts' isselected={pathname.includes('/posts').toString()}>
             posts
           </S.MenuLink>
-          <S.MenuLink to='/about' isselected={(pathname === '/about').toString()}>
+          <S.MenuLink to='/about' isselected={/^\/about\/?$/.test(pathname).toString()}>
             about
           </S.MenuLink>
-          <S.MenuLink to='/playground' isselected={(pathname === '/playground').toString()}>
+          <S.MenuLink to='/playground' isselected={/^\/playground\/?$/.test(pathname).toString()}>
             playground
           </S.MenuLink>
         </S.Menu>
