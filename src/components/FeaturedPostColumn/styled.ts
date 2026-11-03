@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-export const Title = styled.div<{ fill: 'true' | 'false' }>`
+export const Title = styled.h2<{ fill: 'true' | 'false' }>`
   font-size: 20px;
   width: fit-content;
   padding: 10px;

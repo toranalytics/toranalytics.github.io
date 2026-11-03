@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import ReactRotatingText from 'react-rotating-text';
 
 import { Author } from '@/src/type';
 
@@ -11,7 +10,7 @@ type MainBannerProps = {
 };
 
 const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
-  const { stack, social, name, nickname, dropdown } = author;
+  const { social, name, dropdown } = author;
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
@@ -21,15 +20,10 @@ const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
         <S.Title>
           안녕하세요!
           <br />
-          <strong>
-            <ReactRotatingText items={stack} />
-          </strong>
+          <strong>AI 에이전트</strong>
           <span> 하네스를 만드는</span>
           <br />
-          AI 엔지니어{' '}
-          <strong>
-            <ReactRotatingText items={[name, nickname]} />
-          </strong>
+          AI 엔지니어 <strong>{name}</strong>
           입니다.
         </S.Title>
         <Image alt='thumbnail' src='thumbnail.png' />
@@ -44,24 +38,25 @@ const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
           )}
           {/* space-between을 위한 빈 div */}
           <div />
-          {Object.values(dropdown).some(Boolean) && (<S.DropdownButton onMouseLeave={() => setIsDropdownOpened(false)}>
-            <div onMouseEnter={() => setIsDropdownOpened(true)}>etc.</div>
-            {isDropdownOpened && (
-              <S.Dropdown>
-                {Object.keys(dropdown).map(
-                  (link, index) =>
-                    dropdown[link as keyof typeof dropdown] && (
-                      <S.SocialButton key={index} target='_blank' href={dropdown[link as keyof typeof dropdown]}>
-                        {link}
-                      </S.SocialButton>
-                    ),
-                )}
-              </S.Dropdown>
-            )}
-          </S.DropdownButton>)}
+          {Object.values(dropdown).some(Boolean) && (
+            <S.DropdownButton onMouseLeave={() => setIsDropdownOpened(false)}>
+              <div onMouseEnter={() => setIsDropdownOpened(true)}>etc.</div>
+              {isDropdownOpened && (
+                <S.Dropdown>
+                  {Object.keys(dropdown).map(
+                    (link, index) =>
+                      dropdown[link as keyof typeof dropdown] && (
+                        <S.SocialButton key={index} target='_blank' href={dropdown[link as keyof typeof dropdown]}>
+                          {link}
+                        </S.SocialButton>
+                      ),
+                  )}
+                </S.Dropdown>
+              )}
+            </S.DropdownButton>
+          )}
         </S.SocialWrapper>
       </S.IntroWrapper>
-
     </S.Wrapper>
   );
 };

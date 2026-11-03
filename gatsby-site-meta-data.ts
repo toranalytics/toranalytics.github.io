@@ -3,7 +3,7 @@ export default {
    * basic Information
    */
   title: `toranalytics`,
-  description: `AI 엔지니어 서준범의 블로그`,
+  description: `AI 엔지니어 서준범이 Claude Code, Codex와 AI 에이전트 개발 및 실험을 기록하는 블로그`,
   language: `ko`,
   siteUrl: `https://toranalytics.github.io/`,
   ogImage: `/og-image.png`, // Path to your in the 'static' folder

@@ -12,6 +12,10 @@ const feed = read('rss.xml');
 const textSitemap = read('sitemap.txt').trim().split(/\r?\n/);
 
 assert.match(home, /<h1\b/i, 'home page needs an h1');
+const homeHeading = (home.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/i) || [])[0] || '';
+assert(homeHeading.includes('서준범') && homeHeading.includes('AI 에이전트'), 'home introduction missing from static HTML');
+assert([...urls.matchAll(/<loc>([^<]+)<\/loc>/g)].every((m) => new URL(m[1]).pathname.endsWith('/')), 'sitemap contains redirecting non-slash URLs');
+assert(textSitemap.includes('https://toranalytics.github.io/playground/'), 'playground canonical missing from text sitemap');
 assert.match(home, /<button\b[^>]*aria-label="(?:라이트|다크) 모드로 전환"/i, 'theme toggle needs an accessible button');
 assert.match(home, /<link\b(?=[^>]*rel="alternate")(?=[^>]*type="application\/rss\+xml")(?=[^>]*href="\/rss\.xml")[^>]*>/i, 'RSS autodiscovery link missing');
 assert.strictEqual(sitemap, index, 'legacy sitemap.xml must match the generated sitemap index');

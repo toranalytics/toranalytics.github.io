@@ -22,7 +22,15 @@ const config: GatsbyConfig = {
     `gatsby-plugin-typescript`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-image`,
-    `gatsby-plugin-sitemap`, // One sitemap source; default output omits unverifiable lastmod dates.
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        // Match the final slash URLs served by GitHub Pages; omit unverifiable lastmod dates.
+        serialize: ({ path: pagePath }: { path: string }) => ({
+          url: pagePath.endsWith('/') ? pagePath : `${pagePath}/`,
+        }),
+      },
+    },
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
