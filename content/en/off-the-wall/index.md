@@ -1,5 +1,5 @@
 ---
-emoji: 🦜
+emoji: ''
 title: 'Off the Wall: when a past correction returns before a new request'
 date: '2026-10-16'
 category: projects
@@ -10,6 +10,9 @@ translationKey: off-the-wall
 ---
 
 > English version of the [Korean original](/off-the-wall/). If they differ, the Korean article is authoritative.
+
+[Dude, Toldya? (working title)](/otw-naming-pixel-mascot/)
+
 
 > In plain words, Off the Wall is a plugin that shows my own earlier corrections again, unshortened, before the agent answers. I gave Claude 33 tasks about habits a model can't know: without the plugin it followed the habit 2 times, with it 20 times (Claude Sonnet, test habits I made up). What it does and does not do is in the [plain-language post](/en/otw-what-it-does/). This post is the longer measurement log I wrote before it.
 >

@@ -9,6 +9,9 @@ lang: en
 translationKey: rules-vs-quotes
 ---
 
+[Dude, Toldya? (working title)](/otw-naming-pixel-mascot/)
+
+
 > In plain words: this is about an older test where I replayed 39 real requests as text. I compared showing my own past corrections with short rules. It is not proof that the plugin works in real use. A later test is easier to read: with made-up personal habits, Claude (Sonnet) followed the habit 2 times out of 33 without Off the Wall and 20 times with it. That one is in the [plain-language post](/en/otw-what-it-does/).
 >
 > Updated 2026-10-28: the later measurement on personal preferences (followed 1/33 with no recall, 9/33 default, 17/33 with wide recall; synthetic tasks) is in the [Off the Wall post](/en/off-the-wall/). Wide recall has been the default since 0.3.0. The replay below is unchanged.

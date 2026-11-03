@@ -1,5 +1,5 @@
 ---
-emoji: 🦜
+emoji: ''
 title: 'I got tired of repeating myself to Claude Code, so I built Off the Wall'
 date: '2026-10-29'
 category: projects
@@ -10,6 +10,11 @@ translationKey: otw-what-it-does
 ---
 
 > English version of the [Korean original](/otw-what-it-does/). If they differ, the Korean article is authoritative.
+
+[Dude, Toldya? (working title)](/otw-naming-pixel-mascot/)
+
+![Original pixel-art AI assistant mascot being gently bonked](/img/dude-toldya-ai-mascot.png)
+
 
 > A model can't know your habits, like how you write commit messages or dates. I gave Claude 33 tasks like that. Without Off the Wall, Claude (Sonnet) followed the habit 2 times. With it, 20 times. It works because your own earlier correction is shown again, word for word. These are test habits I made up, not real users' records. With the haiku model it went from 1 to 17, and from 2 to 25 when I measured again.
 

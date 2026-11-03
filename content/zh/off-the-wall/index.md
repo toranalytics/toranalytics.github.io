@@ -1,5 +1,5 @@
 ---
-emoji: 🦜
+emoji: ''
 title: 'Off the Wall:过去的纠正在新请求之前重新出现的那一刻'
 date: '2026-10-16'
 category: projects
@@ -10,6 +10,9 @@ translationKey: off-the-wall
 ---
 
 > 本文是[韩文原文](/off-the-wall/)的简体中文翻译。如有出入,以韩文原文为准。
+
+[Dude, Toldya? (working title)](/otw-naming-pixel-mascot/)
+
 
 > 通俗地说,Off the Wall 是一个插件,在智能体回答之前,把我自己以前的纠正不加缩短地再显示一遍。我让 Claude 做了 33 个关于模型无从得知的习惯的任务:没有插件时遵守了 2 次,有插件时遵守了 20 次(Claude Sonnet,我编出来的测试习惯)。它能做什么、不能做什么,见[通俗说明文章](/zh/otw-what-it-does/)。本文是在那之前写的、更详细的测量记录。
 >

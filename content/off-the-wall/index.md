@@ -1,5 +1,5 @@
 ---
-emoji: 🦜
+emoji: ''
 title: 'Off the Wall: 과거의 정정이 새 요청 앞에 돌아오는 순간'
 date: '2026-10-16'
 category: projects
@@ -8,6 +8,9 @@ description: 'Claude Code와 Codex 플러그인 Off the Wall이 과거의 정정
 lang: ko
 translationKey: off-the-wall
 ---
+
+[AI한테 같은 말을 또 하게 돼서, 이름과 캐릭터를 다시 고민했다](/otw-naming-pixel-mascot/)
+
 
 > 쉽게 말하면, Off the Wall은 내가 전에 한 지적을 줄이지 않고 그대로, 에이전트가 답하기 전에 다시 보여 주는 플러그인이다. 모델이 모르는 내 습관을 33번 시켰을 때 없으면 2번, 있으면 20번 따랐다(Claude Sonnet, 시험용으로 만든 습관). 뭘 하고 뭘 못 하는지는 [쉬운 설명 글](/otw-what-it-does/)에 따로 정리했다. 이 글은 그 전에 쓴 자세한 측정 기록이다.
 >

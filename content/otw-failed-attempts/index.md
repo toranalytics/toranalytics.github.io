@@ -1,5 +1,5 @@
 ---
-emoji: 🦜
+emoji: ''
 title: 'Claude Code 플러그인 개선하려고 5가지 해 봤는데 하나도 기준을 못 넘었다'
 date: '2026-10-29'
 category: projects
@@ -8,6 +8,9 @@ description: 'Off the Wall이 관련 없는 요청에도 인용을 붙이는 문
 lang: ko
 translationKey: otw-failed-attempts
 ---
+
+[AI한테 같은 말을 또 하게 돼서, 이름과 캐릭터를 다시 고민했다](/otw-naming-pixel-mascot/)
+
 
 Off the Wall은 Claude Code와 Codex용 플러그인이다. 에이전트에게 했던 지적을 저장해 뒀다가 비슷한 일을 시킬 때 내가 했던 말 그대로 다시 보여 준다. 이 글은 잘된 것보다 안 된 걸 쓴다. 배운 게 거기에 더 많았다.
 

@@ -1,5 +1,5 @@
 ---
-emoji: 🦜
+emoji: ''
 title: '不想再对 Claude Code 重复同样的纠正,所以我做了 Off the Wall'
 date: '2026-10-29'
 category: projects
@@ -10,6 +10,11 @@ translationKey: otw-what-it-does
 ---
 
 > 本文是[韩文原文](/otw-what-it-does/)的简体中文翻译。如有出入,以韩文原文为准。
+
+[Dude, Toldya? (working title)](/otw-naming-pixel-mascot/)
+
+![Original pixel-art AI assistant mascot being gently bonked](/img/dude-toldya-ai-mascot.png)
+
 
 > 模型不知道你的习惯,比如提交信息怎么写、日期怎么写。我让 Claude 做了 33 个这样的任务。没有 Off the Wall 时,Claude(Sonnet)遵守了习惯 2 次,有它时遵守了 20 次。原因是你以前的纠正会原样再显示一遍。这些是我编出来的测试习惯,不是真实用户的记录。haiku 模型上是从 1 次到 17 次,重测时从 2 次到 25 次。
 

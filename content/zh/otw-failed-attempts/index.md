@@ -1,5 +1,5 @@
 ---
-emoji: 🦜
+emoji: ''
 title: '我为改进 Claude Code 插件试了五种办法,没有一个达到我自己定的标准'
 date: '2026-10-29'
 category: projects
@@ -10,6 +10,9 @@ translationKey: otw-failed-attempts
 ---
 
 > 本文是[韩文原文](/otw-failed-attempts/)的简体中文翻译。如有出入,以韩文原文为准。
+
+[Dude, Toldya? (working title)](/otw-naming-pixel-mascot/)
+
 
 Off the Wall 是 Claude Code 和 Codex 的插件。它保存你给智能体的纠正,之后你让它做类似的事时,会用你当时的原话再显示一遍。这篇文章写的是没做成的事,因为我从那里学到的更多。
 

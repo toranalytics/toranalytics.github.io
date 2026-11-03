@@ -1,5 +1,5 @@
 ---
-emoji: 🦜
+emoji: ''
 title: 'I tried five ways to improve my Claude Code plugin. None passed my own bar.'
 date: '2026-10-29'
 category: projects
@@ -10,6 +10,9 @@ translationKey: otw-failed-attempts
 ---
 
 > English version of the [Korean original](/otw-failed-attempts/). If they differ, the Korean article is authoritative.
+
+[Dude, Toldya? (working title)](/otw-naming-pixel-mascot/)
+
 
 Off the Wall is a plugin for Claude Code and Codex. It saves the corrections you give your agent and shows them again, word for word, when you ask for something similar later. This post is about what did not work. I learned more from that.
 

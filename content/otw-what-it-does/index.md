@@ -1,5 +1,5 @@
 ---
-emoji: 🦜
+emoji: ''
 title: 'Claude Code한테 같은 지적을 또 하기 싫어서 만든 플러그인, Off the Wall'
 date: '2026-10-29'
 category: projects
@@ -8,6 +8,11 @@ description: 'Claude Code와 Codex에 했던 지적을 저장해 뒀다가 비�
 lang: ko
 translationKey: otw-what-it-does
 ---
+
+[AI한테 같은 말을 또 하게 돼서, 이름과 캐릭터를 다시 고민했다](/otw-naming-pixel-mascot/)
+
+![과거 지적을 다시 떠올리라는 듯 가벼운 꿀밤을 맞는 픽셀 AI 로봇 시안](/img/dude-toldya-ai-mascot.png)
+
 
 > 모델은 내 습관을 모른다. 커밋 메시지를 쓰는 방식, 날짜를 쓰는 방식 같은 것 말이다. 이런 일을 Claude한테 33번 시켜 봤다. Off the Wall이 없으면 Claude(Sonnet)가 습관을 2번 따랐고, 있으면 20번 따랐다. 전에 내가 한 지적을 그대로 다시 보여 주기 때문이다. 시험용으로 내가 만든 습관이고 실제 사용자 기록으로 잰 건 아니다. haiku 모델에서는 1번에서 17번, 다시 재니 2번에서 25번이었다.
 

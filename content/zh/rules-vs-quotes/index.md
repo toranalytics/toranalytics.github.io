@@ -9,6 +9,9 @@ lang: zh
 translationKey: rules-vs-quotes
 ---
 
+[Dude, Toldya? (working title)](/otw-naming-pixel-mascot/)
+
+
 > 通俗地说,这篇讲的是一个较早的测试:我把 39 个真实请求只以文字重放,比较了显示我自己过去的纠正和简短规则两种做法。它并不能证明插件在真实使用中有效。之后的测试更容易看懂:用编造的个人习惯,Claude(Sonnet)在没有 Off the Wall 时 33 次中遵守了 2 次,有它时遵守了 20 次。见[通俗说明文章](/zh/otw-what-it-does/)。
 >
 > 2026-10-28 更新:之后对个人偏好的测量(没有回忆 1/33,原默认 9/33,宽检索 17/33,合成任务)在 [Off the Wall 文章](/zh/off-the-wall/)里。宽检索从 0.3.0 起是默认。下面的重放没有改动。
