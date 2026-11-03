@@ -49,7 +49,7 @@ That one felt closer to the frustration behind the project. Neither the name nor
 
 The plugin still has a problem: the selected quote isn't always relevant. I ran `otw explain` on a haiku request, and its preview selected unrelated coding corrections to attach. This is the tool's output from a fake repository with corrections made up for the demo.
 
-![A preview selects unrelated coding corrections for a haiku request, using a fake repository and made-up corrections](/img/otw-explain-unrelated.png)
+![A preview selects unrelated coding corrections for a haiku request, using a fake repository and made-up corrections](/img/otw-explain-unrelated-en.png)
 
 Showing a correction again also doesn't mean the agent will follow it. I haven't measured whether real users need fewer repeated corrections.
 
