@@ -9,6 +9,8 @@ lang: ko
 translationKey: off-the-wall
 ---
 
+> 이 글을 쓸 때 이름은 Off the Wall이었다. 지금은 Dude Toldya이고, 명령은 `duto`다. `otw`도 그대로 쓸 수 있다.
+
 [AI한테 같은 말을 또 하게 돼서, 이름과 캐릭터를 다시 고민했다](/otw-naming-pixel-mascot/)
 
 

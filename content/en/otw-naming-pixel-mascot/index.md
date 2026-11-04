@@ -9,6 +9,8 @@ lang: en
 translationKey: otw-naming-pixel-mascot
 ---
 
+> After I wrote this, I settled on the name Dude Toldya. The repository is now `dude-toldya` and the command is `duto`.
+
 "Did you actually run the tests?"
 
 I've asked Claude Code and Codex versions of that question more than once. I built a plugin to save my corrections and show them again with later requests. I called it [Off the Wall](https://github.com/toranalytics/off-the-wall).

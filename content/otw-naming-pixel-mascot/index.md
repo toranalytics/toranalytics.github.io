@@ -9,6 +9,8 @@ lang: ko
 translationKey: otw-naming-pixel-mascot
 ---
 
+> 이 글을 쓴 뒤 이름을 Dude Toldya로 정했다. 저장소 이름은 `dude-toldya`, 명령은 `duto`로 바꿨다.
+
 Claude Code나 Codex를 쓰다 보면 같은 말을 여러 번 하게 된다. 그래서 내가 했던 지적을 저장했다가 비슷한 요청이 나올 때 다시 보여 주는 플러그인을 만들었다. 지금 이름은 [Off the Wall](https://github.com/toranalytics/off-the-wall)이다.
 
 그런데 이름만 보면 이 도구가 뭘 하는지 바로 떠오르지 않는다. README의 앵무새도 그냥 말을 따라 하는 도구처럼 보일 수 있다. 실제로 만들고 싶었던 건 내가 앞서 한 말을 AI에게 다시 떠올려 주는 쪽이었다.

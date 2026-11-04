@@ -9,6 +9,8 @@ lang: zh
 translationKey: off-the-wall
 ---
 
+> 写这篇文章时，项目叫 Off the Wall。现在它叫 Dude Toldya，命令是 `duto`（`otw` 仍然可用）。
+
 > 本文是[韩文原文](/off-the-wall/)的简体中文翻译。如有出入,以韩文原文为准。
 
 [Dude, Toldya? (working title)](/otw-naming-pixel-mascot/)

@@ -1,13 +1,15 @@
 ---
 emoji: ''
-title: '不想再对 Claude Code 重复同样的纠正,所以我做了 Off the Wall'
+title: '不想再对 Claude Code 重复同样的纠正,所以我做了 Dude Toldya'
 date: '2026-10-29'
 category: projects
-tags: off-the-wall claude-code codex
-description: '我为什么做了开源插件 Off the Wall:把你过去对 Claude Code 和 Codex 的纠正原样再显示一遍。它能做什么、不能做什么,以及我是怎么测试的。'
+tags: dude-toldya claude-code codex
+description: '我为什么做了开源插件 Dude Toldya:把你过去对 Claude Code 和 Codex 的纠正原样再显示一遍。它能做什么、不能做什么,以及我是怎么测试的。'
 lang: zh
 translationKey: otw-what-it-does
 ---
+
+> 写这篇文章时，项目叫 Off the Wall。现在它叫 Dude Toldya，命令是 `duto`（`otw` 仍然可用）。
 
 > 本文是[韩文原文](/otw-what-it-does/)的简体中文翻译。如有出入,以韩文原文为准。
 
@@ -16,13 +18,13 @@ translationKey: otw-what-it-does
 ![Original pixel-art AI assistant mascot being gently bonked](/img/dude-toldya-ai-mascot.png)
 
 
-> 模型不知道你的习惯,比如提交信息怎么写、日期怎么写。我让 Claude 做了 33 个这样的任务。没有 Off the Wall 时,Claude(Sonnet)遵守了习惯 2 次,有它时遵守了 20 次。原因是你以前的纠正会原样再显示一遍。这些是我编出来的测试习惯,不是真实用户的记录。haiku 模型上是从 1 次到 17 次,重测时从 2 次到 25 次。
+> 模型不知道你的习惯,比如提交信息怎么写、日期怎么写。我让 Claude 做了 33 个这样的任务。没有 Dude Toldya 时,Claude(Sonnet)遵守了习惯 2 次,有它时遵守了 20 次。原因是你以前的纠正会原样再显示一遍。这些是我编出来的测试习惯,不是真实用户的记录。haiku 模型上是从 1 次到 17 次,重测时从 2 次到 25 次。
 
-> **使用 haiku 和我为测试编造的习惯验证公开版 0.3.1 时,关闭召回是 2/33,开启召回是 19/33。** 这是在单独隔离配置中运行一次的结果,不能代表真实用户的效果。[测试记录](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-public-031/result.md)已公开。
+> **使用 haiku 和我为测试编造的习惯验证公开版 0.3.1 时,关闭召回是 2/33,开启召回是 19/33。** 这是在单独隔离配置中运行一次的结果,不能代表真实用户的效果。[测试记录](https://github.com/toranalytics/dude-toldya/blob/main/docs/data/bench-public-031/result.md)已公开。
 
 下面是同一个请求不带插件和带插件各运行一次的真实输出,三个任务,展示的是第一次运行的原样结果。已保存的纠正是为这个演示编的,请把它当作示例而不是测量。测量的数字在下面的"我是这样测试的"里。
 
-![同一个请求在没有和有 Off the Wall 时的真实输出对比:提交信息、团队聊天摘要和 PR 描述](/img/otw-before-after-zh.png)
+![同一个请求在没有和有 Dude Toldya 时的真实输出对比:提交信息、团队聊天摘要和 PR 描述](/img/otw-before-after-zh.png)
 
 ```toc
 ```
@@ -33,7 +35,7 @@ translationKey: otw-what-it-does
 
 一开始我把纠正压成一行规则,放进 CLAUDE.md。效果不大。我猜是因为一压缩,这句纠正产生时的情况就丢了:我要求跑哪个测试,说过哪个文件不能动。原话里还留着这些,一行规则里没有。
 
-所以我不再缩短它们,而是做了一个插件,在智能体回答之前把我说过的话原样再显示一遍。名字叫 Off the Wall。它能用在 Claude Code 和 Codex 上,开源(MIT),不需要另外安装软件包,在 Node 18 及以上就能运行。
+所以我不再缩短它们,而是做了一个插件,在智能体回答之前把我说过的话原样再显示一遍。名字叫 Dude Toldya。它能用在 Claude Code 和 Codex 上,开源(MIT),不需要另外安装软件包,在 Node 18 及以上就能运行。
 
 ## 它是这样工作的
 
@@ -43,15 +45,15 @@ translationKey: otw-what-it-does
 
 > 不要只跑 lint 就说测试通过。运行结账集成测试,并给我看真实的退出码。
 
-之后你说"用结账集成测试验证支付处理器的改动"。可以用 `otw explain` 预览会附上什么。下面是在虚构仓库里实际运行的输出:
+之后你说"用结账集成测试验证支付处理器的改动"。可以用 `duto explain` 预览会附上什么。下面是在虚构仓库里实际运行的输出:
 
-![otw explain 的真实输出:结账测试那条纠正以 0.52 排在最前](/img/otw-explain-related-zh.png)
+![duto explain 的真实输出:结账测试那条纠正以 0.52 排在最前](/img/otw-explain-related-zh.png)
 
 对的那条以 0.52 排在最前。但往下看,0.04、0.05 的也一起附上了。这是现在的设计,不是 bug。20 个字符以上的请求,不管相似程度如何,都会附上最多 6 条,原因在后面的测试结果里。
 
 无关的请求会怎样?我试了"写一首关于秋天的俳句"。
 
-![otw explain 的真实输出:俳句请求也会附上 3 条](/img/otw-explain-unrelated-zh.png)
+![duto explain 的真实输出:俳句请求也会附上 3 条](/img/otw-explain-unrelated-zh.png)
 
 连俳句也会附上 3 条。这是这个插件最大的弱点,所以我先摆出来。它不理解含义,是按重叠的词和字母对来挑选的。
 
@@ -67,14 +69,14 @@ translationKey: otw-what-it-does
 
 ## 用着用着加上的命令
 
-- `otw report`:让模型从你电脑上已有的 Claude Code 和 Codex 对话里,挑出你想纠正智能体做法的回复,按类别列出,并附上你的原话。加上 `--seed` 就用这个结果直接开始保存。分类由模型完成,可能有误。
-- `otw status`:显示已保存的纠正数、钩子最近运行的时间、你在 Codex 里允许的项目数。也会列出使用的 Codex 模型,以及因为描述里没写明等级而不使用的模型。
-- `otw explain "<句子>"`:就是上面那个。它不调用模型,也不改变任何东西。只在最新源码(main)里,不在 0.3.1 发布版中。
-- `otw forget --all --yes` / `--project --yes`:删除已保存的纠正、会话记录和日志。不带 `--yes` 时只显示将被删除的内容。它不能删除你的 Claude Code、Codex 对话,也不能删除已经发给模型公司的内容。
+- `duto report`:让模型从你电脑上已有的 Claude Code 和 Codex 对话里,挑出你想纠正智能体做法的回复,按类别列出,并附上你的原话。加上 `--seed` 就用这个结果直接开始保存。分类由模型完成,可能有误。
+- `duto status`:显示已保存的纠正数、钩子最近运行的时间、你在 Codex 里允许的项目数。也会列出使用的 Codex 模型,以及因为描述里没写明等级而不使用的模型。
+- `duto explain "<句子>"`:就是上面那个。它不调用模型,也不改变任何东西。只在最新源码(main)里,不在 0.3.1 发布版中。
+- `duto forget --all --yes` / `--project --yes`:删除已保存的纠正、会话记录和日志。不带 `--yes` 时只显示将被删除的内容。它不能删除你的 Claude Code、Codex 对话,也不能删除已经发给模型公司的内容。
 
-刚安装、什么都还没保存时,`otw status` 会直接告诉你:
+刚安装、什么都还没保存时,`duto status` 会直接告诉你:
 
-![otw status 的真实输出:还没有保存任何纠正时显示的说明](/img/otw-status-empty-zh.png)
+![duto status 的真实输出:还没有保存任何纠正时显示的说明](/img/otw-status-empty-zh.png)
 
 另外还有给辅助智能体的模型建议:搜索、转换用小模型,实现、评审用中等模型,找根因、做设计用大模型;没有指定模型的辅助调用会被退回一次。它不强制模型,也不保证降低成本。
 
@@ -83,24 +85,24 @@ translationKey: otw-what-it-does
 在 Claude Code 里:
 
 ```
-/plugin install off-the-wall --marketplace toranalytics/off-the-wall
+/plugin install dude-toldya --marketplace toranalytics/dude-toldya
 ```
 
 在 Codex 里,之后要打开一次 `/hooks` 并允许钩子。允许之前什么都不会发生。
 
 ```bash
-codex plugin marketplace add toranalytics/off-the-wall
-codex plugin add off-the-wall@off-the-wall
+codex plugin marketplace add toranalytics/dude-toldya
+codex plugin add dude-toldya@dude-toldya
 ```
 
 想在安装前看 `report` 是什么样,可以用仓库里的虚构对话记录运行:
 
 ```bash
-git clone https://github.com/toranalytics/off-the-wall && cd off-the-wall
-node bin/otw.mjs report --host claude --claude-dir examples/claude-history --days 0
+git clone https://github.com/toranalytics/dude-toldya && cd dude-toldya
+node bin/duto.mjs report --host claude --claude-dir examples/claude-history --days 0
 ```
 
-想先在浏览器里看,有一个[再显示纠正的演示](/otw-recall-lab.html)(界面是韩文)。无需安装或登录,所有输入都是编造的案例。源码在 [GitHub](https://github.com/toranalytics/off-the-wall)。
+想先在浏览器里看,有一个[再显示纠正的演示](/otw-recall-lab.html)(界面是韩文)。无需安装或登录,所有输入都是编造的案例。源码在 [GitHub](https://github.com/toranalytics/dude-toldya)。
 
 ## 我是这样测试的
 
@@ -110,17 +112,17 @@ node bin/otw.mjs report --host claude --claude-dir examples/claude-history --day
 
 | 条件 | 第一次(haiku) | 修复评分器错误后重测(haiku) | Sonnet |
 |---|---|---|---|
-| 没有 Off the Wall | 1/33 | 2/33 | 2/33 |
+| 没有 Dude Toldya | 1/33 | 2/33 | 2/33 |
 | 原默认(窄检索) | 9/33 | 14/33 | |
 | 宽检索(0.3.0 起默认) | 17/33 | 25/33 | 20/33 |
 
 - 正确的纠正显示出来时,模型遵循的频率高得多。找不到时则没有变化。
-- 较大的模型(Sonnet)上也一样:按任务看更好的 7 个、更差的 0 个(很难说是偶然,p = 0.016)。没有 Off the Wall 时,较大的模型同样没有遵循这些习惯。
+- 较大的模型(Sonnet)上也一样:按任务看更好的 7 个、更差的 0 个(很难说是偶然,p = 0.016)。没有 Dude Toldya 时,较大的模型同样没有遵循这些习惯。
 - 评分器是在看到结果之后修复的,所以重测不是独立的复现。数字变高一部分来自修复,一部分来自每次运行的波动,我无法把两者分开。
 - 11 个任务中有 4 个,两个模型即使看到了纠正也没有遵循。直接塞入 150 条规则总体得分更高,但历史变长之后这种做法就行不通。
 - Opus 和 Codex 的模型我没有测量过。
 
-我还检查了附到无关请求上有没有害处。我用 14 个与习惯无关的任务各运行 3 次:没有 Off the Wall 40/42,宽检索 41/42。通过率没有下降,输出 token 增加约 9%。短于 20 个字符的输入的保护措施,我没有用模型测试过。
+我还检查了附到无关请求上有没有害处。我用 14 个与习惯无关的任务各运行 3 次:没有 Dude Toldya 40/42,宽检索 41/42。通过率没有下降,输出 token 增加约 9%。短于 20 个字符的输入的保护措施,我没有用模型测试过。
 
 我试过好几种减少无关引用的办法,没有一个达到我自己定的标准,所以都没有加入。这些我写在了[另一篇文章](/zh/otw-failed-attempts/)里。
 
@@ -130,17 +132,17 @@ node bin/otw.mjs report --host claude --claude-dir examples/claude-history --day
 
 ## 做了一个命令,让你自己验证我的数字
 
-让你直接信我的数字不太合适,所以我做了 `otw bench`:同样的测试,用你自己的 `claude` 来跑。它给模型 11 个小任务,每个都需要模型无从得知的习惯,先关闭回忆跑一次,再开启跑一次,数一数习惯被遵守了几次。
+让你直接信我的数字不太合适,所以我做了 `duto bench`:同样的测试,用你自己的 `claude` 来跑。它给模型 11 个小任务,每个都需要模型无从得知的习惯,先关闭回忆跑一次,再开启跑一次,数一数习惯被遵守了几次。
 
 `bench` 目前只在仓库 main 分支,不在 0.3.1 发布版或 npm 包中。先安装 Claude Code 插件并登录,然后按下方命令克隆仓库运行。普通安装环境尚未验证。Claude Code 可能读取全局指令和其他插件,并保存会话记录。
 
 ```bash
-git clone https://github.com/toranalytics/off-the-wall && cd off-the-wall
-node bin/otw.mjs bench
-node bin/otw.mjs bench --yes
+git clone https://github.com/toranalytics/dude-toldya && cd dude-toldya
+node bin/duto.mjs bench
+node bin/duto.mjs bench --yes
 ```
 
-我在自己终端里第一次跑的结果(隔离配置和实验性修改插件):关闭回忆 3/33(9%),有 Off the Wall 20/33(61%)。模型是 haiku,习惯是为测试编的。66 次里,插件块出现的情况和开启回忆的情况完全一致。有一个任务(c136)即使不回忆也 3 次全过,原因尚不清楚。这只是一个环境里的一次运行,你的结果可能不同。如果你跑了,在 [issue](https://github.com/toranalytics/off-the-wall/issues) 里写一行就足够了。记录在[仓库](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-first-run/result.md)里。
+我在自己终端里第一次跑的结果(隔离配置和实验性修改插件):关闭回忆 3/33(9%),有 Dude Toldya 20/33(61%)。模型是 haiku,习惯是为测试编的。66 次里,插件块出现的情况和开启回忆的情况完全一致。有一个任务(c136)即使不回忆也 3 次全过,原因尚不清楚。这只是一个环境里的一次运行,你的结果可能不同。如果你跑了,在 [issue](https://github.com/toranalytics/dude-toldya/issues) 里写一行就足够了。记录在[仓库](https://github.com/toranalytics/dude-toldya/blob/main/docs/data/bench-first-run/result.md)里。
 
 ## 它做不到的,以及需要知道的
 
@@ -151,4 +153,4 @@ node bin/otw.mjs bench --yes
 - 我没有在直接使用 Claude Code 的界面上确认过。只是在没有界面的情况下自动运行,确认过一次保存和再显示,仅此而已。
 - 当前版本是 0.3.1 预发布版,不是正式版。
 
-如果出现了无关的纠正,或缺了需要的纠正,请通过 [issue](https://github.com/toranalytics/off-the-wall/issues) 告诉我,帮助很大。不必发送原文、代码或公司名称。计划、脚本、数据以及独立评审中发现的弱点,都在[仓库 docs](https://github.com/toranalytics/off-the-wall/tree/main/docs) 中。
+如果出现了无关的纠正,或缺了需要的纠正,请通过 [issue](https://github.com/toranalytics/dude-toldya/issues) 告诉我,帮助很大。不必发送原文、代码或公司名称。计划、脚本、数据以及独立评审中发现的弱点,都在[仓库 docs](https://github.com/toranalytics/dude-toldya/tree/main/docs) 中。

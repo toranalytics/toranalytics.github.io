@@ -1,26 +1,28 @@
 ---
 emoji: ''
-title: 'Claude Code한테 같은 지적을 또 하기 싫어서 만든 플러그인, Off the Wall'
+title: 'Claude Code한테 같은 지적을 또 하기 싫어서 만든 플러그인, Dude Toldya'
 date: '2026-10-29'
 category: projects
-tags: off-the-wall claude-code codex
-description: 'Claude Code와 Codex에 했던 지적을 저장해 뒀다가 비슷한 일을 시킬 때 원문 그대로 다시 보여 주는 오픈소스 플러그인 Off the Wall을 왜 만들었는지, 뭘 하고 뭘 못 하는지, 어떻게 시험했는지 정리했다.'
+tags: dude-toldya claude-code codex
+description: 'Claude Code와 Codex에 했던 지적을 저장해 뒀다가 비슷한 일을 시킬 때 원문 그대로 다시 보여 주는 오픈소스 플러그인 Dude Toldya를 왜 만들었는지, 뭘 하고 뭘 못 하는지, 어떻게 시험했는지 정리했다.'
 lang: ko
 translationKey: otw-what-it-does
 ---
+
+> 이 글을 쓸 때 이름은 Off the Wall이었다. 지금은 Dude Toldya이고, 명령은 `duto`다. `otw`도 그대로 쓸 수 있다.
 
 [AI한테 같은 말을 또 하게 돼서, 이름과 캐릭터를 다시 고민했다](/otw-naming-pixel-mascot/)
 
 ![과거 지적을 다시 떠올리라는 듯 가벼운 꿀밤을 맞는 픽셀 AI 로봇 시안](/img/dude-toldya-ai-mascot.png)
 
 
-> 모델은 내 습관을 모른다. 커밋 메시지를 쓰는 방식, 날짜를 쓰는 방식 같은 것 말이다. 이런 일을 Claude한테 33번 시켜 봤다. Off the Wall이 없으면 Claude(Sonnet)가 습관을 2번 따랐고, 있으면 20번 따랐다. 전에 내가 한 지적을 그대로 다시 보여 주기 때문이다. 시험용으로 내가 만든 습관이고 실제 사용자 기록으로 잰 건 아니다. haiku 모델에서는 1번에서 17번, 다시 재니 2번에서 25번이었다.
+> 모델은 내 습관을 모른다. 커밋 메시지를 쓰는 방식, 날짜를 쓰는 방식 같은 것 말이다. 이런 일을 Claude한테 33번 시켜 봤다. Dude Toldya가 없으면 Claude(Sonnet)가 습관을 2번 따랐고, 있으면 20번 따랐다. 전에 내가 한 지적을 그대로 다시 보여 주기 때문이다. 시험용으로 내가 만든 습관이고 실제 사용자 기록으로 잰 건 아니다. haiku 모델에서는 1번에서 17번, 다시 재니 2번에서 25번이었다.
 
-> **공개 0.3.1을 haiku와 시험용 습관으로 검증한 결과, 습관을 따른 비율이 6%에서 58%로 올랐습니다.** 회수 끔 2/33, 켬 19/33. 별도 격리 프로필에서 한 번 돌린 결과이며, [시험 기록](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-public-031/result.md)을 공개했다.
+> **공개 0.3.1을 haiku와 시험용 습관으로 검증한 결과, 습관을 따른 비율이 6%에서 58%로 올랐습니다.** 회수 끔 2/33, 켬 19/33. 별도 격리 프로필에서 한 번 돌린 결과이며, [시험 기록](https://github.com/toranalytics/dude-toldya/blob/main/docs/data/bench-public-031/result.md)을 공개했다.
 
 같은 요청을 플러그인 없이 한 번, 있을 때 한 번 돌려 본 실제 출력이다. 작업 3개를 첫 실행 그대로 보여 준다. 지적은 이 데모를 위해 내가 만든 것이라 측정값이 아니라 예시로 읽어 주면 좋겠다. 측정한 숫자는 아래 "시험은 이렇게 했다"에 있다.
 
-![같은 요청을 Off the Wall 없이, 있을 때 돌린 실제 출력 비교. 커밋 메시지, 팀 채팅 요약, PR 설명 세 작업](/img/otw-before-after-ko.png)
+![같은 요청을 Dude Toldya 없이, 있을 때 돌린 실제 출력 비교. 커밋 메시지, 팀 채팅 요약, PR 설명 세 작업](/img/otw-before-after-ko.png)
 
 ```toc
 ```
@@ -31,7 +33,7 @@ Claude Code나 Codex로 일하다 보면 같은 말을 계속 하게 된다. "�
 
 처음에는 지적을 규칙 한 줄로 줄여서 CLAUDE.md에 넣었다. 별로 안 먹혔다. 줄이는 순간 그 지적이 나온 상황이 날아가기 때문이라고 짐작한다. 어떤 테스트를 돌리라고 했는지, 어느 파일은 건드리지 말라고 했는지 같은 게 원문에는 남아 있는데 규칙 한 줄에는 없다.
 
-그래서 줄이지 않고 내가 했던 말 그대로 다음 답변 앞에 다시 보여 주는 플러그인을 만들었다. 이름은 Off the Wall이다. Claude Code와 Codex에서 쓰고, 오픈소스(MIT)에 따로 설치할 패키지가 없고 Node 18 이상이면 돈다.
+그래서 줄이지 않고 내가 했던 말 그대로 다음 답변 앞에 다시 보여 주는 플러그인을 만들었다. 이름은 Dude Toldya이다. Claude Code와 Codex에서 쓰고, 오픈소스(MIT)에 따로 설치할 패키지가 없고 Node 18 이상이면 돈다.
 
 ## 이렇게 동작한다
 
@@ -41,15 +43,15 @@ Claude Code나 Codex로 일하다 보면 같은 말을 계속 하게 된다. "�
 
 > 린트만 돌리고 테스트 통과라고 하지 마. 체크아웃 통합 테스트를 실행하고 실제 종료 코드를 보여줘.
 
-나중에 "결제 핸들러 변경을 체크아웃 통합 테스트로 검증해줘"라고 시키면 어떤 지적이 붙을지는 `otw explain`으로 미리 볼 수 있다. 가짜 저장소에서 실제로 돌린 출력이다.
+나중에 "결제 핸들러 변경을 체크아웃 통합 테스트로 검증해줘"라고 시키면 어떤 지적이 붙을지는 `duto explain`으로 미리 볼 수 있다. 가짜 저장소에서 실제로 돌린 출력이다.
 
-![otw explain 실제 출력. 결제 핸들러 요청에 체크아웃 테스트 지적이 유사도 0.52로 맨 위에 나온다](/img/otw-explain-related.png)
+![duto explain 실제 출력. 결제 핸들러 요청에 체크아웃 테스트 지적이 유사도 0.52로 맨 위에 나온다](/img/otw-explain-related.png)
 
 맨 위에 맞는 지적이 0.52로 붙었다. 그런데 아래를 보면 유사도 0.04, 0.05짜리도 같이 붙는다. 이건 버그가 아니라 지금 설계다. 20자 이상 요청에는 비슷한 정도와 상관없이 최대 6개를 붙이게 해 뒀다. 이렇게 한 이유는 아래 시험 결과에 있다.
 
 관련 없는 요청이면 어떻게 될까. "가을에 대한 하이쿠 써줘"를 넣어 봤다.
 
-![otw explain 실제 출력. 하이쿠 요청인데도 지적 3개가 붙는다](/img/otw-explain-unrelated.png)
+![duto explain 실제 출력. 하이쿠 요청인데도 지적 3개가 붙는다](/img/otw-explain-unrelated.png)
 
 하이쿠 요청에도 3개가 붙는다. 이게 이 플러그인의 가장 큰 약점이라서 숨기지 않고 먼저 보여 준다. 뜻을 이해해서 고르는 게 아니라 단어와 글자 두 개씩 겹치는 정도로 고르기 때문이다.
 
@@ -65,14 +67,14 @@ Claude Code나 Codex로 일하다 보면 같은 말을 계속 하게 된다. "�
 
 ## 쓰다 보니 붙은 명령어
 
-- `otw report`: 컴퓨터에 이미 있는 Claude Code와 Codex 대화 기록에서 내가 에이전트의 일하는 방식을 고치려던 답장을 모델이 골라서 종류별로 보여 준다. 내가 한 말이 그대로 붙어서 나온다. `--seed`를 붙이면 그 결과로 바로 저장을 시작한다. 분류는 모델이 한 거라 틀릴 수 있다.
-- `otw status`: 저장된 지적 수, 훅이 마지막으로 돈 때, Codex에서 허용한 항목 수를 보여 준다. 쓰는 Codex 모델과, 설명에 등급이 없어서 안 쓰는 모델도 나온다.
-- `otw explain "<문장>"`: 위에서 본 그 명령이다. 모델을 부르지 않고 아무것도 바꾸지 않는다. 아직 정식 배포(0.3.1)에는 없고 최신 소스(main)에만 있다.
-- `otw forget --all --yes` / `--project --yes`: 저장된 지적, 세션 기록, 로그를 지운다. `--yes`가 없으면 뭘 지울지만 보여 준다. Claude Code나 Codex의 대화 기록, 이미 모델 회사에 보낸 내용은 못 지운다.
+- `duto report`: 컴퓨터에 이미 있는 Claude Code와 Codex 대화 기록에서 내가 에이전트의 일하는 방식을 고치려던 답장을 모델이 골라서 종류별로 보여 준다. 내가 한 말이 그대로 붙어서 나온다. `--seed`를 붙이면 그 결과로 바로 저장을 시작한다. 분류는 모델이 한 거라 틀릴 수 있다.
+- `duto status`: 저장된 지적 수, 훅이 마지막으로 돈 때, Codex에서 허용한 항목 수를 보여 준다. 쓰는 Codex 모델과, 설명에 등급이 없어서 안 쓰는 모델도 나온다.
+- `duto explain "<문장>"`: 위에서 본 그 명령이다. 모델을 부르지 않고 아무것도 바꾸지 않는다. 아직 정식 배포(0.3.1)에는 없고 최신 소스(main)에만 있다.
+- `duto forget --all --yes` / `--project --yes`: 저장된 지적, 세션 기록, 로그를 지운다. `--yes`가 없으면 뭘 지울지만 보여 준다. Claude Code나 Codex의 대화 기록, 이미 모델 회사에 보낸 내용은 못 지운다.
 
-처음 설치하고 아무것도 저장되지 않았을 때는 `otw status`가 그 상태를 이렇게 알려 준다.
+처음 설치하고 아무것도 저장되지 않았을 때는 `duto status`가 그 상태를 이렇게 알려 준다.
 
-![otw status 실제 출력. 저장된 지적이 0개일 때 안내 문구가 나온다](/img/otw-status-empty.png)
+![duto status 실제 출력. 저장된 지적이 0개일 때 안내 문구가 나온다](/img/otw-status-empty.png)
 
 하위 에이전트에게 맡길 모델을 안내하는 기능도 있다. 찾기와 변환은 작은 모델, 구현과 검토는 중간 모델, 원인 분석과 설계는 큰 모델을 고르라고 알려 주고, 모델을 정하지 않은 호출은 한 번 되돌려 보낸다. 모델을 강제하지 않고 비용이 줄어든다고 약속하지도 않는다.
 
@@ -81,24 +83,24 @@ Claude Code나 Codex로 일하다 보면 같은 말을 계속 하게 된다. "�
 Claude Code에서는 이렇게 한다.
 
 ```
-/plugin install off-the-wall --marketplace toranalytics/off-the-wall
+/plugin install dude-toldya --marketplace toranalytics/dude-toldya
 ```
 
 Codex에서는 이렇게 하고, 설치 후 `/hooks`를 열어 한 번 허용해야 한다. 허용하기 전에는 아무 일도 안 일어난다.
 
 ```bash
-codex plugin marketplace add toranalytics/off-the-wall
-codex plugin add off-the-wall@off-the-wall
+codex plugin marketplace add toranalytics/dude-toldya
+codex plugin add dude-toldya@dude-toldya
 ```
 
 설치 전에 `report`가 어떤 모양인지 보고 싶으면 저장소에 있는 가상의 대화 기록으로 돌려 보면 된다.
 
 ```bash
-git clone https://github.com/toranalytics/off-the-wall && cd off-the-wall
-node bin/otw.mjs report --host claude --claude-dir examples/claude-history --days 0
+git clone https://github.com/toranalytics/dude-toldya && cd dude-toldya
+node bin/duto.mjs report --host claude --claude-dir examples/claude-history --days 0
 ```
 
-브라우저에서 먼저 보고 싶으면 [원문 다시 보여 주기 데모](/otw-recall-lab.html)가 있다. 설치도 로그인도 필요 없고 입력은 전부 내가 만든 사례다. 소스는 [GitHub](https://github.com/toranalytics/off-the-wall)에 있다.
+브라우저에서 먼저 보고 싶으면 [원문 다시 보여 주기 데모](/otw-recall-lab.html)가 있다. 설치도 로그인도 필요 없고 입력은 전부 내가 만든 사례다. 소스는 [GitHub](https://github.com/toranalytics/dude-toldya)에 있다.
 
 ## 시험은 이렇게 했다
 
@@ -108,17 +110,17 @@ node bin/otw.mjs report --host claude --claude-dir examples/claude-history --day
 
 | 조건 | 첫 시험(haiku) | 채점기 오류를 고친 뒤 다시(haiku) | Sonnet |
 |---|---|---|---|
-| Off the Wall 없음 | 1/33 | 2/33 | 2/33 |
+| Dude Toldya 없음 | 1/33 | 2/33 | 2/33 |
 | 이전 기본(좁게 찾기) | 9/33 | 14/33 | |
 | 넓게 찾기(0.3.0부터 기본) | 17/33 | 25/33 | 20/33 |
 
 - 맞는 지적이 보이면 모델이 훨씬 자주 따랐다. 못 찾으면 달라지는 게 없었다.
-- 큰 모델(Sonnet)에서도 같았다. 작업별로 나아진 게 7개, 나빠진 게 0개였다(우연으로 보기 어렵다, p = 0.016). Off the Wall 없이는 큰 모델도 이 습관을 따르지 못했다.
+- 큰 모델(Sonnet)에서도 같았다. 작업별로 나아진 게 7개, 나빠진 게 0개였다(우연으로 보기 어렵다, p = 0.016). Dude Toldya 없이는 큰 모델도 이 습관을 따르지 못했다.
 - 다시 잰 시험은 결과를 본 뒤에 채점기를 고쳤으니 처음 시험의 독립된 재현은 아니다. 숫자가 오른 게 오류 수정 때문인지 실행마다 달라지는 값 때문인지는 가를 수 없다.
 - 11개 중 4개 작업은 두 모델 모두 인용이 보여도 따르지 않았다. 규칙 150줄을 그냥 넣은 쪽이 전체로는 더 잘 따랐는데, 기록이 길어지면 그 방식은 못 쓴다.
 - Opus와 Codex 모델은 못 재 봤다.
 
-관련 없는 요청에 붙어도 해롭지 않은지도 따로 봤다. 습관과 상관없는 작업 14개를 3번씩 시켰더니 Off the Wall 없음이 40/42, 넓게 찾기가 41/42였다. 통과율은 안 떨어졌고 출력 토큰은 약 9% 늘었다. 20자 미만 입력 보호 장치는 모델로 재 보지 않았다.
+관련 없는 요청에 붙어도 해롭지 않은지도 따로 봤다. 습관과 상관없는 작업 14개를 3번씩 시켰더니 Dude Toldya 없음이 40/42, 넓게 찾기가 41/42였다. 통과율은 안 떨어졌고 출력 토큰은 약 9% 늘었다. 20자 미만 입력 보호 장치는 모델로 재 보지 않았다.
 
 관련 없는 인용을 줄이려고 여러 가지를 시도했는데 전부 내가 정한 기준을 못 넘겨서 넣지 않았다. 그 이야기는 [따로 글](/otw-failed-attempts/)로 썼다.
 
@@ -128,17 +130,17 @@ node bin/otw.mjs report --host claude --claude-dir examples/claude-history --day
 
 ## 직접 재 볼 수 있게 명령을 만들었다
 
-내 숫자를 믿으라고 하기는 어렵다. 그래서 같은 시험을 누구나 자기 `claude`로 돌려 볼 수 있게 `otw bench`를 만들었다. 모델이 알 수 없는 습관이 필요한 작은 작업 11개를 회수 없이 한 번, 있게 한 번 돌리고 습관을 지킨 횟수를 센다.
+내 숫자를 믿으라고 하기는 어렵다. 그래서 같은 시험을 누구나 자기 `claude`로 돌려 볼 수 있게 `duto bench`를 만들었다. 모델이 알 수 없는 습관이 필요한 작은 작업 11개를 회수 없이 한 번, 있게 한 번 돌리고 습관을 지킨 횟수를 센다.
 
 `bench`는 현재 저장소 main에만 있다. 0.3.1 릴리스와 npm 패키지에는 없다. Claude Code에 플러그인을 설치하고 로그인한 뒤 아래처럼 저장소를 복제해 실행한다. 공개 0.3.1 원본은 별도 격리 프로필에서 한 번 확인했지만, 일반 사용 환경 전체를 검증한 것은 아니다. Claude Code는 전역 지침과 다른 플러그인을 읽고 세션 기록을 남길 수 있다.
 
 ```bash
-git clone https://github.com/toranalytics/off-the-wall && cd off-the-wall
-node bin/otw.mjs bench
-node bin/otw.mjs bench --yes
+git clone https://github.com/toranalytics/dude-toldya && cd dude-toldya
+node bin/duto.mjs bench
+node bin/duto.mjs bench --yes
 ```
 
-내 터미널에서 실험용으로 수정한 플러그인과 격리 프로필로 처음 돌린 결과는 이렇다. 회수 없이 3/33(9%), Off the Wall이 있으면 20/33(61%)이다. 모델은 haiku이고 습관은 시험용으로 지어낸 것이다. 66번 모두 플러그인 블록이 붙은 조건과 붙지 않은 조건이 정확히 갈렸다. 작업 하나(c136)는 회수 없이도 3번 다 통과했지만 이유는 확인하지 못했다. 한 번 돌린 결과이고 내 환경에서 나온 숫자다. 다른 환경에서는 다르게 나올 수 있어서, 돌려 보고 한 줄만 [이슈](https://github.com/toranalytics/off-the-wall/issues)로 알려 주면 고맙겠다. 결과 기록은 [저장소](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-first-run/result.md)에 있다.
+내 터미널에서 실험용으로 수정한 플러그인과 격리 프로필로 처음 돌린 결과는 이렇다. 회수 없이 3/33(9%), Dude Toldya가 있으면 20/33(61%)이다. 모델은 haiku이고 습관은 시험용으로 지어낸 것이다. 66번 모두 플러그인 블록이 붙은 조건과 붙지 않은 조건이 정확히 갈렸다. 작업 하나(c136)는 회수 없이도 3번 다 통과했지만 이유는 확인하지 못했다. 한 번 돌린 결과이고 내 환경에서 나온 숫자다. 다른 환경에서는 다르게 나올 수 있어서, 돌려 보고 한 줄만 [이슈](https://github.com/toranalytics/dude-toldya/issues)로 알려 주면 고맙겠다. 결과 기록은 [저장소](https://github.com/toranalytics/dude-toldya/blob/main/docs/data/bench-first-run/result.md)에 있다.
 
 ## 못 하는 것, 알아 둘 것
 
@@ -149,4 +151,4 @@ node bin/otw.mjs bench --yes
 - Claude Code를 직접 쓰는 화면에서는 확인하지 못했다. 화면 없이 자동으로 돌려서 저장과 다시 보여 주기를 한 번 확인한 게 전부다.
 - 지금 버전은 정식 릴리스가 아니라 0.3.1 사전 릴리스다.
 
-관련 없는 지적이 붙었거나 필요한 지적이 빠졌으면 [이슈](https://github.com/toranalytics/off-the-wall/issues)로 알려 주면 정말 도움이 된다. 원문, 코드, 회사 이름은 안 보내도 된다. 계획, 스크립트, 데이터, 독립 검토에서 나온 약점은 [저장소 docs](https://github.com/toranalytics/off-the-wall/tree/main/docs)에 있다.
+관련 없는 지적이 붙었거나 필요한 지적이 빠졌으면 [이슈](https://github.com/toranalytics/dude-toldya/issues)로 알려 주면 정말 도움이 된다. 원문, 코드, 회사 이름은 안 보내도 된다. 계획, 스크립트, 데이터, 독립 검토에서 나온 약점은 [저장소 docs](https://github.com/toranalytics/dude-toldya/tree/main/docs)에 있다.

@@ -1,13 +1,15 @@
 ---
 emoji: ''
-title: 'I got tired of repeating myself to Claude Code, so I built Off the Wall'
+title: 'I got tired of repeating myself to Claude Code, so I built Dude Toldya'
 date: '2026-10-29'
 category: projects
-tags: off-the-wall claude-code codex
-description: 'Why I built Off the Wall, an open-source plugin that shows your own past corrections back to Claude Code and Codex word for word, what it does, what it cannot do, and how I tested it.'
+tags: dude-toldya claude-code codex
+description: 'Why I built Dude Toldya, an open-source plugin that shows your own past corrections back to Claude Code and Codex word for word, what it does, what it cannot do, and how I tested it.'
 lang: en
 translationKey: otw-what-it-does
 ---
+
+> When I wrote this, the project was called Off the Wall. It is now Dude Toldya, and the command is `duto` (`otw` still works).
 
 > English version of the [Korean original](/otw-what-it-does/). If they differ, the Korean article is authoritative.
 
@@ -16,13 +18,13 @@ translationKey: otw-what-it-does
 ![Original pixel-art AI assistant mascot being gently bonked](/img/dude-toldya-ai-mascot.png)
 
 
-> A model can't know your habits, like how you write commit messages or dates. I gave Claude 33 tasks like that. Without Off the Wall, Claude (Sonnet) followed the habit 2 times. With it, 20 times. It works because your own earlier correction is shown again, word for word. These are test habits I made up, not real users' records. With the haiku model it went from 1 to 17, and from 2 to 25 when I measured again.
+> A model can't know your habits, like how you write commit messages or dates. I gave Claude 33 tasks like that. Without Dude Toldya, Claude (Sonnet) followed the habit 2 times. With it, 20 times. It works because your own earlier correction is shown again, word for word. These are test habits I made up, not real users' records. With the haiku model it went from 1 to 17, and from 2 to 25 when I measured again.
 
-> **In a test of the public 0.3.1 release using haiku and habits I made up for testing, the habit was followed in 2/33 runs with recall off and 19/33 with recall on.** This was one run in a separate isolated profile, not a measure of real users’ results. The [test record](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-public-031/result.md) is public.
+> **In a test of the public 0.3.1 release using haiku and habits I made up for testing, the habit was followed in 2/33 runs with recall off and 19/33 with recall on.** This was one run in a separate isolated profile, not a measure of real users’ results. The [test record](https://github.com/toranalytics/dude-toldya/blob/main/docs/data/bench-public-031/result.md) is public.
 
 Here is the same request run once without the plugin and once with it, real outputs, three tasks, first run shown as it came out. The saved correction was made up for this demo, so please read it as an illustration, not a measurement. The measured numbers are under "How I tested it" below.
 
-![Real outputs for the same request without and with Off the Wall: a commit message, a team-chat summary and a PR description](/img/otw-before-after-en.png)
+![Real outputs for the same request without and with Dude Toldya: a commit message, a team-chat summary and a PR description](/img/otw-before-after-en.png)
 
 ```toc
 ```
@@ -33,7 +35,7 @@ If you work with Claude Code or Codex for a while, you end up repeating yourself
 
 At first I squeezed each correction into a one-line rule and put it in CLAUDE.md. It did not help much. My guess is that the squeeze throws away the situation the correction came from: which test I wanted run, which file I said not to touch. The original sentence still has that. The one-line rule does not.
 
-So I stopped shortening them. I built a plugin that shows what I said, word for word, before the agent answers. It is called Off the Wall. It works with Claude Code and Codex, it is open source (MIT), there is nothing else to install, and it runs on Node 18 or newer.
+So I stopped shortening them. I built a plugin that shows what I said, word for word, before the agent answers. It is called Dude Toldya. It works with Claude Code and Codex, it is open source (MIT), there is nothing else to install, and it runs on Node 18 or newer.
 
 ## How it works
 
@@ -43,15 +45,15 @@ Say you saved this earlier (every example in this post is made up):
 
 > Don't just run lint and say tests pass. Run the checkout integration test and show the real exit code.
 
-Later you ask "Verify the payment handler change with the checkout integration test." You can preview what would be attached with `otw explain`. This is real output on a made-up repository:
+Later you ask "Verify the payment handler change with the checkout integration test." You can preview what would be attached with `duto explain`. This is real output on a made-up repository:
 
-![Real otw explain output: the checkout-test correction is first with similarity 0.52](/img/otw-explain-related-en.png)
+![Real duto explain output: the checkout-test correction is first with similarity 0.52](/img/otw-explain-related-en.png)
 
 The right correction is on top with 0.52. But look further down: 0.04 and 0.05 are attached too. That is the current design, not a bug. Any request of 20 characters or more gets up to 6 quotes whatever the similarity, and the test results below are why I did it that way.
 
 What about an unrelated request? I tried "write a haiku about autumn".
 
-![Real otw explain output: a haiku request still gets three quotes](/img/otw-explain-unrelated-en.png)
+![Real duto explain output: a haiku request still gets three quotes](/img/otw-explain-unrelated-en.png)
 
 Even the haiku gets 3 quotes. This is the biggest weakness of the plugin, so I am showing it first. It does not understand meaning. It picks by overlapping words and letter pairs.
 
@@ -67,14 +69,14 @@ It only uses the same working folder. It does not pull in corrections from other
 
 ## Commands I ended up adding
 
-- `otw report`: has a model pick out, from the Claude Code and Codex chats already on your computer, the replies where you were fixing how the agent worked, and groups them by kind with your own words under each. `--seed` starts saving from that result. The grouping is done by a model and can be wrong.
-- `otw status`: how many corrections are saved, when the hooks last ran, how many Codex entries you allowed. It also lists the Codex models it uses and the ones it skips because their description names no tier.
-- `otw explain "<sentence>"`: the one above. It does not call a model and changes nothing. It is only in the latest source (main), not in the 0.3.1 release.
-- `otw forget --all --yes` / `--project --yes`: deletes saved corrections, session records and the log. Without `--yes` it only shows what would go. It cannot delete your Claude Code or Codex chats, or anything already sent to the model company.
+- `duto report`: has a model pick out, from the Claude Code and Codex chats already on your computer, the replies where you were fixing how the agent worked, and groups them by kind with your own words under each. `--seed` starts saving from that result. The grouping is done by a model and can be wrong.
+- `duto status`: how many corrections are saved, when the hooks last ran, how many Codex entries you allowed. It also lists the Codex models it uses and the ones it skips because their description names no tier.
+- `duto explain "<sentence>"`: the one above. It does not call a model and changes nothing. It is only in the latest source (main), not in the 0.3.1 release.
+- `duto forget --all --yes` / `--project --yes`: deletes saved corrections, session records and the log. Without `--yes` it only shows what would go. It cannot delete your Claude Code or Codex chats, or anything already sent to the model company.
 
-Right after install, before anything is saved, `otw status` tells you so:
+Right after install, before anything is saved, `duto status` tells you so:
 
-![Real otw status output: the message shown when no corrections are stored yet](/img/otw-status-empty-en.png)
+![Real duto status output: the message shown when no corrections are stored yet](/img/otw-status-empty-en.png)
 
 There is also a hint feature for helper agents: use a small model for search and conversion, a middle one for building and review, a large one for finding root causes and design, and a helper call that names no model is sent back once. It does not force a model and it does not promise lower cost.
 
@@ -83,24 +85,24 @@ There is also a hint feature for helper agents: use a small model for search and
 In Claude Code:
 
 ```
-/plugin install off-the-wall --marketplace toranalytics/off-the-wall
+/plugin install dude-toldya --marketplace toranalytics/dude-toldya
 ```
 
 In Codex, then open `/hooks` once and allow the hooks. Until you do, nothing happens.
 
 ```bash
-codex plugin marketplace add toranalytics/off-the-wall
-codex plugin add off-the-wall@off-the-wall
+codex plugin marketplace add toranalytics/dude-toldya
+codex plugin add dude-toldya@dude-toldya
 ```
 
 To see what `report` looks like before installing, run it on the made-up chat history in the repository:
 
 ```bash
-git clone https://github.com/toranalytics/off-the-wall && cd off-the-wall
-node bin/otw.mjs report --host claude --claude-dir examples/claude-history --days 0
+git clone https://github.com/toranalytics/dude-toldya && cd dude-toldya
+node bin/duto.mjs report --host claude --claude-dir examples/claude-history --days 0
 ```
 
-If you would rather look in the browser first, there is a [demo of showing corrections again](/otw-recall-lab.html) (the interface is in Korean). No install, no login, and every input is a made-up case. The source is on [GitHub](https://github.com/toranalytics/off-the-wall).
+If you would rather look in the browser first, there is a [demo of showing corrections again](/otw-recall-lab.html) (the interface is in Korean). No install, no login, and every input is a made-up case. The source is on [GitHub](https://github.com/toranalytics/dude-toldya).
 
 ## How I tested it
 
@@ -110,17 +112,17 @@ I turned 11 habits a model cannot know (commit format, tools, tone, date format 
 
 | Condition | First run (haiku) | Rerun after fixing a grader bug (haiku) | Sonnet |
 |---|---|---|---|
-| No Off the Wall | 1/33 | 2/33 | 2/33 |
+| No Dude Toldya | 1/33 | 2/33 | 2/33 |
 | Earlier default (narrow search) | 9/33 | 14/33 | |
 | Wide search (default since 0.3.0) | 17/33 | 25/33 | 20/33 |
 
 - When the right correction was shown, the model followed it much more often. When it was not found, nothing changed.
-- The same held for the larger model (Sonnet): better in 7 tasks, worse in none (hard to put down to chance, p = 0.016). Without Off the Wall the larger model also did not follow these habits.
+- The same held for the larger model (Sonnet): better in 7 tasks, worse in none (hard to put down to chance, p = 0.016). Without Dude Toldya the larger model also did not follow these habits.
 - I fixed the grader after seeing the results, so the rerun is not an independent replication. The higher numbers come partly from the fix and partly from run-to-run variation, and I cannot separate the two.
 - In 4 of the 11 tasks neither model followed the correction even when it was shown. Pasting 150 rules scored higher overall, but that does not work once the history grows.
 - I have not measured Opus or the Codex models.
 
-I also checked whether attaching quotes to unrelated requests does harm. I ran 14 tasks that have nothing to do with habits, 3 times each: no Off the Wall 40/42, wide search 41/42. The pass rate did not drop and output tokens rose about 9%. I did not test the protection for input under 20 characters with a model.
+I also checked whether attaching quotes to unrelated requests does harm. I ran 14 tasks that have nothing to do with habits, 3 times each: no Dude Toldya 40/42, wide search 41/42. The pass rate did not drop and output tokens rose about 9%. I did not test the protection for input under 20 characters with a model.
 
 I tried several ways to cut the unrelated quotes, and none cleared the bar I had set, so none went in. I wrote that up in [a separate post](/en/otw-failed-attempts/).
 
@@ -130,17 +132,17 @@ The code tests are 239 tests passing on Node 18, 20, 22 and 26, all with fake in
 
 ## A command so you can check my numbers
 
-Asking you to trust my numbers is a lot, so I made `otw bench`: the same kind of test, run with your own `claude`. It gives a model 11 small tasks that each need a habit it cannot know, once with recall off and once with it on, and counts how often the habit was followed.
+Asking you to trust my numbers is a lot, so I made `duto bench`: the same kind of test, run with your own `claude`. It gives a model 11 small tasks that each need a habit it cannot know, once with recall off and once with it on, and counts how often the habit was followed.
 
 `bench` is currently on repository main, not in the 0.3.1 release or an npm package. Install the Claude Code plugin and sign in, then clone the repository as below. It has not yet been verified in a normal installation. Claude Code may load global instructions and other plugins and save session transcripts.
 
 ```bash
-git clone https://github.com/toranalytics/off-the-wall && cd off-the-wall
-node bin/otw.mjs bench
-node bin/otw.mjs bench --yes
+git clone https://github.com/toranalytics/dude-toldya && cd dude-toldya
+node bin/duto.mjs bench
+node bin/duto.mjs bench --yes
 ```
 
-My first run in my own terminal, using an experimentally modified plugin in an isolated profile: 3/33 (9%) with recall off, 20/33 (61%) with Off the Wall. Model haiku, habits made up for the test. In all 66 runs the plugin block was present exactly when recall was on. One task (c136) passed all 3 times even without recall; I do not know why. It is one run in one environment and yours may differ. If you run it, one line in an [issue](https://github.com/toranalytics/off-the-wall/issues) is plenty. The record is in the [repo](https://github.com/toranalytics/off-the-wall/blob/main/docs/data/bench-first-run/result.md).
+My first run in my own terminal, using an experimentally modified plugin in an isolated profile: 3/33 (9%) with recall off, 20/33 (61%) with Dude Toldya. Model haiku, habits made up for the test. In all 66 runs the plugin block was present exactly when recall was on. One task (c136) passed all 3 times even without recall; I do not know why. It is one run in one environment and yours may differ. If you run it, one line in an [issue](https://github.com/toranalytics/dude-toldya/issues) is plenty. The record is in the [repo](https://github.com/toranalytics/dude-toldya/blob/main/docs/data/bench-first-run/result.md).
 
 ## What it cannot do, and what to know
 
@@ -151,4 +153,4 @@ My first run in my own terminal, using an experimentally modified plugin in an i
 - I did not check the screen where you use Claude Code directly. I ran it automatically without a screen and confirmed saving and showing again once, and that is all.
 - The current version is the 0.3.1 pre-release, not a stable release.
 
-If an unrelated correction showed up or a needed one was missing, please tell me through an [issue](https://github.com/toranalytics/off-the-wall/issues). It helps a lot, and you do not need to send original text, code or company names. Plans, scripts, data and the weaknesses found by an independent review are in the [repository docs](https://github.com/toranalytics/off-the-wall/tree/main/docs).
+If an unrelated correction showed up or a needed one was missing, please tell me through an [issue](https://github.com/toranalytics/dude-toldya/issues). It helps a lot, and you do not need to send original text, code or company names. Plans, scripts, data and the weaknesses found by an independent review are in the [repository docs](https://github.com/toranalytics/dude-toldya/tree/main/docs).

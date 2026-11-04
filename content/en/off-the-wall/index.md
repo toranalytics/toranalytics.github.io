@@ -9,6 +9,8 @@ lang: en
 translationKey: off-the-wall
 ---
 
+> When I wrote this, the project was called Off the Wall. It is now Dude Toldya, and the command is `duto` (`otw` still works).
+
 > English version of the [Korean original](/off-the-wall/). If they differ, the Korean article is authoritative.
 
 [Dude, Toldya? (working title)](/otw-naming-pixel-mascot/)
