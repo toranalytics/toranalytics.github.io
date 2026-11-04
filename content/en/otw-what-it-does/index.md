@@ -82,10 +82,11 @@ There is also a hint feature for helper agents: use a small model for search and
 
 ## Install
 
-In Claude Code:
+In a terminal, for Claude Code:
 
 ```
-/plugin install dude-toldya --marketplace toranalytics/dude-toldya
+claude plugin marketplace add toranalytics/dude-toldya
+claude plugin install dude-toldya@dude-toldya
 ```
 
 In Codex, then open `/hooks` once and allow the hooks. Until you do, nothing happens.

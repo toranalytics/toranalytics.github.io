@@ -9,7 +9,7 @@
 - [My coding agent cost $1,064 last week. 44% of it was the cache re-writing itself](https://toranalytics.github.io/cache-leak/): a week of API usage, two prompt-cache breakpoint mistakes, and the measurements. Original in English; Korean: https://toranalytics.github.io/ko/cache-leak/ ; Chinese: https://toranalytics.github.io/zh/cache-leak/
 
 ## Project
-- [Dude Toldya on GitHub](https://github.com/toranalytics/dude-toldya): source, install instructions, experiment records, scripts and data under docs/. Install in Claude Code: `/plugin install dude-toldya --marketplace toranalytics/dude-toldya`.
+- [Dude Toldya on GitHub](https://github.com/toranalytics/dude-toldya): source, install instructions, experiment records, scripts and data under docs/. Install in Claude Code: `claude plugin marketplace add toranalytics/dude-toldya` then `claude plugin install dude-toldya@dude-toldya`.
 - Public 0.3.1 benchmark (2026-10-30): in one isolated-profile Claude Code haiku run using synthetic tasks and habits, recall off was 2/33 and recall on was 19/33. The runner was from source main; global or managed settings were not proven absent. This does not establish effects on real user histories, other models or interactive use. Record: https://github.com/toranalytics/dude-toldya/blob/main/docs/data/bench-public-031/result.md
 
 ## Notes for readers and assistants

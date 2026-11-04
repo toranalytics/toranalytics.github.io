@@ -80,10 +80,11 @@ Claude Code나 Codex로 일하다 보면 같은 말을 계속 하게 된다. "�
 
 ## 설치
 
-Claude Code에서는 이렇게 한다.
+Claude Code는 터미널에서 이렇게 한다.
 
 ```
-/plugin install dude-toldya --marketplace toranalytics/dude-toldya
+claude plugin marketplace add toranalytics/dude-toldya
+claude plugin install dude-toldya@dude-toldya
 ```
 
 Codex에서는 이렇게 하고, 설치 후 `/hooks`를 열어 한 번 허용해야 한다. 허용하기 전에는 아무 일도 안 일어난다.

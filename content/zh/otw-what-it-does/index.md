@@ -82,10 +82,11 @@ translationKey: otw-what-it-does
 
 ## 安装
 
-在 Claude Code 里:
+Claude Code 在终端里:
 
 ```
-/plugin install dude-toldya --marketplace toranalytics/dude-toldya
+claude plugin marketplace add toranalytics/dude-toldya
+claude plugin install dude-toldya@dude-toldya
 ```
 
 在 Codex 里,之后要打开一次 `/hooks` 并允许钩子。允许之前什么都不会发生。
