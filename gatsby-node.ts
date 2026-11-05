@@ -174,10 +174,8 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
   `);
 };
 
-// Keep the previously advertised sitemap URL while using the single Gatsby sitemap.
+// Publish the single sitemap directly at the root. Keep Gatsby's index and chunks too.
 export const onPostBuild: GatsbyNode['onPostBuild'] = async () => {
-  await copyFile('./public/sitemap/sitemap-index.xml', './public/sitemap.xml');
-
   // An independent plain-text sitemap contains only canonical URLs from generated HTML.
   // Enumerate every generated sitemap chunk, so it remains complete as the site grows.
   const index = await readFile('./public/sitemap/sitemap-index.xml', 'utf8');
@@ -202,5 +200,8 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async () => {
     }
   }
   if (!canonicals.size) throw new Error('No canonical URLs found for the text sitemap');
+  // With one chunk, serve the actual URL list at the recommended root path.
+  // If the site outgrows one chunk, preserve Gatsby's generated sitemap index.
+  await copyFile(chunks.length === 1 ? path.join('./public', chunks[0].pathname) : './public/sitemap/sitemap-index.xml', './public/sitemap.xml');
   await writeFile('./public/sitemap.txt', [...canonicals].sort().join('\n') + '\n', 'utf8');
 };

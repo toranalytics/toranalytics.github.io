@@ -31,8 +31,19 @@ assert([...urls.matchAll(/<loc>([^<]+)<\/loc>/g)].every((m) => new URL(m[1]).pat
 assert(textSitemap.includes('https://toranalytics.github.io/playground/'), 'playground canonical missing from text sitemap');
 assert.match(home, /<button\b[^>]*aria-label="(?:라이트|다크) 모드로 전환"/i, 'theme toggle needs an accessible button');
 assert.match(home, /<link\b(?=[^>]*rel="alternate")(?=[^>]*type="application\/rss\+xml")(?=[^>]*href="\/rss\.xml")[^>]*>/i, 'RSS autodiscovery link missing');
-assert.strictEqual(sitemap, index, 'legacy sitemap.xml must match the generated sitemap index');
-assert.match(index, /\/sitemap\/sitemap-0\.xml/, 'sitemap index does not point to URL list');
+const chunkLocs = [...index.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]));
+assert(chunkLocs.length > 0, 'sitemap index has no chunks');
+for (const chunk of chunkLocs) {
+  assert.strictEqual(chunk.origin, 'https://toranalytics.github.io', 'unexpected sitemap origin');
+  assert.match(chunk.pathname, /^\/sitemap\/sitemap-\d+\.xml$/, 'unexpected sitemap chunk path');
+  assert(fs.existsSync(path.join('public', chunk.pathname)), 'sitemap chunk missing');
+}
+if (chunkLocs.length === 1) {
+  assert.strictEqual(sitemap, read(chunkLocs[0].pathname), 'root sitemap must contain the single URL list');
+  assert.match(sitemap, /<urlset\b/i, 'root sitemap must be a URL list');
+} else {
+  assert.strictEqual(sitemap, index, 'root sitemap must retain the multi-chunk index');
+}
 assert.doesNotMatch(urls, /<lastmod>/i, 'do not emit fabricated per-page modification dates');
 assert.match(feed, /<rss\b/i, 'RSS feed missing');
 assert(textSitemap.length > 0 && textSitemap.every((url) => /^https:\/\/toranalytics\.github\.io\//.test(url)), 'invalid text sitemap URL');
