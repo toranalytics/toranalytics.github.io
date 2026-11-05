@@ -10,6 +10,19 @@ const index = read('sitemap/sitemap-index.xml');
 const urls = read('sitemap/sitemap-0.xml');
 const feed = read('rss.xml');
 const textSitemap = read('sitemap.txt').trim().split(/\r?\n/);
+// First-party URLs in llms.txt must refer to actual built pages.
+// This does not verify external links, indexing or AI citations.
+const llms = read('llms.txt');
+const llmsUrls = [...new Set(llms.match(/https:\/\/toranalytics\.github\.io\/[^\s);]*/g) || [])];
+assert(llmsUrls.length > 0, 'llms.txt must list first-party URLs');
+for (const raw of llmsUrls) {
+  const url = new URL(raw);
+  const relative = decodeURIComponent(url.pathname).replace(/^\/+/, '');
+  assert(!relative.split('/').includes('..'), 'unsafe llms.txt path');
+  const target = path.join('public', relative, url.pathname.endsWith('/') ? 'index.html' : '');
+  assert(fs.existsSync(target) && fs.statSync(target).isFile(), 'llms.txt link missing from build: ' + raw);
+}
+assert.doesNotMatch(llms, /every post is available in korean, english and simplified chinese/i, 'llms.txt claims every post is translated');
 
 assert.match(home, /<h1\b/i, 'home page needs an h1');
 const homeHeading = (home.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/i) || [])[0] || '';
