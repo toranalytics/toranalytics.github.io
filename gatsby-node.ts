@@ -204,4 +204,11 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async () => {
   // If the site outgrows one chunk, preserve Gatsby's generated sitemap index.
   await copyFile(chunks.length === 1 ? path.join('./public', chunks[0].pathname) : './public/sitemap/sitemap-index.xml', './public/sitemap.xml');
   await writeFile('./public/sitemap.txt', [...canonicals].sort().join('\n') + '\n', 'utf8');
+  // Publish an additional cross-host discovery path. The GitHub raw file must
+  // match the generated canonical list; CI checks that before deployment.
+  const robots = await readFile('./public/robots.txt', 'utf8');
+  const crossSitemap = 'https://raw.githubusercontent.com/toranalytics/toranalytics.github.io/main/static/sitemap-cross.txt';
+  if (!robots.includes(crossSitemap)) {
+    await writeFile('./public/robots.txt', `${robots.trimEnd()}\nSitemap: ${crossSitemap}\n`, 'utf8');
+  }
 };

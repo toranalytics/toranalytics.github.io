@@ -48,6 +48,10 @@ assert.doesNotMatch(urls, /<lastmod>/i, 'do not emit fabricated per-page modific
 assert.match(feed, /<rss\b/i, 'RSS feed missing');
 assert(textSitemap.length > 0 && textSitemap.every((url) => /^https:\/\/toranalytics\.github\.io\//.test(url)), 'invalid text sitemap URL');
 assert.strictEqual(new Set(textSitemap).size, textSitemap.length, 'text sitemap has duplicate URLs');
+// The raw GitHub cross-host copy must stay in sync when posts are added.
+const cross = read('sitemap-cross.txt').trim().split(/\r?\n/);
+assert.deepStrictEqual(cross.slice().sort(), textSitemap.slice().sort(), 'cross-host sitemap is stale: run node scripts/sync-cross-sitemap.cjs after a build and commit static/sitemap-cross.txt');
+assert.match(read('robots.txt'), /Sitemap: https:\/\/raw\.githubusercontent\.com\/toranalytics\/toranalytics\.github\.io\/main\/static\/sitemap-cross\.txt/, 'cross-host sitemap missing from robots.txt');
 
 function postPaths(dir, relative = '') {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
