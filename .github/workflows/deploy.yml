@@ -19,7 +19,14 @@ jobs:
         with:
           node-version: 18
           cache: yarn
-      - run: yarn install --frozen-lockfile --network-timeout 600000
+      - name: Install dependencies (retry for transient download failures)
+        run: |
+          for attempt in 1 2 3 4; do
+            yarn install --frozen-lockfile --network-timeout 600000 && exit 0
+            echo "yarn install failed (attempt $attempt), retrying"
+            sleep $((attempt * 20))
+          done
+          exit 1
       - run: yarn build
       - run: node scripts/check-search-output.cjs
       - uses: actions/upload-pages-artifact@v3
