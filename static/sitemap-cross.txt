@@ -6,6 +6,7 @@ https://toranalytics.github.io/blind-rehearsal-ai-agent/
 https://toranalytics.github.io/cache-leak/
 https://toranalytics.github.io/check-automated-report-data/
 https://toranalytics.github.io/dashboard-first-action/
+https://toranalytics.github.io/dude-toldya-vs-rules-file/
 https://toranalytics.github.io/en/off-the-wall/
 https://toranalytics.github.io/en/otw-failed-attempts/
 https://toranalytics.github.io/en/otw-naming-pixel-mascot/
