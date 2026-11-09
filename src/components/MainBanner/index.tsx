@@ -20,9 +20,11 @@ const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
         <S.Title>
           안녕하세요!
           <br />
-          광고를 운영하고 <strong>마케팅 시스템</strong>을
+          광고를 운영하며 <strong>마케팅 시스템</strong>을
           <br />
-          직접 만드는 마케팅 엔지니어 <strong>{name}</strong>
+          직접 만드는 마케팅 엔지니어
+          <br />
+          <strong>{name}</strong>
           입니다.
         </S.Title>
         <Image alt='thumbnail' src='thumbnail.png' />
