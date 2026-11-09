@@ -32,6 +32,7 @@ https://toranalytics.github.io/posts/projects/
 https://toranalytics.github.io/reconcile-different-records/
 https://toranalytics.github.io/rules-vs-quotes/
 https://toranalytics.github.io/share-video-drafts-early/
+https://toranalytics.github.io/verify-after-approved-ad-change/
 https://toranalytics.github.io/verify-official-documentation/
 https://toranalytics.github.io/writing-clear-developer-requests/
 https://toranalytics.github.io/zh/cache-leak/
