@@ -25,6 +25,7 @@ https://toranalytics.github.io/playground/
 https://toranalytics.github.io/posts/
 https://toranalytics.github.io/posts/agents/
 https://toranalytics.github.io/posts/experiments/
+https://toranalytics.github.io/posts/marketing-engineering/
 https://toranalytics.github.io/posts/projects/
 https://toranalytics.github.io/reconcile-different-records/
 https://toranalytics.github.io/rules-vs-quotes/
