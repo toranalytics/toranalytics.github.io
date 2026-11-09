@@ -26,7 +26,7 @@ assert.doesNotMatch(llms, /every post is available in korean, english and simpli
 
 assert.match(home, /<h1\b/i, 'home page needs an h1');
 const homeHeading = (home.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/i) || [])[0] || '';
-assert(homeHeading.includes('서준범') && homeHeading.includes('AI 에이전트'), 'home introduction missing from static HTML');
+assert(homeHeading.includes('서준범') && homeHeading.includes('마케팅 엔지니어'), 'home introduction missing from static HTML');
 assert([...urls.matchAll(/<loc>([^<]+)<\/loc>/g)].every((m) => new URL(m[1]).pathname.endsWith('/')), 'sitemap contains redirecting non-slash URLs');
 assert(textSitemap.includes('https://toranalytics.github.io/playground/'), 'playground canonical missing from text sitemap');
 assert.match(home, /<button\b[^>]*aria-label="(?:라이트|다크) 모드로 전환"/i, 'theme toggle needs an accessible button');
@@ -84,7 +84,7 @@ for (const post of posts) {
     assert(article['@type'] === 'BlogPosting' && article.url === expected && article.inLanguage === language, `wrong article JSON-LD: /${post}/`);
   }
 }
-for (const category of ['projects', 'agents', 'experiments']) {
+for (const category of ['marketing-engineering', 'projects', 'agents', 'experiments']) {
   const html = read('posts/' + category + '/index.html');
   const canonical = html.match(/<link\b(?=[^>]*rel=["']canonical["'])(?=[^>]*href=["']([^"']+)["'])[^>]*>/i);
   assert(canonical && canonical[1] === 'https://toranalytics.github.io/posts/' + category + '/', `wrong category canonical: ${category}`);
