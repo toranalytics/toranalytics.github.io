@@ -34,6 +34,8 @@ translationKey: dude-toldya-vs-rules-file
 | 규칙 파일(AGENTS.md) | 30/33 |
 | Dude Toldya | 27/33 |
 
+![Codex 비교 결과: 아무것도 안 함 8/33, 규칙 파일 30/33, Dude Toldya 27/33](/img/dude-toldya-codex-comparison-ko.svg)
+
 규칙 파일이 3번 더 많다. 하지만 이 차이가 의미 있는 차이인지는 이 시험으로 말할 수 없다. 독립 감사에서도 99개 행이 중복 없이 맞고 합계가 맞는 것까지만 확인됐고, 어느 쪽이 낫다는 결론은 내지 못했다. 같다는 결론도 낼 수 없다.
 
 ## 이 숫자를 읽을 때 걸리는 점

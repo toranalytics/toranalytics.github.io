@@ -36,6 +36,8 @@ translationKey: dude-toldya-vs-rules-file
 | 规则文件（AGENTS.md） | 30/33 |
 | Dude Toldya | 27/33 |
 
+![Codex 比较结果：什么都不做 8/33，规则文件 30/33，Dude Toldya 27/33](/img/dude-toldya-codex-comparison-zh.svg)
+
 规则文件多 3 次。但这次测试无法说明这个差距是否有意义。独立审计只确认了 99 行数据没有重复、合计正确，没有得出哪一个更好的结论，也不能得出两者相同的结论。
 
 ## 解读这些数字时要注意的地方

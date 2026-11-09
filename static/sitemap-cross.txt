@@ -39,6 +39,7 @@ https://toranalytics.github.io/zh/cache-leak/
 https://toranalytics.github.io/zh/dude-toldya-vs-rules-file/
 https://toranalytics.github.io/zh/off-the-wall/
 https://toranalytics.github.io/zh/otw-failed-attempts/
+https://toranalytics.github.io/zh/otw-naming-pixel-mascot/
 https://toranalytics.github.io/zh/otw-what-it-does/
 https://toranalytics.github.io/zh/posts/
 https://toranalytics.github.io/zh/rules-vs-quotes/

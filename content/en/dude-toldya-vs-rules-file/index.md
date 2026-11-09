@@ -36,6 +36,8 @@ All three conditions installed the same plugin version (commit d10e79f). Only th
 | Rules file (AGENTS.md) | 30/33 |
 | Dude Toldya | 27/33 |
 
+![Codex comparison: nothing 8/33, rules file 30/33, Dude Toldya 27/33](/img/dude-toldya-codex-comparison-en.svg)
+
 The rules file is 3 runs higher. This test cannot say whether that gap means anything. An independent audit confirmed that the 99 rows are unique and the totals add up, and no more than that. It did not conclude that either one is better, and it cannot conclude they are equal.
 
 ## What to watch for when reading these numbers
