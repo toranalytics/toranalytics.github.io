@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" role="img" aria-labelledby="t d">
+  <title id="t">구매 측정 대조 도식</title>
+  <desc id="d">왼쪽 결제완료 화면에는 일부 주문만 남아 있고, 오른쪽 결제 원장에는 모든 주문이 있다. 화면에 없는 주문은 원장과 맞춰 본다.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#FBBF24"/></marker>
+  </defs>
+  <rect width="600" height="520" fill="#0C2A26"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="30" y="52" font-size="22" fill="#5EEAD4">구매 측정<tspan fill="#FBBF24">_</tspan></text>
+    <text x="570" y="52" font-size="16" fill="#2DD4BF" text-anchor="end" opacity=".75">도식 · 실제 데이터 아님</text>
+  </g>
+  <g font-family="'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif">
+    <text x="30" y="108" font-size="22" font-weight="700" fill="#CCFBF1">결제완료 화면</text>
+    <text x="330" y="108" font-size="22" font-weight="700" fill="#CCFBF1">결제 원장</text>
+    <g font-size="20">
+      <rect x="30" y="128" width="240" height="54" rx="8" fill="#134E4A" stroke="#2DD4BF" stroke-width="2"/>
+      <text x="46" y="162" fill="#F0FDFA">주문 A · 카드</text>
+      <rect x="30" y="196" width="240" height="54" rx="8" fill="none" stroke="#FBBF24" stroke-width="2" stroke-dasharray="7 6"/>
+      <text x="46" y="230" fill="#FBBF24">화면에 없음</text>
+      <rect x="30" y="264" width="240" height="54" rx="8" fill="#134E4A" stroke="#2DD4BF" stroke-width="2"/>
+      <text x="46" y="298" fill="#F0FDFA">주문 C · 카드</text>
+      <rect x="30" y="332" width="240" height="54" rx="8" fill="none" stroke="#FBBF24" stroke-width="2" stroke-dasharray="7 6"/>
+      <text x="46" y="366" fill="#FBBF24">화면에 없음</text>
+
+      <rect x="330" y="128" width="240" height="54" rx="8" fill="#134E4A" stroke="#2DD4BF" stroke-width="2"/>
+      <text x="346" y="162" fill="#F0FDFA">주문 A · 카드</text>
+      <rect x="330" y="196" width="240" height="54" rx="8" fill="#3A2F0B" stroke="#FBBF24" stroke-width="2"/>
+      <text x="346" y="230" fill="#FDE68A">주문 B · 네이버페이</text>
+      <rect x="330" y="264" width="240" height="54" rx="8" fill="#134E4A" stroke="#2DD4BF" stroke-width="2"/>
+      <text x="346" y="298" fill="#F0FDFA">주문 C · 카드</text>
+      <rect x="330" y="332" width="240" height="54" rx="8" fill="#3A2F0B" stroke="#FBBF24" stroke-width="2"/>
+      <text x="346" y="366" fill="#FDE68A">주문 D · 가상계좌</text>
+    </g>
+    <text x="300" y="438" font-size="19" fill="#99F6E4" text-anchor="middle">화면에 안 남은 주문은 원장과 맞춰 보고</text>
+    <text x="300" y="466" font-size="19" fill="#99F6E4" text-anchor="middle">유입 정보와 결제 신호를 주문에 연결한다</text>
+  </g>
+  <g fill="none" stroke-width="3" stroke-linecap="round">
+    <path d="M274 155H326" stroke="#2DD4BF" opacity=".6"/>
+    <path d="M274 291H326" stroke="#2DD4BF" opacity=".6"/>
+    <path d="M326 223H276" stroke="#FBBF24" stroke-dasharray="3 7" marker-end="url(#a)"/>
+    <path d="M326 359H276" stroke="#FBBF24" stroke-dasharray="3 7" marker-end="url(#a)"/>
+  </g>
+</svg>

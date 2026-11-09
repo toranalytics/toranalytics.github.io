@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="t d">
+  <title id="t">all_in_1 작업 흐름 도식</title>
+  <desc id="d">기획, 소재 제작, 사람 승인, 집행, 다시 조회의 다섯 단계. 사람 승인 단계가 강조되어 있고, 마지막 단계에서 처음으로 돌아가는 화살표가 있다.</desc>
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.3" fill="#1E293B"/></pattern>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#64748B"/></marker>
+    <marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F59E0B"/></marker>
+  </defs>
+  <rect width="1200" height="520" fill="#0F172A"/>
+  <rect width="1200" height="520" fill="url(#dots)"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="70" y="78" font-size="22" fill="#94A3B8">all_in_1<tspan fill="#F59E0B">_</tspan> / workflow</text>
+    <text x="1130" y="78" font-size="18" fill="#64748B" text-anchor="end">도식 · 실제 화면 아님</text>
+  </g>
+  <g font-family="'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif" text-anchor="middle">
+    <g>
+      <rect x="70" y="170" width="180" height="170" rx="14" fill="#1E293B" stroke="#334155" stroke-width="2"/>
+      <text x="90" y="202" font-size="16" fill="#64748B" text-anchor="start" font-family="ui-monospace,Menlo,monospace">01</text>
+      <text x="160" y="258" font-size="32" font-weight="700" fill="#F8FAFC">기획</text>
+      <text x="160" y="294" font-size="17" fill="#94A3B8">판매 중인 상품만</text>
+      <text x="160" y="316" font-size="17" fill="#94A3B8">대상으로</text>
+    </g>
+    <g>
+      <rect x="290" y="170" width="180" height="170" rx="14" fill="#1E293B" stroke="#334155" stroke-width="2"/>
+      <text x="310" y="202" font-size="16" fill="#64748B" text-anchor="start" font-family="ui-monospace,Menlo,monospace">02</text>
+      <text x="380" y="258" font-size="32" font-weight="700" fill="#F8FAFC">소재 제작</text>
+      <text x="380" y="294" font-size="17" fill="#94A3B8">AI 시안과</text>
+      <text x="380" y="316" font-size="17" fill="#94A3B8">자동 검사</text>
+    </g>
+    <g>
+      <rect x="510" y="150" width="180" height="210" rx="14" fill="#2A2110" stroke="#F59E0B" stroke-width="3"/>
+      <rect x="545" y="126" width="110" height="30" rx="15" fill="#F59E0B"/>
+      <text x="600" y="147" font-size="16" font-weight="700" fill="#2A2110">사람이 확인</text>
+      <text x="530" y="202" font-size="16" fill="#B45309" text-anchor="start" font-family="ui-monospace,Menlo,monospace">03</text>
+      <text x="600" y="258" font-size="32" font-weight="800" fill="#FBBF24">사람 승인</text>
+      <text x="600" y="296" font-size="17" fill="#FCD34D">승인 전에는</text>
+      <text x="600" y="318" font-size="17" fill="#FCD34D">광고 변경 없음</text>
+    </g>
+    <g>
+      <rect x="730" y="170" width="180" height="170" rx="14" fill="#1E293B" stroke="#334155" stroke-width="2"/>
+      <text x="750" y="202" font-size="16" fill="#64748B" text-anchor="start" font-family="ui-monospace,Menlo,monospace">04</text>
+      <text x="820" y="258" font-size="32" font-weight="700" fill="#F8FAFC">집행</text>
+      <text x="820" y="294" font-size="17" fill="#94A3B8">승인된 변경만</text>
+      <text x="820" y="316" font-size="17" fill="#94A3B8">실행</text>
+    </g>
+    <g>
+      <rect x="950" y="170" width="180" height="170" rx="14" fill="#10281F" stroke="#34D399" stroke-width="2"/>
+      <text x="970" y="202" font-size="16" fill="#059669" text-anchor="start" font-family="ui-monospace,Menlo,monospace">05</text>
+      <text x="1040" y="258" font-size="32" font-weight="700" fill="#6EE7B7">다시 조회</text>
+      <text x="1040" y="294" font-size="17" fill="#A7F3D0">계정에서 직접</text>
+      <text x="1040" y="316" font-size="17" fill="#A7F3D0">다시 확인</text>
+    </g>
+  </g>
+  <g fill="none" stroke-width="3" stroke-linecap="round">
+    <path d="M252 255H286" stroke="#64748B" marker-end="url(#a)"/>
+    <path d="M472 255H506" stroke="#64748B" marker-end="url(#a)"/>
+    <path d="M692 255H726" stroke="#F59E0B" marker-end="url(#am)"/>
+    <path d="M912 255H946" stroke="#64748B" marker-end="url(#a)"/>
+    <path d="M1040 342V432H160V346" stroke="#475569" stroke-dasharray="3 9" marker-end="url(#a)"/>
+  </g>
+  <text x="600" y="466" font-family="'Apple SD Gothic Neo','Pretendard','Noto Sans KR','Malgun Gothic',sans-serif" font-size="18" fill="#94A3B8" text-anchor="middle">확인한 결과를 보고 다음 기획으로</text>
+</svg>
