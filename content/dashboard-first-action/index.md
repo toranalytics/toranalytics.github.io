@@ -2,7 +2,7 @@
 emoji: ''
 title: '대시보드를 직접 써 보니 할 일이 화면 아래에 있었다'
 date: '2026-11-03'
-category: projects
+category: marketing-engineering
 tags: 대시보드 UX 사용자경험
 description: '현황을 모아 보는 도구를 만들면서 광고를 잘 모르는 사람의 입장이라고 생각하고 직접 써 봤다. 정작 무엇을 해야 하는지는 화면 아래쪽에 있었다. 확인할 숫자는 보이는데, 할 일을 찾으려면 더 내려가야 했다.'
 lang: ko

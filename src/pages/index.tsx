@@ -34,7 +34,7 @@ const Home: React.FC<HomeProps> = ({ location, data }) => {
 
   return (
     <Layout location={location}>
-      <Seo title='서준범 · AI Engineer' path='/' />
+      <Seo title='서준범 · 마케팅 엔지니어' path='/' />
       <MainBanner author={author} />
       <nav aria-label='Languages' style={{ margin: '0 0 24px', fontSize: 14, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
         <span style={{ opacity: 0.7 }}>Languages:</span>

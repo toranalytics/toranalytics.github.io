@@ -2,7 +2,7 @@
 emoji: ''
 title: '개발자에게 AI 답변을 그대로 보내지 않기로 했다'
 date: '2026-11-03'
-category: agents
+category: marketing-engineering
 tags: AI 협업 개발요청
 description: '업무 문제를 확인하면서 개발자에게 내용을 전달할 일이 있었다. 나는 AI 도구를 이용해 자료를 살펴보고 요청을 정리했다. 그런데 생성된 설명을 그대로 전달하면 상대가 읽어야 할 내용이 길어졌다.'
 lang: ko

@@ -2,7 +2,7 @@
 emoji: ''
 title: '자동화에 집중하다가 먼저 해야 할 일을 놓쳤다'
 date: '2026-11-03'
-category: projects
+category: marketing-engineering
 tags: 업무자동화 우선순위 마케팅
 description: '반복되는 마케팅 업무를 줄이려고 자동화를 만들고 있었다. 데이터를 모으고 보고를 정리하는 작업도 있었고, 다른 운영을 돕는 방법도 살폈다.'
 lang: ko

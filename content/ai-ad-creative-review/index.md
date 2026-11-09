@@ -2,7 +2,7 @@
 emoji: ''
 title: 'AI가 만든 광고 소재를 바로 쓰지 못했던 이유'
 date: '2026-11-03'
-category: agents
+category: marketing-engineering
 tags: AI 광고소재 검수
 description: '광고 소재를 준비하면서 AI 이미지 생성도 시험했다. 화면에 이미지가 나오는 것과 실제로 사용할 수 있는 소재가 만들어지는 것은 달랐다. 검토 과정에서 수정하거나 제외해야 하는 결과가 있었다.'
 lang: ko

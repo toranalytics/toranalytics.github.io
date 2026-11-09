@@ -2,7 +2,7 @@
 emoji: ''
 title: '자동으로 모은 숫자도 다시 확인했다'
 date: '2026-11-03'
-category: experiments
+category: marketing-engineering
 tags: 데이터분석 리포트 검증
 description: '여러 곳의 데이터를 모아 보고할 때 자동화 도구를 활용했다. 한 번은 정리된 값이 다른 자료에서 확인한 내용과 맞지 않았다. 다시 확인하면서 단위와 출처를 살펴봐야 했다.'
 lang: ko

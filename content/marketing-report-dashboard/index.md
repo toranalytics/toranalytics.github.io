@@ -2,7 +2,7 @@
 emoji: ''
 title: '스프레드시트에서 시작한 마케팅 리포트 대시보드'
 date: '2026-11-03'
-category: projects
+category: marketing-engineering
 tags: 마케팅 대시보드 리포트 자동화
 description: '와이낫에서 마케팅 업무를 하면서 광고 결과를 정리해 전달했다. 숫자를 모으는 것도 일이었지만, 그 숫자를 보는 사람이 현재 상황을 이해할 수 있도록 설명을 붙이는 데도 시간이 들었다.'
 lang: ko

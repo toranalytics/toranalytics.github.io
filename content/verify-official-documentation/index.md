@@ -2,7 +2,7 @@
 emoji: ''
 title: '안 된다고 말하기 전에 공식 자료부터 봤어야 했다'
 date: '2026-11-03'
-category: experiments
+category: marketing-engineering
 tags: 공식문서 문제해결 검증
 description: '새로운 환경에서 광고 업무를 시작하고 반복 작업을 줄일 방법을 찾았다. 당시 나는 어떤 설정은 수동으로 해야 한다는 취지로 설명했다.'
 lang: ko

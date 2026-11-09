@@ -2,7 +2,7 @@
 emoji: ''
 title: '서로 다른 기록을 맞춰 보면서 배운 것'
 date: '2026-11-03'
-category: experiments
+category: marketing-engineering
 tags: 데이터대조 측정 검증
 description: '성과를 확인할 때 서로 다른 도구의 숫자가 어긋나 보이는 일이 있었다. 그래서 각 도구가 어떤 행동을 어떤 기준으로 기록하는지부터 살펴봤다.'
 lang: ko

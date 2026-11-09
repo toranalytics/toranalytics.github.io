@@ -3,6 +3,7 @@
 export type Category = { slug: string; title: string; description: string };
 
 export const CATEGORIES: Category[] = [
+  { slug: 'marketing-engineering', title: '마케팅 엔지니어링', description: '광고 운영 시스템을 설계하고 구현하며 확인한 것' },
   { slug: 'projects', title: '프로젝트', description: '직접 만든 도구와 그 과정' },
   { slug: 'agents', title: 'AI 에이전트', description: 'AI 에이전트를 활용하며 겪은 일' },
   { slug: 'experiments', title: '실험·측정', description: '실험과 데이터로 확인한 것' },

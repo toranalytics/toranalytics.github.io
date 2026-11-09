@@ -2,7 +2,7 @@
 emoji: ''
 title: '자동화를 만들 때 사람의 확인이 필요한 지점'
 date: '2026-11-03'
-category: agents
+category: marketing-engineering
 tags: AI 자동화 승인 검증
 description: '반복 작업을 자동화하면서 어디까지 맡길 수 있는지 고민했다. 정보를 모아 변경을 제안하는 것과 실제 상태를 바꾸는 것은 다르게 다뤄야 했다.'
 lang: ko
