@@ -43,3 +43,4 @@ https://toranalytics.github.io/zh/otw-naming-pixel-mascot/
 https://toranalytics.github.io/zh/otw-what-it-does/
 https://toranalytics.github.io/zh/posts/
 https://toranalytics.github.io/zh/rules-vs-quotes/
+https://toranalytics.github.io/naverpay-ad-id-lost/
