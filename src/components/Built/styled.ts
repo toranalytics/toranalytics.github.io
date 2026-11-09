@@ -5,6 +5,7 @@ import { MOBILE_MEDIA_QUERY } from '@/src/styles/const';
 const MONO = `'jbmono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`;
 const SERIF = `'myeongjo', 'Apple Myungjo', 'Noto Serif KR', Georgia, serif`;
 const BLACK = `'blackhan', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif`;
+const DOHYEON = `'dohyeon', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif`;
 const PIXEL = `'silkscreen', ui-monospace, Menlo, monospace`;
 
 export const Wrapper = styled.section`
@@ -35,7 +36,7 @@ export const Lead = styled.p`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 
   @media ${MOBILE_MEDIA_QUERY} {
@@ -50,12 +51,8 @@ export const Card = styled.article`
   border: 1px solid ${({ theme }) => theme.color.gray40};
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 
-  &[data-span='6'] {
-    grid-column: span 6;
-  }
-
-  &[data-span='3'] {
-    grid-column: span 3;
+  &[data-span='2'] {
+    grid-column: span 2;
   }
 
   &[data-row='true'] {
@@ -106,6 +103,19 @@ export const Visual = styled.img`
   }
 `;
 
+export const Eyebrow = styled.p`
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: ${({ theme }) => theme.color.gray80};
+`;
+
+export const TitleBox = styled.div`
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+`;
+
 export const Body = styled.div`
   display: flex;
   flex: 1;
@@ -145,7 +155,7 @@ export const Links = styled.div`
 export const NameMono = styled.h3`
   margin: 0;
   font-family: ${MONO};
-  font-size: 40px;
+  font-size: 36px;
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -162,7 +172,7 @@ export const NameMono = styled.h3`
 export const NameBold = styled.h3`
   margin: 0;
   font-family: ${BLACK};
-  font-size: 34px;
+  font-size: 32px;
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -178,7 +188,7 @@ export const NameBold = styled.h3`
 export const NameCaps = styled.h3`
   margin: 0;
   font-family: ${PIXEL};
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -190,8 +200,17 @@ export const NameSerif = styled.h3`
   width: fit-content;
   padding-bottom: 4px;
   font-family: ${SERIF};
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 800;
   line-height: 1.25;
   border-bottom: 3px solid #d9482b;
+`;
+
+export const NameDo = styled.h3`
+  margin: 0;
+  font-family: ${DOHYEON};
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
 `;
