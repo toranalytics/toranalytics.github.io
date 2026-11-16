@@ -20,9 +20,9 @@ const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
         <S.Title>
           안녕하세요!
           <br />
-          광고를 운영하며 <strong>마케팅 시스템</strong>을
+          광고 기획부터 분석, 운영 시스템까지
           <br />
-          직접 만드는 마케팅 엔지니어
+          <strong>혼자 해내는</strong> 마케팅 엔지니어
           <br />
           <strong>{name}</strong>
           입니다.
