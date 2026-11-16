@@ -20,11 +20,11 @@ const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
         <S.Title>
           안녕하세요!
           <br />
-          광고 기획부터 분석,
+          기획, 소재 제작, 세팅, 분석을
           <br />
-          운영 시스템까지
+          혼자 하고 운영 시스템까지
           <br />
-          <strong>혼자 해내는</strong> 마케팅 엔지니어
+          <strong>자동화하는</strong> 마케팅 엔지니어
           <br />
           <strong>{name}</strong>
           입니다.

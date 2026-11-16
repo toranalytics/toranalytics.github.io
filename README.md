@@ -1,6 +1,6 @@
 # toranalytics.github.io
 
-광고 기획부터 분석, 운영 시스템까지 혼자 해내는 마케팅 엔지니어 서준범의 블로그입니다: https://toranalytics.github.io
+기획, 소재 제작, 세팅, 분석을 혼자 하고 운영 시스템까지 자동화하는 마케팅 엔지니어 서준범의 블로그입니다: https://toranalytics.github.io
 
 - 글 쓰기: `content/<글-이름>/index.md` 를 만들고 main 에 push 하면 GitHub Actions 가 빌드해서 배포합니다.
 - 프로필과 소개: `gatsby-site-meta-data.ts`

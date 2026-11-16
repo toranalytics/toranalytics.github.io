@@ -3,7 +3,7 @@ export default {
    * basic Information
    */
   title: `toranalytics`,
-  description: `광고 기획부터 분석, 운영 시스템까지 혼자 해내는 마케팅 엔지니어 서준범이 Claude Code, Codex로 시스템을 구현하며 확인한 것을 기록하는 블로그`,
+  description: `기획, 소재 제작, 세팅, 분석을 혼자 하고 운영 시스템까지 자동화하는 마케팅 엔지니어 서준범이 Claude Code, Codex로 시스템을 구현하며 확인한 것을 기록하는 블로그`,
   language: `ko`,
   siteUrl: `https://toranalytics.github.io/`,
   ogImage: `/og-image.png`, // Path to your in the 'static' folder
@@ -57,7 +57,7 @@ export default {
       date: '2026.07 - NOW',
       en: 'all_in_1',
       kr: 'all_in_1',
-      info: '광고 기획부터 성과 분석까지 연결한 사내 광고 시스템. 혼자 설계하고 Claude Code · Codex로 구현',
+      info: '소재 제작, 세팅, 성과 분석을 한 화면에 모아 자동으로 돌리는 사내 광고 시스템. 혼자 설계하고 Claude Code · Codex로 구현',
       link: '',
     },
     {
