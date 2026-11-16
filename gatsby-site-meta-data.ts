@@ -3,7 +3,7 @@ export default {
    * basic Information
    */
   title: `toranalytics`,
-  description: `마케팅 엔지니어 서준범이 광고 운영 시스템을 설계하고 Claude Code, Codex로 구현하면서 확인한 것을 기록하는 블로그`,
+  description: `광고 기획부터 분석, 운영 시스템까지 혼자 해내는 마케팅 엔지니어 서준범이 Claude Code, Codex로 시스템을 구현하며 확인한 것을 기록하는 블로그`,
   language: `ko`,
   siteUrl: `https://toranalytics.github.io/`,
   ogImage: `/og-image.png`, // Path to your in the 'static' folder

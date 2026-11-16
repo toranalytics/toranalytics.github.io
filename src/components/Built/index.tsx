@@ -28,6 +28,7 @@ const Built: React.FC = () => {
             <S.Role>업무 규칙과 구조는 혼자 설계했고, 구현은 CLI에서 Claude Code·Codex로 했습니다. 승인 전에는 광고가 바뀌지 않고, 실행 뒤에는 계정을 다시 조회합니다.</S.Role>
             <S.Links>
               <Link to='/ai-ad-creative-review/'>AI 광고 소재 검토 글</Link>
+              <Link to='/verify-after-approved-ad-change/'>실행 뒤 확인 글</Link>
             </S.Links>
           </S.Body>
         </S.Card>
@@ -50,6 +51,7 @@ const Built: React.FC = () => {
             <S.What>결제완료 화면이 떠야만 구매가 기록되는 구조라 네이버페이와 가상계좌 주문이 광고 성과에서 빠졌습니다. 이 주문을 결제 원장과 대조하고, 유입 정보와 결제 신호를 주문에 연결하는 도구를 만들었습니다.</S.What>
             <S.Role>도구는 설계하고 AI 에이전트로 구현했습니다. 사이트 태그 설치는 사내 개발자와 함께 했고, 시각·금액 대조에 의한 귀속은 추정으로 구분합니다.</S.Role>
             <S.Links>
+              <Link to='/naverpay-ad-id-lost/'>네이버페이 결제 측정 글</Link>
               <Link to='/reconcile-different-records/'>서로 다른 기록을 맞춰 본 글</Link>
             </S.Links>
           </S.Body>

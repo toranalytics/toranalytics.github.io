@@ -4,6 +4,7 @@ import React from 'react';
 import Built from '../components/Built';
 import FeaturedPostColumn from '../components/FeaturedPostColumn';
 import MainBanner from '../components/MainBanner';
+import Scope from '../components/Scope';
 import Seo from '../components/Seo';
 import Layout from '../layout';
 import PostClass from '../models/post';
@@ -37,6 +38,7 @@ const Home: React.FC<HomeProps> = ({ location, data }) => {
     <Layout location={location}>
       <Seo title='서준범 · 마케팅 엔지니어' path='/' />
       <MainBanner author={author} />
+      <Scope />
       <Built />
       <nav aria-label='Languages' style={{ margin: '0 0 24px', fontSize: 14, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
         <span style={{ opacity: 0.7 }}>Languages:</span>
