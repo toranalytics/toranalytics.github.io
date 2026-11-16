@@ -23,57 +23,44 @@ export const Heading = styled.h2`
 `;
 
 export const Lead = styled.p`
-  margin: 0 0 18px;
+  margin: 0 0 14px;
   font-size: 15px;
   color: ${({ theme }) => theme.color.gray80};
 `;
 
-export const Strip = styled.ol`
+export const List = styled.ol`
   list-style: none;
   margin: 0;
   padding: 0;
+  border-top: 1px solid ${({ theme }) => theme.color.gray40};
+`;
+
+export const Row = styled.li`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+  grid-template-columns: 110px 1fr auto;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray40};
+  font-size: 15px;
+  line-height: 1.65;
 
   @media ${MOBILE_MEDIA_QUERY} {
     grid-template-columns: 1fr;
+    gap: 2px;
   }
 `;
 
-export const Step = styled.li`
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  padding: 14px 12px;
-  border: 1px solid ${({ theme }) => theme.color.gray40};
-`;
-
-export const Name = styled.span`
-  font-size: 13px;
+export const Name = styled.strong`
   font-weight: 700;
-  color: ${({ theme }) => theme.color.gray80};
 `;
 
-export const Num = styled.strong`
-  display: block;
-  margin: 6px 0 8px;
-  font-size: 22px;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-`;
-
-export const Text = styled.p`
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.6;
+export const Text = styled.span`
   color: ${({ theme }) => theme.color.gray80};
 `;
 
 export const More = styled.span`
-  margin-top: auto;
-  padding-top: 10px;
-  font-size: 13px;
+  font-size: 14px;
+  white-space: nowrap;
 
   a {
     text-decoration: underline;
